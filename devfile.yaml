@@ -1,6 +1,6 @@
 schemaVersion: 2.1.0
 metadata:
-  name: quarkus-quickstart
+  name: openshift-quickstart
 attributes:
   controller.devfile.io/devworkspace-config:
     name: devworkspace-config
@@ -41,7 +41,7 @@ commands:
         isDefault: true
         kind: build
       label: 1. Package the application
-      workingDir: ${PROJECTS_ROOT}/quarkus-quickstarts/getting-started
+      workingDir: ${PROJECTS_ROOT}/openshift-quickstart
     id: 1-package
   - exec:
       commandLine: mvn compile quarkus:dev
@@ -50,5 +50,5 @@ commands:
         isDefault: true
         kind: run
       label: 2. Start Development mode (Hot reload + debug)
-      workingDir: ${PROJECTS_ROOT}/quarkus-quickstarts/getting-started
+      workingDir: ${PROJECTS_ROOT}/openshift-quickstart
     id: 2-startdev
