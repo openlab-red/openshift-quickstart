@@ -106,6 +106,21 @@
           </execution>
         </executions>
       </plugin>
+      <plugin>
+        <groupId>org.eclipse.jkube</groupId>
+        <artifactId>openshift-maven-plugin</artifactId>
+        <version>1.11.0</version>
+        <configuration>
+          <remoteDevelopment>
+            <localServices>
+              <localService>
+                <serviceName>openshift-quickstart</serviceName>
+                <port>8080</port>
+              </localService>
+            </localServices>
+          </remoteDevelopment>
+        </configuration>
+      </plugin>
     </plugins>
   </build>
   <profiles>

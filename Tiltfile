@@ -4,7 +4,7 @@ image = 'quay.io/' + os.environ['WORKSPACE_NAMESPACE'] + '/openshift-quickstart'
 
 local_resource(
   'java-compile',
-  'mvn clean package -DskipTests',
+  'mvn package -DskipTests',
   deps=['src', 'pom.xml'])
 
 load('ext://podman', 'podman_build')
@@ -25,4 +25,4 @@ allow_k8s_contexts('logged-user')
 
 k8s_yaml('./target/kubernetes/openshift.yml')
 
-k8s_resource('openshift-quickstart', port_forwards=[8080,5005])
+k8s_resource('openshift-quickstart', port_forwards=[8080])
