@@ -18,9 +18,13 @@ components:
           targetPort: 5005
         - exposure: public
           name: hello-greeting-endpoint
-          path: /hello/greeting/devspaces-user
+          path: /hello
           protocol: http
           targetPort: 8080
+        - name: tilt
+          exposure: public
+          protocol: http
+          targetPort: 10350
       image: quay.io/mmascia/universal-developer-image:latest
       memoryLimit: 8G
       memoryRequest: 4G
