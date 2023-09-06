@@ -74,7 +74,7 @@ You can download and install it from the official website: (https://podman-deskt
 
 ### Remote development with JKube
 
-1.  In the first terminal, run `./mvnw oc:remote-dev`` to start the remote dev proxy service. Once that starts, move to the second terminal and run
+1.  In the first terminal, run `./mvnw oc:remote-dev` to start the remote dev proxy service. Once that starts, move to the second terminal and run
 
     ```
     ./mvnw oc:remote-dev
