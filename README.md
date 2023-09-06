@@ -2,6 +2,13 @@
 
 ## Laptop
 
+### Prerequisite: Install Podman Desktop
+
+Before proceeding, make sure you have Podman Desktop installed on your laptop. 
+You can download and install it from the official website: (https://podman-desktop.io/)[Podman Desktop].
+
+![Podman](images/podman.png)
+
 ### Git Clone
 
 1. Open your terminal.
