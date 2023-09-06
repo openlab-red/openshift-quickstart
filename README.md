@@ -54,7 +54,7 @@
 
     Run Tilt to start the deployment:
     ```
-    tilt up
+    export WORKSPACE_NAMESPACE=admin-devspaces tilt up
     ```
 
     Tilt will automatically deploy your application to OpenShift based on your configuration.
@@ -79,7 +79,7 @@
     ./mvnw quarkus:dev
     ```
 
-3. Access Your Local Application through the provided route and star your remote development.
+3. Access Your Local Application through the provided route and start your remote development.
 
 ## Using OpenShift DevSpaces with a Devfile
 
@@ -89,3 +89,68 @@ A Devfile is a configuration file that defines the development environment for a
 It allows developers to set up consistent development environments quickly and share them with others. 
 In the context of OpenShift DevSpaces, Devfiles are used to define the development environment for a project.
 
+1. Create your workspace
+
+    ![Create Namespace](images/create-workspaces.png)
+
+
+2. Once the workspace starts you can already work, no need to worry about tools and configuration.
+
+    ![Open Namespace](images/open-workspace.png)
+
+
+3. Inside the config directory, there are example user configurations to customize your workspaces:
+
+    ```
+        github.yaml   -> github credentials
+        git.yaml      -> git config
+        dockerjsonconfig.yaml   -> container engine login
+    ```
+
+    >
+    > Once you applied the workspaces is restarted automatically.
+    >
+
+4. Build the application (assuming you have the necessary build tools):
+   ```
+   ./mvnw clean package
+   ```
+5. Start the application in Quarkus development mode:
+   ```
+   ./mvnw quarkus:dev
+   ```
+    >
+    > OpenShift DevSpaces detects the port and exposes it on the route.
+    >
+
+    ![Port detect](images/port-detect.png)
+
+### Deploy with Tilt
+
+1. In your terminal
+
+    Run Tilt to start the deployment:
+    ```
+    tilt up
+    ```
+ Tilt will automatically deploy your application to OpenShift based on your configuration.
+
+    Monitor the deployment progress and logs in the Tilt UI or terminal.
+
+3. Access Your Deployed Application. Once the deployment is successful, access your deployed application through the provided route.
+
+4. Kill `tilt up`
+
+### Remote development with JKube
+
+1.  In the first terminal, run `./mvnw oc:remote-dev`` to start the remote dev proxy service. Once that starts, move to the second terminal and run
+
+    ```
+    ./mvnw oc:remote-dev
+    ```
+
+2. Once that starts, move to the second terminal and run
+
+    ```
+    ./mvnw quarkus:dev
+    ```
