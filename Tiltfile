@@ -21,7 +21,8 @@ podman_build(
 ])
 
 
-allow_k8s_contexts('logged-user')
+#allow_k8s_contexts('logged-user')
+allow_k8s_contexts(k8s_context())
 
 k8s_yaml('./target/kubernetes/openshift.yml')
 
