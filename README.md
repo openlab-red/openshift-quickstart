@@ -61,7 +61,7 @@ You can download and install it from the official website: (https://podman-deskt
 
     Run Tilt to start the deployment:
     ```
-    export WORKSPACE_NAMESPACE=admin-devspaces tilt up
+    export WORKSPACE_NAMESPACE=admin-devspaces && tilt up
     ```
 
     Tilt will automatically deploy your application to OpenShift based on your configuration.
