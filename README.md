@@ -62,3 +62,30 @@
     Monitor the deployment progress and logs in the Tilt UI or terminal.
 
 5. Access Your Deployed Application. Once the deployment is successful, access your deployed application through the provided route.
+
+6. Kill `tilt up`
+
+### Remote development with JKube
+
+1.  In the first terminal, run `./mvnw oc:remote-dev`` to start the remote dev proxy service. Once that starts, move to the second terminal and run
+
+    ```
+    ./mvnw oc:remote-dev
+    ```
+
+2. Once that starts, move to the second terminal and run
+
+    ```
+    ./mvnw quarkus:dev
+    ```
+
+3. Access Your Local Application through the provided route and star your remote development.
+
+## Using OpenShift DevSpaces with a Devfile
+
+### Devfile Explanation
+
+A Devfile is a configuration file that defines the development environment for a project, including the necessary tools, dependencies, and development settings. 
+It allows developers to set up consistent development environments quickly and share them with others. 
+In the context of OpenShift DevSpaces, Devfiles are used to define the development environment for a project.
+
