@@ -12,7 +12,7 @@ load('ext://podman', 'podman_build')
 podman_build(
   image,
   '.',
-  extra_flags=['-f', 'src/main/docker/Dockerfile.jvm'],
+  extra_flags=['--arch', 'x86_64', '-f', 'src/main/docker/Dockerfile.jvm'],
   live_update=[
     sync('target/quarkus-app/lib/','/deployments/lib/'),
     sync('target/quarkus-app/*.jar','/deployments/'),
