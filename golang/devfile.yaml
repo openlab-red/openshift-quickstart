@@ -1,0 +1,83 @@
+schemaVersion: 2.2.0
+metadata:
+  name: go-quickstart
+attributes:
+  controller.devfile.io/scc: container-build
+  controller.devfile.io/storage-type: per-user
+components:
+  - name: tools
+    container:
+      cpuLimit: '4'
+      cpuRequest: '1'
+      endpoints:
+        - exposure: public
+          name: hello
+          path: /
+          protocol: http
+          targetPort: 8081
+      image: quay.io/mmascia/universal-developer-image:latest
+      memoryLimit: 8G
+      memoryRequest: 4G
+      mountSources: true
+      sourceMapping: /projects
+      env:
+        - name: KUBEDOCK_ENABLED
+          value: 'true'
+        - name: GOPATH
+          value: /home/user/.go
+        - name: GOPROXY
+          value: tbd
+        - name: GOSUMDB
+          value: tbd
+        - name: GOPRIVATE
+          value: tbd
+        - name: PORT
+          value: '8081'
+      volumeMounts:
+        - name: gopath
+          path: /home/user/.go
+  - name: gopath
+    volume:
+      size: 5G
+  - name: image-build
+    image:
+      imageName: go-image:latest
+      dockerfile:
+        uri: Dockerfile
+        buildContext: .
+        rootRequired: false
+  - name: kubernetes-deploy
+    attributes:
+      deployment/replicas: 1
+      deployment/cpuRequest: 10m
+      deployment/memoryRequest: 10Mi
+      deployment/container-port: 8081
+    kubernetes:
+      uri: deploy.yaml
+      endpoints:
+      - name: http-8081
+        targetPort: 8081
+        path: /
+commands:
+  - id: build-image
+    apply:
+      component: image-build
+  - id: deployk8s
+    apply:
+      component: kubernetes-deploy
+  - id: deploy
+    composite:
+      commands:
+        - build-image
+        - deployk8s
+      group:
+        kind: deploy
+        isDefault: true
+starterProjects:
+  - name: go-quickstart
+    description: GoLang app.
+    git:
+      remotes:
+        origin: https://github.com/openlab-red/openshift-quickstart.git
+    # Convient for demo, but do not use it because you lose git repo.
+    subDir: golang
