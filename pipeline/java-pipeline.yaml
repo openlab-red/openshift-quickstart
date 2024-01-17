@@ -41,7 +41,7 @@ spec:
       workspaces:
         - name: output
           workspace: shared-workspace
-    - name: maven
+    - name: build
       params:
         - name: MAVEN_IMAGE
           value: >-
