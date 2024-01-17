@@ -1,0 +1,24 @@
+apiVersion: tekton.dev/v1beta1
+kind: PipelineRun
+metadata:
+  name: java-pipeline
+spec:
+  params:
+    - name: deployment-name
+      value: openshift-quickstart
+    - name: git-url
+      value: 'https://github.com/openlab-red/openshift-quickstart/'
+    - name: git-revision
+      value: main
+    - name: IMAGE
+      value: quay.io/bit-play/openshift-quickstart
+    - name: CONTEXT_DIR
+      value: java
+  pipelineRef:
+    name: java-pipeline
+  serviceAccountName: pipeline
+  timeout: 1h0m0s
+  workspaces:
+    - name: shared-workspace
+      persistentVolumeClaim:
+        claimName: shared-workspace
