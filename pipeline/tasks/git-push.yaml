@@ -1,0 +1,78 @@
+apiVersion: tekton.dev/v1beta1
+kind: Task
+metadata:
+  name: gitops-update-image
+  labels:
+    app.kubernetes.io/version: "0.1"
+  annotations:
+    tekton.dev/pipelines.minVersion: "0.12.1"
+    tekton.dev/categories: Build Tools
+    tekton.dev/tags: build-tool
+    tekton.dev/displayName: "tag"
+    tekton.dev/platforms: "linux/amd64,linux/s390x,linux/ppc64le,linux/arm64"
+spec:
+  params:
+    - default: main
+      name: git_revision
+      type: string
+    - name: image
+      type: string
+      description: The name of the image that is being updated
+    - default: '3'
+      description: >-
+        The number of times to re-attempt a push to git in case of failure (does
+        a push-pull with retry)
+      name: push_retry_count
+      type: string
+  results:
+    - description: Whether the image was updated and committed
+      name: image_updated
+      type: string
+    - description: The short commit hash for the update
+      name: image_updated_short_commit
+      type: string
+  stepTemplate:
+    env:
+      - name: HOME
+        value: /tekton/home
+    name: ''
+    resources: {}
+  steps:
+    - image: docker.io/alpine/git:v2.43.0
+      name: commit-and-push-change
+      resources: {}
+      script: |
+        git config --global --add safe.directory /workspace/source
+        if git diff --exit-code;
+        then
+          echo "No changes staged, skipping add/commit"
+          echo -n "false" > $(results.image_updated.path)
+        else
+          echo "Changes made, committing"
+          git config --global user.name "pipeline"
+          git config --global user.email "pipelines@nomail.com"
+          git add -u
+          git commit -m 'Update image in git to $(params.image)'
+          echo "Running 'git push origin HEAD:$(params.git_revision)'"
+
+
+          n=0
+          until [ "$n" -ge $(params.push_retry_count) ]
+          do
+            git push origin HEAD:$(params.git_revision) && break
+            git pull origin HEAD:$(params.git_revision)
+            n=$((n+1))
+          done
+
+          if [ "$n" -ge $(params.push_retry_count) ];
+          then
+            echo "Failed to push change to git"
+            exit 1
+          fi
+
+          echo -n "true" > $(results.image_updated.path)
+          git rev-parse --short HEAD > $(results.image_updated_short_commit.path)
+        fi
+      workingDir: $(workspaces.source.path)
+  workspaces:
+    - name: source
