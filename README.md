@@ -53,3 +53,7 @@ You can download and install it from the official website: (https://podman-deskt
 ## RBAC
 
 [README.md](./rbac/README.md)
+
+## Network Policy
+
+[README.md](./network-policy/README.md)
