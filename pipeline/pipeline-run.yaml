@@ -2,6 +2,7 @@ apiVersion: tekton.dev/v1beta1
 kind: PipelineRun
 metadata:
   namespace: bit-play
+  generatedName: java-pipeline-
   labels:
     tekton.dev/pipeline: java-pipeline
 spec:
