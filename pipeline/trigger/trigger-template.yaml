@@ -1,7 +1,7 @@
 apiVersion: triggers.tekton.dev/v1alpha1
 kind: TriggerTemplate
 metadata:
-  name: java
+  name: java-webhook
 spec:
   params:
     - default: master
@@ -13,8 +13,7 @@ spec:
     - apiVersion: tekton.dev/v1beta1
       kind: PipelineRun
       metadata:
-        namespace: bit-play
-        generatedName: java-pipeline-
+        generateName: java-pipeline-webhook-
         labels:
           tekton.dev/pipeline: java-pipeline
       spec:
