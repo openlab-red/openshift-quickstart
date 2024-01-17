@@ -13,7 +13,9 @@ spec:
     - apiVersion: tekton.dev/v1beta1
       kind: PipelineRun
       metadata:
-        name: java-pipeline
+        namespace: bit-play
+        labels:
+          tekton.dev/pipeline: java-pipeline
       spec:
         params:
           - name: deployment-name
@@ -26,6 +28,8 @@ spec:
             value: quay.io/bit-play/openshift-quickstart
           - name: CONTEXT_DIR
             value: java
+          - name: git-manifest-url
+            value: 'https://github.com/openlab-red/openshift-quickstart-manifest/'
         pipelineRef:
           name: java-pipeline
         serviceAccountName: pipeline
@@ -34,3 +38,6 @@ spec:
           - name: shared-workspace
             persistentVolumeClaim:
               claimName: shared-workspace
+          - name: manifest-workspace
+            persistentVolumeClaim:
+              claimName: manifest-workspace
