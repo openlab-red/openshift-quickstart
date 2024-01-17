@@ -57,3 +57,11 @@ You can download and install it from the official website: (https://podman-deskt
 ## Network Policy
 
 [README.md](./network-policy/README.md)
+
+## Pipeline
+
+[README.md](./pipeline/README.md)
+
+## GitOps
+
+[README.md](./argocd/README.md)

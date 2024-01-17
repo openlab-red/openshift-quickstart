@@ -1,0 +1,23 @@
+---
+apiVersion: tekton.dev/v1beta1
+kind: Task
+metadata:
+  name: helm
+spec:
+  workspaces:
+    - name: source
+  params:
+    - name: commands
+      type: string
+      description: The set of commands to run
+  stepTemplate:
+    env:
+      - name: "HOME"
+        value: "/tekton/home"
+  steps:
+  - name: helm
+    workingDir: $(workspaces.source.path)
+    image: docker.io/alpine/helm:3.11.1
+    script: |
+      #!/usr/bin/env sh
+      $(params.commands)
