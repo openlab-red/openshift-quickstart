@@ -66,4 +66,4 @@
 
 7. Test from this new pod
 
-    `curl -I http://openshift-quickstart - v`
+    `curl -I http://openshift-quickstart -v`
