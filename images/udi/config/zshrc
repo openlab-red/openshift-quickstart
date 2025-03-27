@@ -58,3 +58,6 @@ if [ -d "$HOME/.zprofile.d" ]; then
     done
     unset file
 fi
+
+export PATH="${KREW_ROOT:-$HOME/.krew}/bin:$PATH"
+export SDKMAN_DIR="/home/tooling/.sdkman"

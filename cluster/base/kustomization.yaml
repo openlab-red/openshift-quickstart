@@ -3,6 +3,7 @@ kind: Kustomization
 
 components:
 - ../components/featuregate
+- ../components/containerruntime
 - ../components/operators/devspaces
 - ../components/operators/devworkspaces
 - ../components/operators/kubernetes-imagepuller

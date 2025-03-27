@@ -6,12 +6,19 @@ components:
           labels:
             devfile.io/name: base
             devfile.io/type: developer-image
+          annotations:
+            io.kubernetes.cri-o.Devices: /dev/fuse,/dev/net/tun
+        spec:
+          hostUsers: false
+      container-overrides:
+          securityContext:
+            procMount: Unmasked
     container:
       cpuLimit: "8"
       cpuRequest: "1"
       env:
         - name: KUBEDOCK_ENABLED
-          value: "true"
+          value: "false"
         - name: PULL_POLICY
           value: "always"
         - name: INIT_IMAGE
