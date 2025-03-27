@@ -1,0 +1,12 @@
+apiVersion: controller.devfile.io/v1alpha1
+kind: DevWorkspaceOperatorConfig
+metadata:
+  name: devworkspace-operator-config
+  namespace: openshift-operators
+  labels:
+    controller.devfile.io/watch-configmap: 'true'
+config:
+  routing:
+    tlsCertificateConfigmapRef:
+      name: bit-ca-bundle
+      namespace: openshift-operators
