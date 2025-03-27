@@ -1,0 +1,27 @@
+FROM quay.io/devfile/universal-developer-image:ubi9-latest
+
+USER 0
+
+# Angular Cli
+RUN npm install -g @angular/cli \
+    && chgrp -R 0 /home/user/.npm \
+    && chmod -R g=u /home/user/.npm
+
+COPY --chown=0:0 config/zshrc /home/tooling/.zshrc
+
+# oh-my-zsh
+RUN dnf install -y zsh && \
+    git clone https://github.com/robbyrussell/oh-my-zsh.git /home/tooling/.oh-my-zsh && \
+    cp /home/tooling/.oh-my-zsh/templates/zshrc.zsh-template /home/tooling/.zshrc && \
+    chmod 660 /home/tooling/.zshrc && \
+    sed -i '1iZSH_DISABLE_COMPFIX=true' /home/tooling/.zshrc && \
+    sed -i '/^# DISABLE_MAGIC_FUNCTIONS.*/s/^#//' /home/tooling/.zshrc && \
+    echo "setopt PROMPT_CR" >> /home/tooling/.zshrc && \
+    echo "setopt PROMPT_SP" >> /home/tooling/.zshrc && \
+    echo "export PROMPT_EOL_MARK=\"\"" >> /home/tooling/.zshrc
+
+# Set permissions to allow arbitrary users to write
+RUN chgrp -R 0 /home && \
+    chmod -R g=u /home
+
+USER 10001

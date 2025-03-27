@@ -1,0 +1,10 @@
+parent:
+  uri: https://raw.githubusercontent.com/openlab-red/openshift-quickstart/refs/heads/main/devfiles/base/devfile.yaml
+  components:
+  - name: developer-image
+    container:
+      env:
+        - name: SHELL
+          value: "/bin/zsh"
+        - name: VSCODE_DEFAULT_WORKSPACE
+          value: /projects/simple/.code-workspace
