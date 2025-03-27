@@ -71,12 +71,12 @@ In the context of OpenShift DevSpaces, Devfiles are used to define the developme
 
 1. Create your workspace
 
-    ![Create Namespace](../images/create-workspaces.png)
+    ![Create Namespace](../../assets/images/create-workspaces.png)
 
 
 2. Once the workspace starts you can already work, no need to worry about tools and configuration.
 
-    ![Open Namespace](../images/open-workspace.png)
+    ![Open Namespace](../../assets/images/open-workspace.png)
 
 
 3. Inside the config directory, there are example user configurations to customize your workspaces:
@@ -103,7 +103,7 @@ In the context of OpenShift DevSpaces, Devfiles are used to define the developme
     > OpenShift DevSpaces detects the port and exposes it on the route.
     >
 
-    ![Port detect](../images/port-detect.png)
+    ![Port detect](../../assets/images/port-detect.png)
 
 ### Deploy with Tilt
 

@@ -32,31 +32,31 @@ You can download and install it from the official website: (https://podman-deskt
 
 ## Simple Container
 
-[README.md](./simple/README.md)
+[README.md](./samples/simple/README.md)
 
 ## Basic OpenShift
 
-[README.md](./python/README.md)
-
-## Java
-
-   [README.md](./java/README.md)
-
-## NodeJs
-
-   [README.md](./nodejs/README.md)
-
-## GoLang
-
-   [README.md](./GoLang/README.md)
+[README.md](./samples/python/README.md)
 
 ## RBAC
 
-[README.md](./rbac/README.md)
+[README.md](./samples/rbac/README.md)
 
 ## Network Policy
 
-[README.md](./network-policy/README.md)
+[README.md](./samples/network-policy/README.md)
+
+## Java
+
+   [README.md](./stacks/java/README.md)
+
+## NodeJs
+
+   [README.md](./stacks/nodejs/README.md)
+
+## GoLang
+
+   [README.md](./stacks/goLang/README.md)
 
 ## Pipeline
 
