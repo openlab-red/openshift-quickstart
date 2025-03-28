@@ -1,0 +1,9 @@
+# This Containerfile sets up a container image using the Universal Base Image (UBI) 9 with Python 3.12 from Red Hat's registry.
+FROM registry.redhat.io/ubi9/python-312:latest
+
+# The EXPOSE instruction informs Docker that the container will listen on port 8000 at runtime.
+EXPOSE 8000
+
+# The ENTRYPOINT instruction specifies the command to run when the container starts.
+# Here, it runs a simple HTTP server using Python's built-in http.server module, which serves files from the current directory on port 8000.
+ENTRYPOINT [ "python3", "-m",  "http.server" ] 
