@@ -6,17 +6,18 @@ components:
           labels:
             devfile.io/name: base
             devfile.io/type: developer-image
-          annotations:
-            io.kubernetes.cri-o.Devices: /dev/fuse,/dev/net/tun
-        spec:
-          hostUsers: false
-      container-overrides:
-          securityContext:
-            procMount: Unmasked
     container:
       cpuLimit: "8"
       cpuRequest: "1"
       env:
+        - name: KUBEDOCK_ENABLED
+          value: "true"
+        - name: PULL_POLICY
+          value: "always"
+        - name: INIT_IMAGE
+          value: docker-hub.nexus.bit.admin.ch/joyrex2001/kubedock:0.18.1
+        - name: KUBEDOCK_TIMEOUT
+          value: '120'
         - name: KUBECONFIG
           value: "/home/user/.kube/config"
         - name: DOCKER_HOST

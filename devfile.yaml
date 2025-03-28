@@ -7,4 +7,11 @@ parent:
         - name: SHELL
           value: "/bin/zsh"
         - name: VSCODE_DEFAULT_WORKSPACE
-          value: /projects/simple/.code-workspace
+          value: /projects/openshift-quickstart/.code-workspace
+metadata:
+  name: openshift-quickstart
+  version: 1.0.0
+  displayName: Devfile
+  description: Devfile for OpenShift DevSpace.
+projects: []
+schemaVersion: 2.3.0
