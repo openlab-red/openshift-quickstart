@@ -16,7 +16,7 @@ spec:
       description: revision to be used from repo of the code for deployment
       name: git-revision
       type: string
-    - default: quay.io/bit-play/openshift-quickstart
+    - default: quay.io/pod-play/openshift-quickstart
       description: image to be build from the code
       name: IMAGE
       type: string
@@ -53,7 +53,7 @@ spec:
         - name: GOALS
           value:
             - package
-            - '-DWORKSPACE_NAMESPACE=bit-play'
+            - '-DWORKSPACE_NAMESPACE=pod-play'
             - '-Dquarkus.container-image.builder=jib'
             - '-Dquarkus.container-image.push=true'
             - '-Dquarkus.container-image.additional-tags=latest'
@@ -96,10 +96,10 @@ spec:
     - name: skopeo-copy
       params:
         - name: srcImageURL
-          value: 'docker://quay.io/bit-play/openshift-quickstart:latest'
+          value: 'docker://quay.io/pod-play/openshift-quickstart:latest'
         - name: destImageURL
           value: >-
-            docker://quay.io/bit-play/openshift-quickstart:$(tasks.tag.results.tag)
+            docker://quay.io/pod-play/openshift-quickstart:$(tasks.tag.results.tag)
         - name: srcTLSverify
           value: 'true'
         - name: destTLSverify
@@ -117,7 +117,7 @@ spec:
         - name: commands
           value: >-
             yq eval '.app.image =
-            "quay.io/bit-play/openshift-quickstart:$(tasks.tag.results.tag)"'
+            "quay.io/pod-play/openshift-quickstart:$(tasks.tag.results.tag)"'
             java/helm/dev/values.yaml -i
       runAfter:
         - fetch-manifest
@@ -132,7 +132,7 @@ spec:
         - name: git_revision
           value: main
         - name: image
-          value: 'quay.io/bit-play/openshift-quickstart:$(tasks.tag.results.tag)'
+          value: 'quay.io/pod-play/openshift-quickstart:$(tasks.tag.results.tag)'
         - name: push_retry_count
           value: '3'
       runAfter:

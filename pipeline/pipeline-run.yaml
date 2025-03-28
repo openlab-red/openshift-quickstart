@@ -1,7 +1,7 @@
 apiVersion: tekton.dev/v1beta1
 kind: PipelineRun
 metadata:
-  namespace: bit-play
+  namespace: pod-play
   generatedName: java-pipeline-
   labels:
     tekton.dev/pipeline: java-pipeline
@@ -14,7 +14,7 @@ spec:
     - name: git-revision
       value: main
     - name: IMAGE
-      value: quay.io/bit-play/openshift-quickstart
+      value: quay.io/pod-play/openshift-quickstart
     - name: CONTEXT_DIR
       value: java
     - name: git-manifest-url
