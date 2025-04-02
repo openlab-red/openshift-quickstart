@@ -10,5 +10,7 @@ components:
 - ../components/operators/devworkspaces
 - ../components/operators/kubernetes-imagepuller
 - ../components/scc/nested-container
+- ../components/scc/pipeline
+- ../components/scc/gitops
 
 resources: []

@@ -12,6 +12,7 @@ theme:
     text: 'Roboto'
     code: 'Roboto Mono'
   logo: 'assets/images/logo.png'
+  favicon: 'assets/images/favicon.png'
 extra_css:
   - 'assets/styles/extra.css'
 extra_javascript:
