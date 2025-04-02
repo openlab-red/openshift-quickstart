@@ -1,0 +1,63 @@
+# Source global definitions
+if [ -f /etc/zshrc ]; then
+    . /etc/zshrc
+fi
+
+# Path configuration
+# Add user's private bins if they exist
+path=(
+    $HOME/bin
+    $HOME/.local/bin
+    /usr/local/bin
+    $path
+)
+typeset -U path PATH  # Remove duplicates
+
+# History control
+export HISTSIZE=10000
+export HISTFILESIZE=20000
+export HISTCONTROL=ignoreboth:erasedups
+export PROMPT_COMMAND='history -a' 
+export HISTIGNORE='sudo *':'*VAULT_TOKEN*'
+export HISTFILE=~/.zsh_history
+
+# Default programs
+export BROWSER="firefox"
+export PAGER="less"
+
+# XDG Base Directory
+export XDG_CONFIG_HOME="$HOME/.config"
+export XDG_CACHE_HOME="$HOME/.cache"
+export XDG_DATA_HOME="$HOME/.local/share"
+
+# GPG
+export GPG_TTY=$(tty)
+
+# Less
+export LESS="-R -F -X"
+export LESS_TERMCAP_mb=$'\E[1;31m'     # begin bold
+export LESS_TERMCAP_md=$'\E[1;36m'     # begin blink
+export LESS_TERMCAP_me=$'\E[0m'        # reset bold/blink
+export LESS_TERMCAP_so=$'\E[01;44;33m' # begin reverse video
+export LESS_TERMCAP_se=$'\E[0m'        # reset reverse video
+export LESS_TERMCAP_us=$'\E[1;32m'     # begin underline
+export LESS_TERMCAP_ue=$'\E[0m'        # reset underline
+
+# FZF
+export FZF_DEFAULT_OPTS="--height 40% --layout=reverse --border --preview 'bat --style=numbers --color=always {}'"
+
+# Custom functions
+mkcd() {
+    mkdir -p "$1" && cd "$1"
+}
+
+# Load custom scripts
+if [ -d "$HOME/.zprofile.d" ]; then
+    for file in "$HOME/.zprofile.d"/*.zsh; do
+        [ -r "$file" ] && source "$file"
+    done
+    unset file
+fi
+
+export PATH="${KREW_ROOT:-$HOME/.krew}/bin:$PATH"
+export SDKMAN_DIR="/home/tooling/.sdkman"

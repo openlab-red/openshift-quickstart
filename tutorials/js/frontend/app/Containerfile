@@ -1,0 +1,6 @@
+FROM registry.redhat.io/ubi9/nginx-120:latest
+
+COPY  default.conf "${NGINX_CONFIGURATION_PATH}"
+COPY  dist/app/browser .
+
+CMD nginx -g "daemon off;"

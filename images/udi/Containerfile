@@ -1,0 +1,54 @@
+FROM quay.io/devfile/universal-developer-image:ubi9-latest
+
+USER 0
+
+#
+# Setup for root-less podman
+#
+ENV BUILDAH_ISOLATION=chroot
+RUN \
+    mkdir -p "${HOME}/.config/containers" && \
+    setcap cap_setuid+ep /usr/bin/newuidmap && \
+    setcap cap_setgid+ep /usr/bin/newgidmap && \
+    touch /etc/subgid /etc/subuid && \
+    chown 0:0 /etc/subgid /etc/subuid /etc/passwd /etc/group && \
+    chmod -R g=u /etc/passwd /etc/group /etc/subuid /etc/subgid /home
+
+# Angular Cli
+RUN npm install -g @angular/cli \
+    && chgrp -R 0 /home/user/.npm \
+    && chmod -R g=u /home/user/.npm
+
+COPY --chown=0:0 config/zshrc /home/tooling/.zshrc
+
+# oh-my-zsh
+RUN dnf install -y zsh && \
+    git clone https://github.com/robbyrussell/oh-my-zsh.git /home/tooling/.oh-my-zsh && \
+    cp /home/tooling/.oh-my-zsh/templates/zshrc.zsh-template /home/tooling/.zshrc && \
+    chmod 660 /home/tooling/.zshrc && \
+    sed -i '1iZSH_DISABLE_COMPFIX=true' /home/tooling/.zshrc && \
+    sed -i '/^# DISABLE_MAGIC_FUNCTIONS.*/s/^#//' /home/tooling/.zshrc && \
+    echo "setopt PROMPT_CR" >> /home/tooling/.zshrc && \
+    echo "setopt PROMPT_SP" >> /home/tooling/.zshrc && \
+    echo "export PROMPT_EOL_MARK=\"\"" >> /home/tooling/.zshrc
+
+# podman user directory
+RUN mkdir -p "${HOME}"/.config/containers
+
+# Set permissions to allow arbitrary users to write
+RUN chgrp -R 0 /home && \
+    chmod -R g=u /home
+
+# sdkman with zsh
+RUN head -n -2 ${PROFILE_EXT} > ${PROFILE_EXT} && \
+    echo 'if [ -z "${ZSH_VERSION-}" ]; then' >> ${PROFILE_EXT} && \
+    echo 'export SDKMAN_DIR="/home/tooling/.sdkman"' >> ${PROFILE_EXT} && \
+    echo '[[ -s "$SDKMAN_DIR/bin/sdkman-init.sh" ]] && source "$SDKMAN_DIR/bin/sdkman-init.sh"' >> ${PROFILE_EXT} && \
+    echo 'fi' >> ${PROFILE_EXT}
+
+COPY --chown=0:0 scripts/entrypoint.sh /
+
+USER 10001
+
+ENTRYPOINT ["/usr/libexec/podman/catatonit","--","/entrypoint.sh"]
+CMD [ "tail", "-f", "/dev/null" ]

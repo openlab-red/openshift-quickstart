@@ -1,0 +1,43 @@
+spring:
+  main:
+    allow-bean-definition-overriding: true
+  application:
+    name: boot
+  jpa:
+    database: POSTGRESQL
+    show-sql: false
+    generate-ddl: false
+    open-in-view: false
+    hibernate:
+      ddl-auto: update
+    properties:
+      hibernate:
+        temp:
+          # https://stackoverflow.com/questions/10075081/hibernate-slow-to-acquire-postgres-connection
+          use_jdbc_metadata_defaults: false
+  flyway:
+    enabled: true
+    locations: classpath:db/migration/common, classpath:db/migration/postgresql
+    baseline-on-migrate: true
+  datasource:
+    type: com.zaxxer.hikari.HikariDataSource
+    driver-class-name: org.postgresql.Driver
+    url: "jdbc:postgresql://localhost:5432/db"
+    username: user
+    password: pass
+    hikari:
+      maximum-pool-size: 10
+      pool-name: "hikari-cp-${spring.application.name}"
+  data:
+    jpa:
+      repositories:
+        # Avoid hangs on startup, see https://github.com/spring-projects/spring-framework/issues/25111
+        bootstrap_mode: default
+
+# Disable DevTools in production (enabled by default in development)
+  devtools:
+    restart:
+      enabled: true
+    livereload:
+      enabled: true
+      port: 35729

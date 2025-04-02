@@ -1,0 +1,22 @@
+kind: Secret
+apiVersion: v1
+metadata:
+  name: personal-access-token-bitbucket
+  labels:
+    app.kubernetes.io/component: scm-personal-access-token
+    app.kubernetes.io/part-of: che.eclipse.org
+    controller.devfile.io/git-credential: 'true'
+    controller.devfile.io/watch-secret: 'true'
+  annotations:
+    che.eclipse.org/che-userid: 236296f3-3f4a-4e6c-ac66-4d47e4311bc4
+    che.eclipse.org/scm-personal-access-token-name: github
+    che.eclipse.org/scm-url: 'https://github.com'
+    che.eclipse.org/scm-userid: eye0fra
+    che.eclipse.org/scm-username: mattiam7@gmail.com
+    controller.devfile.io/mount-path: /etc/git-credentials/
+stringData:
+  # https://<pid>:<token>@github.com
+  credentials: https://<pid>:<token>@github.com
+  # <token>
+  token: xxx
+type: Opaque

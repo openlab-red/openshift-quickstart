@@ -1,0 +1,72 @@
+components:
+  - attributes:
+      pod-overrides:
+        metadata:
+          labels:
+            devfile.io/name: base
+            devfile.io/type: developer-image
+          annotations:
+            io.kubernetes.cri-o.Devices: /dev/fuse,/dev/net/tun
+        spec:
+          hostUsers: false
+      container-overrides:
+          securityContext:
+            procMount: Unmasked
+    container:
+      cpuLimit: "8"
+      cpuRequest: "1"
+      env:
+        - name: KUBECONFIG
+          value: "/home/user/.kube/config"
+        - name: DOCKER_HOST
+          value: 'tcp://127.0.0.1:2475'
+        - name: SSL_CERT_DIR
+          value: /var/run/secrets/kubernetes.io/serviceaccount
+      image: quay.io/mmascia/universal-developer-image:3.19
+      memoryLimit: 8G
+      memoryRequest: 1G
+      mountSources: true
+      sourceMapping: /projects
+      endpoints:
+        - exposure: none
+          name: kubedock
+          protocol: tcp
+          targetPort: 2475
+      volumeMounts: []
+    name: developer-image
+metadata:
+  name: base
+  version: 1.0.0
+  displayName: Devfile
+  description: Devfile for OpenShift DevSpace.
+projects: []
+schemaVersion: 2.3.0
+commands:
+  - id: create-symlink-auth-json
+    exec:
+      commandLine: >
+        sh -c 'mkdir -p /home/user/.config/containers &&
+               [ ! -e /home/user/.config/containers/auth.json ] &&
+               ln -s /home/user/.dockerconfig/auth.json /home/user/.config/containers/auth.json'
+      component: developer-image
+      workingDir: /
+      group:
+        kind: build
+        isDefault: true
+  - id: create-symlink-config-json
+    exec:
+      commandLine: >
+        sh -c 'mkdir -p /home/user/.docker &&
+               [ ! -e /home/user/.docker/config.json ] &&
+               ln -s /home/user/.dockerconfig/auth.json /home/user/.docker/config.json'
+      component: developer-image
+      workingDir: /
+      group:
+        kind: build
+        isDefault: true
+events:
+  preStart: []
+  preStop: []
+  postStart:
+    - create-symlink-auth-json
+    - create-symlink-config-json

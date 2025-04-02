@@ -1,0 +1,26 @@
+---
+apiVersion: tekton.dev/v1beta1
+kind: Task
+metadata:
+  name: tag
+  labels:
+    app.kubernetes.io/version: "0.1"
+  annotations:
+    tekton.dev/pipelines.minVersion: "0.12.1"
+    tekton.dev/categories: Build Tools
+    tekton.dev/tags: build-tool
+    tekton.dev/displayName: "tag"
+    tekton.dev/platforms: "linux/amd64,linux/s390x,linux/ppc64le,linux/arm64"
+spec:
+  description: Tag timestamp
+  results:
+    - description: tag
+      name: tag
+      type: string
+  steps:
+    - image: redhat/ubi8-minimal
+      name: get-tag
+      resources: {}
+      script: |
+        #!/usr/bin/env bash
+        echo $(date +%Y%m%d%H%M) |  tr -d "\n" | tee $(results.tag.path)

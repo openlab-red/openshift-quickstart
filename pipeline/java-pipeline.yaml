@@ -1,0 +1,148 @@
+apiVersion: tekton.dev/v1beta1
+kind: Pipeline
+metadata:
+  name: java-pipeline
+spec:
+  params:
+    - default: openshift-quickstart
+      description: name of the deployment to be patched
+      name: deployment-name
+      type: string
+    - default: 'https://github.com/openlab-red/openshift-quickstart/'
+      description: url of the git repo for the code of deployment
+      name: git-url
+      type: string
+    - default: main
+      description: revision to be used from repo of the code for deployment
+      name: git-revision
+      type: string
+    - default: quay.io/pod-play/openshift-quickstart
+      description: image to be build from the code
+      name: IMAGE
+      type: string
+    - default: java
+      description: maven context dir
+      name: CONTEXT_DIR
+      type: string
+    - default: 'https://github.com/openlab-red/openshift-quickstart-manifest/'
+      description: url of the git manifest repo
+      name: git-manifest-url
+      type: string
+  tasks:
+    - name: fetch-repository
+      params:
+        - name: url
+          value: $(params.git-url)
+        - name: subdirectory
+          value: ''
+        - name: deleteExisting
+          value: 'true'
+        - name: revision
+          value: $(params.git-revision)
+      taskRef:
+        kind: ClusterTask
+        name: git-clone
+      workspaces:
+        - name: output
+          workspace: shared-workspace
+    - name: maven
+      params:
+        - name: MAVEN_IMAGE
+          value: >-
+            image-registry.openshift-image-registry.svc:5000/openshift/java:latest
+        - name: GOALS
+          value:
+            - package
+            - '-DWORKSPACE_NAMESPACE=pod-play'
+            - '-Dquarkus.container-image.builder=jib'
+            - '-Dquarkus.container-image.push=true'
+            - '-Dquarkus.container-image.additional-tags=latest'
+        - name: CONTEXT_DIR
+          value: $(params.CONTEXT_DIR)
+      runAfter:
+        - tag
+      taskRef:
+        kind: ClusterTask
+        name: maven
+      workspaces:
+        - name: source
+          workspace: shared-workspace
+        - name: maven-settings
+          workspace: shared-workspace
+    - name: fetch-manifest
+      params:
+        - name: url
+          value: $(params.git-manifest-url)
+        - name: subdirectory
+          value: ''
+        - name: deleteExisting
+          value: 'true'
+        - name: revision
+          value: $(params.git-revision)
+      runAfter:
+        - skopeo-copy
+      taskRef:
+        kind: ClusterTask
+        name: git-clone
+      workspaces:
+        - name: output
+          workspace: manifest-workspace
+    - name: tag
+      runAfter:
+        - fetch-repository
+      taskRef:
+        kind: Task
+        name: tag
+    - name: skopeo-copy
+      params:
+        - name: srcImageURL
+          value: 'docker://quay.io/pod-play/openshift-quickstart:latest'
+        - name: destImageURL
+          value: >-
+            docker://quay.io/pod-play/openshift-quickstart:$(tasks.tag.results.tag)
+        - name: srcTLSverify
+          value: 'true'
+        - name: destTLSverify
+          value: 'true'
+      runAfter:
+        - maven
+      taskRef:
+        kind: ClusterTask
+        name: skopeo-copy
+      workspaces:
+        - name: images-url
+          workspace: shared-workspace
+    - name: yq
+      params:
+        - name: commands
+          value: >-
+            yq eval '.app.image =
+            "quay.io/pod-play/openshift-quickstart:$(tasks.tag.results.tag)"'
+            java/helm/dev/values.yaml -i
+      runAfter:
+        - fetch-manifest
+      taskRef:
+        kind: Task
+        name: yq
+      workspaces:
+        - name: source
+          workspace: manifest-workspace
+    - name: gitops-update-image
+      params:
+        - name: git_revision
+          value: main
+        - name: image
+          value: 'quay.io/pod-play/openshift-quickstart:$(tasks.tag.results.tag)'
+        - name: push_retry_count
+          value: '3'
+      runAfter:
+        - yq
+      taskRef:
+        kind: Task
+        name: gitops-update-image
+      workspaces:
+        - name: source
+          workspace: manifest-workspace
+  workspaces:
+    - name: shared-workspace
+    - name: manifest-workspace

@@ -1,0 +1,32 @@
+---
+apiVersion: triggers.tekton.dev/v1beta1
+kind: EventListener
+metadata:
+  name: java
+spec:
+  serviceAccountName: pipeline
+  triggers:
+    - name: java-webhook
+      bindings:
+        - kind: ClusterTriggerBinding
+          ref: github-push
+      template:
+        ref: java-webhook
+---
+apiVersion: route.openshift.io/v1
+kind: Route
+metadata:
+  name: el-java
+  labels:
+    app.kubernetes.io/managed-by: EventListener
+    app.kubernetes.io/part-of: Triggers
+    eventlistener: java
+spec:
+  port:
+    targetPort: 8080
+  to:
+    kind: "Service"
+    name: el-java
+    weight: 100
+  tls:
+    termination: edge

@@ -1,0 +1,12 @@
+FROM registry.redhat.io/ubi9/openjdk-17-runtime:latest
+
+ENV LANGUAGE='en_US:en'
+
+COPY --chown=185 target/*.jar /deployments/boot.jar
+
+
+EXPOSE 8080
+USER 185
+
+ENTRYPOINT ["java", "-Dspring.profiles.active=prod", "-jar", "/deployments/boot.jar"]
+

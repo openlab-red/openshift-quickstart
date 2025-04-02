@@ -1,0 +1,97 @@
+apiVersion: org.eclipse.che/v2
+kind: CheCluster
+metadata:
+  name: devspaces
+spec:
+  components:
+    cheServer:
+      debug: false
+      logLevel: INFO
+#      proxy:
+#        nonProxyHosts:
+#          - .example.com
+#          - .cluster.local
+#          - .svc
+#          - 10.0.0.0/8
+#          - 127.0.0.0/8
+#          - localhost
+#          - 127.0.0.1
+#        port: '8080'
+#       url: 'http://proxy.example.com'
+    dashboard:
+#      branding:
+#        logo:
+#          base64data: xxx
+#          mediatype: image/svg+xml
+      logLevel: ERROR
+    devWorkspace: {}
+    devfileRegistry:
+      disableInternalRegistry: true
+    imagePuller:
+      enable: true
+      spec:
+#        imagePullSecrets: example-dockerconfig
+#        imagePullerImage: quay.io/eclipse/kubernetes-image-puller:next
+        images: 'udi=quay.io/mmascia/universal-developer-image:3.19'
+    metrics:
+      enable: true
+    pluginRegistry:
+      openVSXURL: 'https://open-vsx.org'
+#  containerRegistry:
+#    hostname: docker.example.com
+  devEnvironments:
+    startTimeoutSeconds: 600
+    security:
+      podSecurityContext:
+        runAsNonRoot: true
+        fsGroupChangePolicy: OnRootMismatch
+    secondsOfRunBeforeIdling: -1
+    maxNumberOfWorkspacesPerUser: -1
+    maxNumberOfRunningWorkspacesPerUser: 3
+    containerBuildConfiguration:
+      openShiftSecurityContextConstraint: container-build
+    disableContainerBuildCapabilities: false
+    ignoredUnrecoverableEvents:
+      - FailedScheduling
+    defaultComponents:
+      - container:
+          image: quay.io/mmascia/universal-developer-image:3.19
+          sourceMapping: /projects
+          env:
+            - name: KUBEDOCK_ENABLED
+              value: 'true'
+            - name: PULL_POLICY
+              value: always
+            - name: INIT_IMAGE
+              value: docker.io/joyrex2001/kubedock:0.18.1
+            - name: KUBEDOCK_TIMEOUT
+              value: '120'
+            - name: KUBECONFIG
+              value: /home/user/.kube/config
+            - name: DOCKER_HOST
+              value: tcp://127.0.0.1:2475
+            - name: SSL_CERT_DIR
+              value: /var/run/secrets/kubernetes.io/serviceaccount
+        name: developer-image
+#    trustedCerts:
+#     gitTrustedCertsConfigMapName: custom-ca-bundle
+    defaultNamespace:
+#      autoProvision: false
+      template: devspaces-<username>
+    secondsOfInactivityBeforeIdling: 3600
+    storage:
+      pvcStrategy: per-workspace
+      perWorkspaceStrategyPvcConfig:
+        claimSize: 40Gi
+    workspacesPodAnnotations:
+      io.kubernetes.cri-o.Devices: /dev/fuse
+    persistUserHome:
+      enabled: true
+      disableInitContainer: true
+  gitServices: {}
+  networking:
+    auth:
+      gateway:
+        configLabels:
+          app: che
+          component: che-gateway-config

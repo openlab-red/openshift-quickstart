@@ -1,0 +1,22 @@
+FROM registry.redhat.io/ubi9/go-toolset:latest as build
+
+USER 0
+
+ENV GOMODCACHE=/tmp \
+    GOPATH=/app/go
+
+WORKDIR /app
+
+COPY go.mod go.sum ./
+
+RUN go mod tidy
+
+COPY . .
+
+RUN go build -o main
+
+FROM registry.redhat.io/ubi9/ubi-minimal:latest
+
+COPY --from=build /app/main /
+
+ENTRYPOINT [ "/main" ]

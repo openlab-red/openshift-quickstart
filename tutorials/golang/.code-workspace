@@ -1,0 +1,35 @@
+{
+  "folders": [
+    {
+      "name": "golang",
+      "path": "/projects/openshift-quickstart/tutorials/golang"
+    }
+  ],
+  "extensions": {
+    "recommendations": [
+      "42Crunch.vscode-openapi",
+      "Angular.ng-template",
+      "DavidAnson.vscode-markdownlint",
+      "Gydunhn.typescript-essentials",
+      "atlassian.atlascode",
+      "cnshenj.vscode-task-manager",
+      "cweijan.vscode-database-client2",
+      "dbaeumer.vscode-eslint",
+      "donjayamanne.githistory",
+      "eamodio.gitlens",
+      "esbenp.prettier-vscode",
+      "golang.go",
+      "hediet.vscode-drawio",
+      "humao.rest-client",
+      "mhutchie.git-graph",
+      "ms-azuretools.vscode-docker",
+      "nicoespeon.abracadabra",
+      "redhat.vscode-openshift-connector",
+      "redhat.vscode-xml",
+      "redhat.vscode-yaml",
+      "streetsidesoftware.code-spell-checker",
+      "waderyan.gitblame"
+    ]
+  },
+  "settings": {}
+}

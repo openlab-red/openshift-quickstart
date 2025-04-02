@@ -1,0 +1,11 @@
+---
+# This Role defines permissions for reading pod information in the pod-play namespace
+kind: Role # Defines a namespace-scoped set of permissions
+apiVersion: rbac.authorization.k8s.io/v1 # RBAC API version
+metadata:
+  name: pod-reader # Name of this Role
+  namespace: pod-play # Namespace where this Role applies
+rules:
+- apiGroups: [""] # The core API group (empty string)
+  resources: ["pods"] # This Role only grants access to pods
+  verbs: ["get", "list"] # Only allows reading pods via get and list operations

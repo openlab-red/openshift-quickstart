@@ -1,0 +1,67 @@
+---
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: postgres-config
+  labels:
+    app: postgres
+data:
+  POSTGRESQL_USER: user
+  POSTGRESQL_PASSWORD: pass
+  POSTGRESQL_ROOT_PASSWORD: root
+  POSTGRESQL_DATABASE: db
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: postgres
+  labels:
+    app: postgres
+spec:
+  type: ClusterIP
+  ports:
+  - port: 5432
+    targetPort: 5432
+    name: postgres
+    protocol: TCP
+  selector:
+    app: postgres
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: postgres
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: postgres
+  template:
+    metadata:
+      labels:
+        app: postgres
+    spec:
+      containers:
+        - name: postgres
+          image: registry.redhat.io/rhel8/postgresql-12:latest
+          imagePullPolicy: IfNotPresent
+          resources:
+            limits:
+              cpu: '1'
+              memory: 512Mi
+            requests:
+              cpu: 50m
+              memory: 64Mi
+          ports:
+            - containerPort: 5432
+              name: postgres
+              protocol: TCP
+          envFrom:
+            - configMapRef:
+                name: postgres-config
+          volumeMounts:
+            - mountPath: /var/lib/pgsql/data
+              name: postgresdata
+      volumes:
+        - name: postgresdata
+          emptyDir: {}

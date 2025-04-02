@@ -1,0 +1,124 @@
+openapi: 3.0.0
+info:
+  title: Message API
+  version: 1.0.0
+  description: This is a simple API for managing messages using a PostgreSQL database.
+
+servers:
+  - url: http://127.0.0.1:8080/api
+    description: Local server
+
+paths:
+  /:
+    get:
+      summary: List all messages
+      operationId: listMessages
+      responses:
+        '200':
+          description: A list of messages
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Message'
+        '500':
+          description: Server error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+
+  /add/{message}:
+    get:
+      summary: Add a message (GET method)
+      operationId: addMessageGet
+      parameters:
+        - name: message
+          in: path
+          required: true
+          schema:
+            type: string
+          description: The message text to add
+      responses:
+        '201':
+          description: Message added successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Success'
+        '500':
+          description: Server error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+
+    post:
+      summary: Add a message (POST method)
+      operationId: addMessagePost
+      parameters:
+        - name: message
+          in: path
+          required: true
+          schema:
+            type: string
+          description: The message text to add
+      responses:
+        '201':
+          description: Message added successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Success'
+        '500':
+          description: Server error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+
+  /ping:
+    get:
+      summary: Ping the server
+      operationId: pingServer
+      responses:
+        '200':
+          description: Server is alive
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PingResponse'
+
+components:
+  schemas:
+    Message:
+      type: object
+      properties:
+        id:
+          type: integer
+          example: 1
+        text:
+          type: string
+          example: "Hello, world!"
+
+    Success:
+      type: object
+      properties:
+        message:
+          type: string
+          example: "Message added successfully"
+
+    Error:
+      type: object
+      properties:
+        error:
+          type: string
+          example: "An error occurred"
+
+    PingResponse:
+      type: object
+      properties:
+        message:
+          type: string
+          example: "pong"

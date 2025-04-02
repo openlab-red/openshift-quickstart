@@ -1,0 +1,69 @@
+{
+  "folders": [
+    {
+      "name": "java",
+      "path": "/projects/openshift-quickstart/tutorials/java"
+    }
+  ],
+  "extensions": {
+    "recommendations": [
+      "42Crunch.vscode-openapi",
+      "Angular.ng-template",
+      "Continue.continue",
+      "CucumberOpen.cucumber-official",
+      "DavidAnson.vscode-markdownlint",
+      "Gydunhn.typescript-essentials",
+      "MoBalic.jetbrains-dark-theme",
+      "PKief.material-icon-theme",
+      "SonarSource.sonarlint-vscode",
+      "atlassian.atlascode",
+      "bpruitt-goddard.mermaid-markdown-syntax-highlighting",
+      "christian-kohler.path-intellisense",
+      "cnshenj.vscode-task-manager",
+      "cweijan.vscode-database-client2",
+      "dbaeumer.vscode-eslint",
+      "donjayamanne.githistory",
+      "eamodio.gitlens",
+      "esbenp.prettier-vscode",
+      "hediet.vscode-drawio",
+      "humao.rest-client",
+      "k--kato.intellij-idea-keybindings",
+      "mhutchie.git-graph",
+      "ms-azuretools.vscode-docker",
+      "ms-kubernetes-tools.vscode-kubernetes-tools",
+      "nicoespeon.abracadabra",
+      "redhat.fabric8-analytics",
+      "redhat.java",
+      "redhat.vscode-microprofile",
+      "redhat.vscode-openshift-connector",
+      "redhat.vscode-quarkus",
+      "redhat.vscode-xml",
+      "redhat.vscode-yaml",
+      "reedhat.vscode-quarkus",
+      "streetsidesoftware.code-spell-checker",
+      "vmware.vscode-boot-dev-pack",
+      "vmware.vscode-spring-boot",
+      "vscjava.vscode-java-debug",
+      "vscjava.vscode-java-dependency",
+      "vscjava.vscode-java-pack",
+      "vscjava.vscode-java-test",
+      "vscjava.vscode-maven",
+      "vscjava.vscode-spring-boot-dashboard",
+      "vscjava.vscode-spring-initializr",
+      "waderyan.gitblame"
+    ]
+  },
+  "settings": {
+    "java.server.launchMode": "Standard",
+    "java.configuration.updateBuildConfiguration": "automatic",
+    "java.compile.nullAnalysis.mode": "automatic",
+    "java.configuration.maven.globalSettings": "/home/tooling/.sdkman/candidates/maven/current/conf/settings.xml",
+    "java.configuration.maven.userSettings": "/home/tooling/.sdkman/candidates/maven/current/conf/settings.xml",
+    "remote.extensionKind": {
+      "k--kato.intellij-idea-keybindings": [
+        "workspace"
+      ]
+    },
+    "spring-boot.ls.java.home": "/home/tooling/.sdkman/candidates/java/current/"
+  }
+}

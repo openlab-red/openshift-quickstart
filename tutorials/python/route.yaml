@@ -1,0 +1,13 @@
+---
+apiVersion: route.openshift.io/v1
+kind: Route
+metadata:
+  name: python-server-route
+spec:
+  to:
+    kind: Service
+    name: python-server-service
+    weight: 100
+  port:
+    targetPort: 8000
+  wildcardPolicy: None

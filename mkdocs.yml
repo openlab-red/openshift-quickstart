@@ -1,0 +1,31 @@
+site_name: OpenShift Quickstart
+theme:
+  features:
+    - navigation.instant
+    - navigation.instant.progress
+  name: material
+  palette:
+    scheme: default
+    primary: 'red'
+    accent: 'black'
+  font:
+    text: 'Roboto'
+    code: 'Roboto Mono'
+  logo: 'assets/images/logo.png'
+extra_css:
+  - 'assets/styles/extra.css'
+extra_javascript:
+  - 'assets/scripts/extra.js'
+
+markdown_extensions:
+  - pymdownx.highlight:
+      anchor_linenums: true
+      line_spans: __span
+      pygments_lang_class: true
+  - pymdownx.inlinehilite
+  - pymdownx.snippets
+  - pymdownx.superfences
+
+plugins:
+   - search
+   - awesome-nav

@@ -1,0 +1,177 @@
+---
+kind: ConfigMap
+apiVersion: v1
+metadata:
+  name: profile
+  labels:
+    controller.devfile.io/mount-to-devworkspace: 'true'
+    controller.devfile.io/watch-configmap: 'true'
+  annotations:
+    argocd.argoproj.io/sync-options: SkipPrune
+    controller.devfile.io/mount-as: subpath
+    controller.devfile.io/mount-path: /home/user
+data:
+  .bashrc: |
+    # Source global definitions
+    if [ -f /etc/bashrc ]; then
+      . /etc/bashrc
+    fi
+
+    # User specific environment
+    if ! [[ "$PATH" =~ "$HOME/.local/bin:$HOME/bin:" ]]
+    then
+      export PATH="$HOME/.local/bin:$HOME/bin:$PATH"
+    fi
+
+    # History Settings
+    PROMPT_COMMAND='history -a'
+    HISTIGNORE='sudo *':'*VAULT_TOKEN*'
+
+    if [ -f ~/.profile ]; then
+      . ~/.profile
+    fi
+    eval "$(oc completion bash)"
+
+    # User specific aliases and functions
+    if [ -d ~/.bashrc.d ]; then
+      for rc in ~/.bashrc.d/*; do
+          if [ -f "$rc" ]; then
+              . "$rc"
+          fi
+      done
+    fi
+
+    unset rc
+
+  .profile: |-
+    # alias
+    alias code="code-oss"
+
+    if ! grep -Fe "[container]" -e "container.disabled" ~/.config/starship.toml >/dev/null 2>&1; then
+      echo "container.disabled = true" >> ~/.config/starship.toml
+    fi
+
+  .gitconfig: |
+    [user]
+      email = mattiam7@gmail.com
+      name = Mattia Mascia
+    [column]
+            ui = auto
+    [branch]
+            sort = -committerdate
+    [tag]
+            sort = version:refname
+    [init]
+            defaultBranch = main
+    [diff]
+            algorithm = histogram
+            colorMoved = plain
+            mnemonicPrefix = true
+            renames = true
+    [push]
+            default = simple
+            autoSetupRemote = true
+            followTags = true
+    [fetch]
+            prune = true
+            pruneTags = true
+            all = true
+    [help]
+            autocorrect = prompt
+    [commit]
+            verbose = true
+    [rerere]
+            enabled = true
+            autoupdate = true
+    [core]
+            excludesfile = ~/.gitignore
+    [rebase]
+            autoSquash = true
+            autoStash = true
+            updateRefs = true
+    [core]
+            fsmonitor = true
+            untrackedCache = true
+    [merge]
+            conflictstyle = zdiff3 
+    [pull]
+            rebase = true
+
+  .zshrc: |
+    # Source global definitions
+    if [[ -f /etc/zshrc ]]; then
+      . /etc/zshrc
+    fi
+
+    # User specific environment
+    if [[ ! "$PATH" =~ "$HOME/.local/bin:$HOME/bin:" ]]; then
+      PATH="$HOME/.local/bin:$HOME/bin:$PATH"
+    fi
+    export PATH
+
+    # History Settings
+    PROMPT_COMMAND='history -a'
+    HISTIGNORE='sudo *':'*VAULT_TOKEN*'
+
+    HISTFILE=/home/user/.zsh_history
+    HISTSIZE=1000
+    SAVEHIST=1000
+
+    export ZSH="/home/user/.oh-my-zsh"
+    export ZSH_DISABLE_COMPFIX=true
+    ZSH_THEME="robbyrussell"
+
+     if [ -d "${ZSH_CUSTOM:-$HOME/.oh-my-zsh/custom}" ]; then
+      attempt_clone() {
+          local repo_url=$1
+          local dest_dir=$2
+          local max_attempts=1
+          local attempt=1
+
+          while [ $attempt -le $max_attempts ]; do
+              if [ ! -d "$dest_dir" ]; then
+                  echo "Attempt $attempt: Cloning $repo_url into $dest_dir"
+                  git clone "$repo_url" "$dest_dir" && break
+              else
+                  break
+              fi
+              attempt=$((attempt + 1))
+              echo "Retrying in 2 seconds..."
+              sleep 2
+          done
+
+          if [ $attempt -gt $max_attempts ]; then
+              echo "Failed to clone $repo_url after $max_attempts attempts."
+          fi
+      }
+
+      attempt_clone "https://github.com/zsh-users/zsh-autosuggestions" "${ZSH_CUSTOM:-$HOME/.oh-my-zsh/custom}/plugins/zsh-autosuggestions"
+      attempt_clone "https://github.com/zsh-users/zsh-syntax-highlighting.git" "${ZSH_CUSTOM:-$HOME/.oh-my-zsh/custom}/plugins/zsh-syntax-highlighting"
+    else
+        echo "Directory ${ZSH_CUSTOM:-$HOME/.oh-my-zsh/custom} does not exist."
+    fi
+
+    plugins=(
+      extract
+      git
+      nmap
+      pip
+      python
+      rsync
+      zsh-autosuggestions
+      zsh-syntax-highlighting
+    )
+
+    source $ZSH/oh-my-zsh.sh
+
+    if [ -f ~/.profile ]; then
+      . ~/.profile
+    fi
+
+    if [ $commands[oc] ]; then
+      source <(oc completion zsh)
+      compdef _oc oc
+    fi
+
+    export SDKMAN_DIR="/home/tooling/.sdkman"
+    [[ -s "$SDKMAN_DIR/bin/sdkman-init.sh" ]] && source "$SDKMAN_DIR/bin/sdkman-init.sh"

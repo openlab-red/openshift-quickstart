@@ -1,0 +1,16 @@
+FROM registry.redhat.io/ubi9/nodejs-22:latest
+
+USER 0
+
+RUN mkdir -p /opt/app-root/src && \
+    chgrp -R 0 /opt/app-root/src
+
+WORKDIR /opt/app-root/src
+
+USER 1001
+
+COPY dist/final.js .
+
+EXPOSE 8080
+
+CMD ["node","final.js"]

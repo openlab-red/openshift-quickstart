@@ -1,0 +1,36 @@
+# The container uses the 'registry.redhat.io/ubi9/python-312' image.
+# It exposes port 8000 and runs a Python HTTP server using the command ["python3", "-m", "http.server"].
+# Resource limits and requests are set to ensure the container uses a maximum of 0.5 CPU units and 512Mi of memory,
+# while requesting at least 0.2 CPU units and 256Mi of memory.
+# A liveness probe is configured to check the health of the container by sending HTTP GET requests to the root path ('/') on port 8000.
+# The probe starts 3 seconds after the container starts and runs every 3 seconds.
+---
+apiVersion: v1
+kind: Pod
+metadata:
+  name: python-server-pod
+  labels:
+    app: python-server
+spec:
+  containers:
+  - name: python-server-container
+    image: registry.redhat.io/ubi9/python-312
+    ports:
+    - containerPort: 8000
+    command: ["python3", "-m", "http.server"]
+    resources:
+      limits:
+        cpu: "0.5"
+        memory: "512Mi"
+      requests:
+        cpu: "0.2"
+        memory: "256Mi"
+    livenessProbe:
+      httpGet:
+        path: /
+        port: 8000
+      initialDelaySeconds: 3
+      periodSeconds: 3
+# This YAML configuration defines a Kubernetes Pod named 'python-server-pod'.
+# The Pod contains a single container named 'python-server-container'.
+

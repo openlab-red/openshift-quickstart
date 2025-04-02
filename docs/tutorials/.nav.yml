@@ -1,0 +1,12 @@
+nav:
+  - simple/index.md
+  - python/index.md
+  - rbac/index.md
+  - NodeJS: js/index.md
+  - networkpolicy/index.md
+  - GoLang: golang/index.md
+  - Java:
+    - java/index.md
+    - java/helloworld/index.md
+    - java/quarkus/index.md
+    - java/springboot/index.md

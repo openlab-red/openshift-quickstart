@@ -1,0 +1,12 @@
+spring:
+  jpa: {}
+  data:
+    jpa: {}
+    mongodb:
+      host: localhost
+      port: 27017
+      database: db
+      username: user
+      password: pass
+      authentication-database: admin
+  datasource: {}

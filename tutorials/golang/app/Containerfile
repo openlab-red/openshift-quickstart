@@ -1,0 +1,6 @@
+
+FROM registry.redhat.io/ubi9/ubi-minimal:latest
+
+COPY main /
+
+ENTRYPOINT [ "/main" ]

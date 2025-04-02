@@ -1,0 +1,13 @@
+spring:
+ datasource:
+   driver-class-name: org.h2.Driver
+   url: "jdbc:h2:mem:testdb"
+ jpa:
+    database: H2
+    show-sql: false
+    generate-ddl: false
+    open-in-view: false
+    hibernate:
+      ddl-auto: update
+ flyway:
+   locations: classpath:db/migration/common
