@@ -162,10 +162,9 @@ spec:
     - name: yq
       params:
         - name: commands
-          value: >-
-            yq eval '.app.image =
-            "quay.io/quickstart/{{ .Release.Name }}:$(tasks.tag.results.tag)"'
-            java/helm/dev/values.yaml -i
+          value: |
+            yq eval '.image.repository = "quay.io/quickstart/{{ .Release.Name }}"' java/helm/values.yaml -i && \
+            yq eval '.image.tag = "$(tasks.tag.results.tag)"' java/helm/values.yaml -i
       runAfter:
         - fetch-manifest
       taskRef:

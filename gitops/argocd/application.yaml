@@ -1,0 +1,21 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: openshift-quickstart
+spec:
+  destination:
+    name: ''
+    namespace: bit-play
+    server: 'https://kubernetes.default.svc'
+  source:
+    path: java/helm
+    repoURL: 'https://github.com/openlab-red/openshift-quickstart-manifest'
+    targetRevision: HEAD
+    helm:
+      valueFiles:
+      - dev/values.yaml
+  project: default
+  syncPolicy:
+    automated:
+      prune: false
+      selfHeal: false
