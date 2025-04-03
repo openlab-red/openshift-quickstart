@@ -60,3 +60,56 @@ Create the name of the service account to use
 {{- default "default" .Values.serviceAccount.name }}
 {{- end }}
 {{- end }}
+
+
+{{- define "pipeline.java-build" -}}
+    - name: build-app
+      params:
+        - name: MAVEN_IMAGE
+          value: >-
+            image-registry.openshift-image-registry.svc:5000/openshift/{{ .Release.Name  }}:latest
+        - name: GOALS
+          value:
+            - package
+        - name: SUBDIRECTORY
+          value: $(params.CONTEXT_DIR)
+      runAfter:
+        - fetch-repository
+      taskRef:
+        resolver: cluster
+        params:
+        - name: kind
+          value: task
+        - name: name
+          value: maven
+        - name: namespace
+          value: openshift-pipelines
+      workspaces:
+        - name: source
+          workspace: {{ include "pipeline.fullname" . }}-ws
+        - name: maven_settings
+          workspace: {{ include "pipeline.fullname" . }}-ws
+{{- end }}
+
+{{- define "pipeline.golang-build" -}}
+    - name: build-app
+      params:
+        - name: CONTEXT
+          value: $(params.CONTEXT_DIR)
+      runAfter:
+        - fetch-repository
+      taskRef:
+        resolver: hub
+        params:
+        - name: type
+          value: tekton
+        - name: kind
+          value: task
+        - name: name
+          value: golang-build
+        - name: version
+          value: "0.3"
+      workspaces:
+        - name: source
+          workspace: {{ include "pipeline.fullname" . }}-ws
+{{- end }}

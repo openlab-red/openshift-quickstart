@@ -1,4 +1,3 @@
-{{- if eq .Release.Name "java" }}
 ---
 apiVersion: tekton.dev/v1beta1
 kind: Pipeline
@@ -28,11 +27,16 @@ spec:
       description: context dir
       name: CONTEXT_DIR
       type: string
+    - default: Containerfile
+      description: Containerfile
+      name: CONTAINER_FILE
+      type: string
     - default: 'https://github.com/openlab-red/openshift-quickstart-manifest/'
       description: url of the git manifest repo
       name: git-manifest-url
       type: string
   tasks:
+  
     - name: fetch-repository
       params:
         - name: URL
@@ -55,38 +59,23 @@ spec:
       workspaces:
         - name: output
           workspace: {{ include "pipeline.fullname" . }}-ws
+
+
     - name: tag
       runAfter:
         - fetch-repository
       taskRef:
         kind: Task
         name: {{ include "pipeline.fullname" . }}-tag
-    - name: build-app
-      params:
-        - name: MAVEN_IMAGE
-          value: >-
-            image-registry.openshift-image-registry.svc:5000/openshift/{{ .Release.Name  }}:latest
-        - name: GOALS
-          value:
-            - package
-        - name: SUBDIRECTORY
-          value: $(params.CONTEXT_DIR)
-      runAfter:
-        - fetch-repository
-      taskRef:
-        resolver: cluster
-        params:
-        - name: kind
-          value: task
-        - name: name
-          value: maven
-        - name: namespace
-          value: openshift-pipelines
-      workspaces:
-        - name: source
-          workspace: {{ include "pipeline.fullname" . }}-ws
-        - name: maven_settings
-          workspace: {{ include "pipeline.fullname" . }}-ws
+
+{{- if eq .Release.Name "java" }}
+    {{ include "pipeline.java-build" . }}
+{{- end }}
+
+{{- if eq .Release.Name "golang" }}
+    {{ include "pipeline.golang-build" . }}
+{{- end }}
+
     - name: build-image
       params:
         - name: IMAGE
@@ -94,7 +83,7 @@ spec:
         - name: CONTEXT
           value: $(params.CONTEXT_DIR)
         - name: DOCKERFILE
-          value: $(params.CONTEXT_DIR)/src/main/docker/Dockerfile.jvm
+          value: $(params.CONTAINER_FILE)
         - name: TLSVERIFY
           value: 'false'
       runAfter:
@@ -114,7 +103,9 @@ spec:
           workspace: {{ include "pipeline.fullname" . }}-ws
         - name: dockerconfig
           workspace: {{ include "pipeline.fullname" . }}-dockerconfig
-    - name: skopeo-copy
+
+
+    - name: publish
       params:
         - name: SOURCE_IMAGE_URL
           value: 'docker://quay.io/quickstart/{{ .Release.Name }}:s-$(tasks.tag.results.tag)'
@@ -135,6 +126,8 @@ spec:
       workspaces:
         - name: images_url
           workspace: {{ include "pipeline.fullname" . }}-ws
+
+
     - name: fetch-manifest
       params:
         - name: URL
@@ -146,7 +139,7 @@ spec:
         - name: revision
           value: $(params.git-revision)
       runAfter:
-        - skopeo-copy
+        - publish
       taskRef:
         resolver: cluster
         params:
@@ -159,12 +152,15 @@ spec:
       workspaces:
         - name: output
           workspace: {{ include "pipeline.fullname" . }}-resource-ws
-    - name: yq
+
+
+    - name: update-manifest
       params:
         - name: commands
           value: |
-            yq eval '.image.repository = "quay.io/quickstart/{{ .Release.Name }}"' java/helm/values.yaml -i && \
-            yq eval '.image.tag = "$(tasks.tag.results.tag)"' java/helm/values.yaml -i
+            touch java/helm/values-{{ .Release.Namespace }}.yaml && \
+            yq eval '.image.repository = "quay.io/quickstart/{{ .Release.Name }}"' java/helm/values-{{ .Release.Namespace }}.yaml -i && \
+            yq eval '.image.tag = "$(tasks.tag.results.tag)"' java/helm/values-{{ .Release.Namespace }}.yaml -i
       runAfter:
         - fetch-manifest
       taskRef:
@@ -173,6 +169,8 @@ spec:
       workspaces:
         - name: source
           workspace: {{ include "pipeline.fullname" . }}-resource-ws
+
+
     - name: gitops-update-image
       params:
         - name: git_revision
@@ -182,7 +180,7 @@ spec:
         - name: push_retry_count
           value: '3'
       runAfter:
-        - yq
+        - update-manifest
       taskRef:
         kind: Task
         name: {{ include "pipeline.fullname" . }}-gitops
@@ -191,9 +189,9 @@ spec:
           workspace: {{ include "pipeline.fullname" . }}-resource-ws
         - name: git-credentials
           workspace: {{ include "pipeline.fullname" . }}-git-credentials
+
   workspaces:
     - name: {{ include "pipeline.fullname" . }}-ws
     - name: {{ include "pipeline.fullname" . }}-resource-ws
     - name: {{ include "pipeline.fullname" . }}-dockerconfig
     - name: {{ include "pipeline.fullname" . }}-git-credentials
-{{- end }}
