@@ -2,31 +2,34 @@
 apiVersion: triggers.tekton.dev/v1beta1
 kind: EventListener
 metadata:
-  name: java
+  name: {{ include "pipeline.fullname" . }}
+  labels:
+    {{- include "pipeline.labels" . | nindent 4 }}
 spec:
   serviceAccountName: pipeline
   triggers:
-    - name: java-webhook
+    - name: {{ include "pipeline.fullname" . }}-webhook
       bindings:
         - kind: ClusterTriggerBinding
           ref: github-push
       template:
-        ref: java-webhook
+        ref: {{ include "pipeline.fullname" . }}-webhook
 ---
 apiVersion: route.openshift.io/v1
 kind: Route
 metadata:
-  name: el-java
+  name: {{ include "pipeline.fullname" . }}-el
   labels:
+    {{- include "pipeline.labels" . | nindent 4 }}
     app.kubernetes.io/managed-by: EventListener
     app.kubernetes.io/part-of: Triggers
-    eventlistener: java
+    eventlistener: {{ include "pipeline.fullname" . }}
 spec:
   port:
     targetPort: 8080
   to:
     kind: "Service"
-    name: el-java
+    name: el-{{ include "pipeline.fullname" . }}
     weight: 100
   tls:
     termination: edge

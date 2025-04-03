@@ -1,0 +1,200 @@
+{{- if eq .Release.Name "java" }}
+---
+apiVersion: tekton.dev/v1beta1
+kind: Pipeline
+metadata:
+  name: {{ include "pipeline.fullname" . }}
+  labels:
+    {{- include "pipeline.labels" . | nindent 4 }}
+spec:
+  params:
+    - default: {{ .Release.Name }}
+      description: name of the deployment to be patched
+      name: deployment-name
+      type: string
+    - default: 'https://github.com/openlab-red/openshift-quickstart/'
+      description: url of the git repo for the code of deployment
+      name: git-url
+      type: string
+    - default: main
+      description: revision to be used from repo of the code for deployment
+      name: git-revision
+      type: string
+    - default: quay.io/quickstart/{{ .Release.Name  }}
+      description: image to be build from the code
+      name: IMAGE
+      type: string
+    - default: tutorials/{{ .Release.Name  }}/{{ .Values.subPath }}
+      description: context dir
+      name: CONTEXT_DIR
+      type: string
+    - default: 'https://github.com/openlab-red/openshift-quickstart-manifest/'
+      description: url of the git manifest repo
+      name: git-manifest-url
+      type: string
+  tasks:
+    - name: fetch-repository
+      params:
+        - name: URL
+          value: $(params.git-url)
+        - name: subdirectory
+          value: ''
+        - name: deleteExisting
+          value: 'true'
+        - name: revision
+          value: $(params.git-revision)
+      taskRef:
+        resolver: cluster
+        params:
+        - name: kind
+          value: task
+        - name: name
+          value: git-clone
+        - name: namespace
+          value: openshift-pipelines
+      workspaces:
+        - name: output
+          workspace: {{ include "pipeline.fullname" . }}-ws
+    - name: tag
+      runAfter:
+        - fetch-repository
+      taskRef:
+        kind: Task
+        name: {{ include "pipeline.fullname" . }}-tag
+    - name: build-app
+      params:
+        - name: MAVEN_IMAGE
+          value: >-
+            image-registry.openshift-image-registry.svc:5000/openshift/{{ .Release.Name  }}:latest
+        - name: GOALS
+          value:
+            - package
+        - name: SUBDIRECTORY
+          value: $(params.CONTEXT_DIR)
+      runAfter:
+        - fetch-repository
+      taskRef:
+        resolver: cluster
+        params:
+        - name: kind
+          value: task
+        - name: name
+          value: maven
+        - name: namespace
+          value: openshift-pipelines
+      workspaces:
+        - name: source
+          workspace: {{ include "pipeline.fullname" . }}-ws
+        - name: maven_settings
+          workspace: {{ include "pipeline.fullname" . }}-ws
+    - name: build-image
+      params:
+        - name: IMAGE
+          value: 'quay.io/quickstart/{{ .Release.Name }}:s-$(tasks.tag.results.tag)'
+        - name: CONTEXT
+          value: $(params.CONTEXT_DIR)
+        - name: DOCKERFILE
+          value: $(params.CONTEXT_DIR)/src/main/docker/Dockerfile.jvm
+        - name: TLSVERIFY
+          value: 'false'
+      runAfter:
+        - build-app
+        - tag
+      taskRef:
+        resolver: cluster
+        params:
+        - name: kind
+          value: task
+        - name: name
+          value: buildah
+        - name: namespace
+          value: openshift-pipelines
+      workspaces:
+        - name: source
+          workspace: {{ include "pipeline.fullname" . }}-ws
+        - name: dockerconfig
+          workspace: {{ include "pipeline.fullname" . }}-dockerconfig
+    - name: skopeo-copy
+      params:
+        - name: SOURCE_IMAGE_URL
+          value: 'docker://quay.io/quickstart/{{ .Release.Name }}:s-$(tasks.tag.results.tag)'
+        - name: DESTINATION_IMAGE_URL
+          value: >-
+            docker://quay.io/quickstart/{{ .Release.Name }}:$(tasks.tag.results.tag)
+      runAfter:
+        - build-image
+      taskRef:
+        resolver: cluster
+        params:
+        - name: kind
+          value: task
+        - name: name
+          value: skopeo-copy
+        - name: namespace
+          value: openshift-pipelines
+      workspaces:
+        - name: images_url
+          workspace: {{ include "pipeline.fullname" . }}-ws
+    - name: fetch-manifest
+      params:
+        - name: URL
+          value: $(params.git-manifest-url)
+        - name: subdirectory
+          value: ''
+        - name: deleteExisting
+          value: 'true'
+        - name: revision
+          value: $(params.git-revision)
+      runAfter:
+        - skopeo-copy
+      taskRef:
+        resolver: cluster
+        params:
+        - name: kind
+          value: task
+        - name: name
+          value: git-clone
+        - name: namespace
+          value: openshift-pipelines
+      workspaces:
+        - name: output
+          workspace: {{ include "pipeline.fullname" . }}-resource-ws
+    - name: yq
+      params:
+        - name: commands
+          value: >-
+            yq eval '.app.image =
+            "quay.io/quickstart/{{ .Release.Name }}:$(tasks.tag.results.tag)"'
+            java/helm/dev/values.yaml -i
+      runAfter:
+        - fetch-manifest
+      taskRef:
+        kind: Task
+        name: {{ include "pipeline.fullname" . }}-yq
+      workspaces:
+        - name: source
+          workspace: {{ include "pipeline.fullname" . }}-resource-ws
+    - name: gitops-update-image
+      params:
+        - name: git_revision
+          value: main
+        - name: image
+          value: 'quay.io/quickstart/{{ .Release.Name }}:$(tasks.tag.results.tag)'
+        - name: push_retry_count
+          value: '3'
+      runAfter:
+        - yq
+      taskRef:
+        kind: Task
+        name: {{ include "pipeline.fullname" . }}-gitops
+      workspaces:
+        - name: source
+          workspace: {{ include "pipeline.fullname" . }}-resource-ws
+        - name: git-credentials
+          workspace: {{ include "pipeline.fullname" . }}-git-credentials
+  workspaces:
+    - name: {{ include "pipeline.fullname" . }}-ws
+    - name: {{ include "pipeline.fullname" . }}-resource-ws
+    - name: {{ include "pipeline.fullname" . }}-dockerconfig
+    - name: {{ include "pipeline.fullname" . }}-git-credentials
+{{- end }}

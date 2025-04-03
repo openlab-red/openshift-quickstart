@@ -1,7 +1,9 @@
 apiVersion: v1
 kind: PersistentVolumeClaim
 metadata:
-  name: shared-workspace
+  name: {{ include "pipeline.fullname" . }}-ws
+  labels:
+    {{- include "pipeline.labels" . | nindent 4 }}
 spec:
   accessModes:
     - ReadWriteOnce
@@ -13,7 +15,9 @@ spec:
 apiVersion: v1
 kind: PersistentVolumeClaim
 metadata:
-  name: manifest-workspace
+  name: {{ include "pipeline.fullname" . }}-resource-ws
+  labels:
+    {{- include "pipeline.labels" . | nindent 4 }}
 spec:
   accessModes:
     - ReadWriteOnce

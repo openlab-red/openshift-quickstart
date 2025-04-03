@@ -1,9 +1,9 @@
 apiVersion: tekton.dev/v1beta1
 kind: Task
 metadata:
-  name: gitops-update-image
+  name: {{ include "pipeline.fullname" . }}-gitops
   labels:
-    app.kubernetes.io/version: "0.1"
+    {{- include "pipeline.labels" . | nindent 4 }}
   annotations:
     tekton.dev/pipelines.minVersion: "0.12.1"
     tekton.dev/categories: Build Tools
@@ -43,6 +43,9 @@ spec:
       resources: {}
       script: |
         git config --global --add safe.directory /workspace/source
+        git config --global credential.helper store
+        echo "https://$(cat /workspace/git-credentials/username | sed 's/@/%40/g'):$(cat /workspace/git-credentials/password)@github.com" > /tekton/home/.git-credentials
+
         if git diff --exit-code;
         then
           echo "No changes staged, skipping add/commit"
@@ -76,3 +79,4 @@ spec:
       workingDir: $(workspaces.source.path)
   workspaces:
     - name: source
+    - name: git-credentials

@@ -1,0 +1,52 @@
+apiVersion: triggers.tekton.dev/v1alpha1
+kind: TriggerTemplate
+metadata:
+  name: {{ include "pipeline.fullname" . }}-webhook
+  labels:
+    {{- include "pipeline.labels" . | nindent 4 }}
+spec:
+  params:
+    - default: main
+      description: The git revision
+      name: git-revision
+    - description: The git repository url
+      name: git-repo-url
+  resourcetemplates:
+    - apiVersion: tekton.dev/v1beta1
+      kind: PipelineRun
+      metadata:
+        generateName: {{ include "pipeline.fullname" . }}-webhook-
+        labels:
+          tekton.dev/pipeline: {{ include "pipeline.fullname" . }}-pipeline
+      spec:
+        params:
+          - name: deployment-name
+            value: {{ .Release.Name }}
+          - name: git-url
+            value: 'https://github.com/openlab-red/openshift-quickstart/'
+          - name: git-revision
+            value: main
+          - name: IMAGE
+            value: quay.io/quickstart/{{ .Release.Name }}
+          - name: CONTEXT_DIR
+            value: tutorials/{{ .Release.Name }}/{{ .Values.subPath }}
+          - name: git-manifest-url
+            value: 'https://github.com/openlab-red/openshift-quickstart-manifest/'
+        pipelineRef:
+          name: {{ include "pipeline.fullname" . }}
+        serviceAccountName: pipeline
+        timeout: 1h0m0s
+        workspaces:
+          - name: {{ include "pipeline.fullname" . }}-ws
+            persistentVolumeClaim:
+              claimName: {{ include "pipeline.fullname" . }}-ws
+          - name: {{ include "pipeline.fullname" . }}-resource-ws
+            persistentVolumeClaim:
+              claimName: {{ include "pipeline.fullname" . }}-resource-ws
+          - name: {{ include "pipeline.fullname" . }}-dockerconfig
+            secret:
+              secretName: registry-credentials
+          - name: {{ include "pipeline.fullname" . }}-git-credentials
+            secret:
+              secretName: github.com
+

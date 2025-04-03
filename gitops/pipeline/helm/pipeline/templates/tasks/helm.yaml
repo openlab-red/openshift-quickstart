@@ -2,9 +2,9 @@
 apiVersion: tekton.dev/v1beta1
 kind: Task
 metadata:
-  name: yq
+  name: {{ include "pipeline.fullname" . }}-helm
   labels:
-    app.kubernetes.io/version: "0.1"
+    {{- include "pipeline.labels" . | nindent 4 }}
   annotations:
     tekton.dev/pipelines.minVersion: "0.12.1"
     tekton.dev/categories: Build Tools
@@ -18,11 +18,14 @@ spec:
     - name: commands
       type: string
       description: The set of commands to run
+  stepTemplate:
+    env:
+      - name: "HOME"
+        value: "/tekton/home"
   steps:
-    - name: yq
-      workingDir: $(workspaces.source.path)
-      image: mikefarah/yq:4
-      script: |
-        #!/usr/bin/env sh
-        echo "Running: '$(params.commands)'"
-        $(params.commands)
+  - name: helm
+    workingDir: $(workspaces.source.path)
+    image: docker.io/alpine/helm:3.11.1
+    script: |
+      #!/usr/bin/env sh
+      $(params.commands)
