@@ -26,4 +26,5 @@ spec:
       image: mikefarah/yq:4
       script: |
         #!/usr/bin/env sh
+        set -x
         $(params.commands)

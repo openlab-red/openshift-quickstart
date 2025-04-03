@@ -158,9 +158,10 @@ spec:
       params:
         - name: commands
           value: |
-            touch java/helm/values-{{ .Release.Namespace }}.yaml && \
-            yq eval '.image.repository = "quay.io/quickstart/{{ .Release.Name }}"' java/helm/values-{{ .Release.Namespace }}.yaml -i && \
-            yq eval '.image.tag = "$(tasks.tag.results.tag)"' java/helm/values-{{ .Release.Namespace }}.yaml -i
+            VALUES_FILE={{ .Release.Name }}/helm/values-{{ .Release.Namespace }}.yaml && \
+            touch $VALUES_FILE && \
+            yq eval '.image.repository = "quay.io/quickstart/{{ .Release.Name }}"' $VALUES_FILE -i && \
+            yq eval '.image.tag = "$(tasks.tag.results.tag)"' $VALUES_FILE -i
       runAfter:
         - fetch-manifest
       taskRef:

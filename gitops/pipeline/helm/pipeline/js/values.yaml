@@ -6,4 +6,4 @@
 nameOverride: ""
 fullnameOverride: ""
 
-subPath: ""
+subPath: frontend/app

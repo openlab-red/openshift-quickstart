@@ -28,6 +28,8 @@ spec:
             value: main
           - name: IMAGE
             value: quay.io/quickstart/{{ .Release.Name }}
+          - name: CONTAINER_FILE
+            value: Containerfile
           - name: CONTEXT_DIR
             value: tutorials/{{ .Release.Name }}/{{ .Values.subPath }}
           - name: git-manifest-url

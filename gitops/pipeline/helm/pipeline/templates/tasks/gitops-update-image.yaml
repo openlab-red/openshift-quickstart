@@ -38,7 +38,7 @@ spec:
     name: ''
     resources: {}
   steps:
-    - image: docker.io/alpine/git:v2.43.0
+    - image: docker.io/alpine/git:latest
       name: commit-and-push-change
       resources: {}
       script: |
@@ -46,7 +46,8 @@ spec:
         git config --global credential.helper store
         echo "https://$(cat /workspace/git-credentials/username | sed 's/@/%40/g'):$(cat /workspace/git-credentials/password)@github.com" > /tekton/home/.git-credentials
 
-        if git diff --exit-code;
+        git add .
+        if git diff HEAD --name-only --exit-code;
         then
           echo "No changes staged, skipping add/commit"
           echo -n "false" > $(results.image_updated.path)
