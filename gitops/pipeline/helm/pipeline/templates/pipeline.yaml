@@ -76,6 +76,10 @@ spec:
     {{ include "pipeline.golang-build" . }}
 {{- end }}
 
+{{- if eq .Release.Name "js" }}
+    {{ include "pipeline.js-build" . }}
+{{- end }}
+
     - name: build-image
       params:
         - name: IMAGE

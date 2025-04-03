@@ -94,22 +94,21 @@ Create the name of the service account to use
 {{- define "pipeline.golang-build" -}}
     - name: build-app
       params:
-        - name: CONTEXT
+        - name: package
+          value: github.com/openlab-red/openshift-quickstart
+        - name: packages
+          value: main.go
+        - name: SUBDIRECTORY
           value: $(params.CONTEXT_DIR)
       runAfter:
         - fetch-repository
       taskRef:
-        resolver: hub
-        params:
-        - name: type
-          value: tekton
-        - name: kind
-          value: task
-        - name: name
-          value: golang-build
-        - name: version
-          value: "0.3"
+          name: golang-build
+          kind: Task
       workspaces:
         - name: source
           workspace: {{ include "pipeline.fullname" . }}-ws
+{{- end }}
+
+{{- define "pipeline.js-build" -}}
 {{- end }}
