@@ -20,7 +20,7 @@
     
     
       
-        <title>Deploying and Testing a Python server - OpenShift Quickstart</title>
+        <title>Simple Pod - OpenShift Quickstart</title>
       
     
     
@@ -107,7 +107,7 @@
         <div class="md-header__topic" data-md-component="header-topic">
           <span class="md-ellipsis">
             
-              Deploying and Testing a Python server
+              Simple Pod
             
           </span>
         </div>
@@ -260,7 +260,7 @@
   
   
   <span class="md-ellipsis">
-    Deploying and Testing a Python server
+    Simple Pod
     
   </span>
   
@@ -273,7 +273,7 @@
   
   
   <span class="md-ellipsis">
-    Deploying and Testing a Python server
+    Simple Pod
     
   </span>
   
@@ -811,13 +811,27 @@
 <h1 id="deploying-and-testing-a-python-server">Deploying and Testing a Python server</h1>
 <h2 id="tutorial">Tutorial</h2>
 <blockquote>
-<p>The code examples and instructions in this tutorial are located in the <code>tutorials/python</code> directory. Ensure you are in this directory before executing the commands.</p>
+<p>The code examples and instructions in this tutorial are located under <code>openshift-quickstart</code> project in the
+<code>tutorials/python</code> directory. 
+Ensure you are in this directory before executing the commands.
+</p>
 </blockquote>
+<ol>
+<li>
+<p>Navigate to the Tutorial Directory
+    <div class="language-bash highlight"><pre><span></span><code><span id="__span-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="c1"># Change to the tutorials/simple directory</span>
+</span><span id="__span-0-2"><a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a><span class="nb">cd</span><span class="w"> </span>openshift-quickstart/tutorials/python
+</span></code></pre></div></p>
+</li>
+<li>
+<p>Or open a New Terminal</p>
+</li>
+</ol>
 <h3 id="building-the-container-image">Building the Container Image</h3>
 <ol>
 <li><strong>Build the Container Image:</strong>
    Use the following command to build the container image for the Python server:
-   <div class="language-bash highlight"><pre><span></span><code><span id="__span-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a>podman<span class="w"> </span>build<span class="w"> </span>-t<span class="w"> </span>python-server:latest<span class="w"> </span>.
+   <div class="language-bash highlight"><pre><span></span><code><span id="__span-1-1"><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a>podman<span class="w"> </span>build<span class="w"> </span>-t<span class="w"> </span>python-server:latest<span class="w"> </span>.
 </span></code></pre></div></li>
 </ol>
 <h3 id="running-the-container">Running the Container</h3>
@@ -825,13 +839,13 @@
 <li>
 <p><strong>Run the Container:</strong>
    Start the container using the image you just built:
-   <div class="language-bash highlight"><pre><span></span><code><span id="__span-1-1"><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a>podman<span class="w"> </span>run<span class="w"> </span>python-server:latest
+   <div class="language-bash highlight"><pre><span></span><code><span id="__span-2-1"><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a>podman<span class="w"> </span>run<span class="w"> </span>python-server:latest
 </span></code></pre></div></p>
 </li>
 <li>
 <p><strong>Verify the Container is Running:</strong>
    Check the status of the running container with:
-   <div class="language-bash highlight"><pre><span></span><code><span id="__span-2-1"><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a>podman<span class="w"> </span>ps
+   <div class="language-bash highlight"><pre><span></span><code><span id="__span-3-1"><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a>podman<span class="w"> </span>ps
 </span></code></pre></div></p>
 </li>
 </ol>
@@ -840,19 +854,19 @@
 <li>
 <p><strong>Test the Server:</strong>
    Ensure the server is responding by executing:
-   <div class="language-bash highlight"><pre><span></span><code><span id="__span-3-1"><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a>curl<span class="w"> </span>http://localhost:8000
+   <div class="language-bash highlight"><pre><span></span><code><span id="__span-4-1"><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a>curl<span class="w"> </span>http://localhost:8000
 </span></code></pre></div></p>
 </li>
 <li>
 <p><strong>Relaunch the Container with Port Mapping:</strong>
    To map the container's port to the host, use:
-   <div class="language-bash highlight"><pre><span></span><code><span id="__span-4-1"><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a>podman<span class="w"> </span>run<span class="w"> </span>-p8000:8000<span class="w"> </span>python-server:latest
+   <div class="language-bash highlight"><pre><span></span><code><span id="__span-5-1"><a id="__codelineno-5-1" name="__codelineno-5-1" href="#__codelineno-5-1"></a>podman<span class="w"> </span>run<span class="w"> </span>-p8000:8000<span class="w"> </span>python-server:latest
 </span></code></pre></div></p>
 </li>
 <li>
 <p><strong>Test the Server Again:</strong>
    Verify the server is accessible with:
-   <div class="language-bash highlight"><pre><span></span><code><span id="__span-5-1"><a id="__codelineno-5-1" name="__codelineno-5-1" href="#__codelineno-5-1"></a>curl<span class="w"> </span>http://localhost:8000
+   <div class="language-bash highlight"><pre><span></span><code><span id="__span-6-1"><a id="__codelineno-6-1" name="__codelineno-6-1" href="#__codelineno-6-1"></a>curl<span class="w"> </span>http://localhost:8000
 </span></code></pre></div></p>
 </li>
 </ol>
@@ -861,21 +875,21 @@
 <li>
 <p><strong>Create a Pod:</strong>
    Deploy the application as a pod with port publishing:
-   <div class="language-bash highlight"><pre><span></span><code><span id="__span-6-1"><a id="__codelineno-6-1" name="__codelineno-6-1" href="#__codelineno-6-1"></a>podman<span class="w"> </span>play<span class="w"> </span>kube<span class="w"> </span>--publish<span class="w"> </span><span class="m">8000</span>:8000<span class="w"> </span>pod.yaml
+   <div class="language-bash highlight"><pre><span></span><code><span id="__span-7-1"><a id="__codelineno-7-1" name="__codelineno-7-1" href="#__codelineno-7-1"></a>podman<span class="w"> </span>play<span class="w"> </span>kube<span class="w"> </span>--publish<span class="w"> </span><span class="m">8000</span>:8000<span class="w"> </span>pod.yaml
 </span></code></pre></div></p>
 </li>
 <li>
 <p><strong>Verify Pod is Running:</strong>
    Check the status of the pod and its containers:
-   <div class="language-bash highlight"><pre><span></span><code><span id="__span-7-1"><a id="__codelineno-7-1" name="__codelineno-7-1" href="#__codelineno-7-1"></a>podman<span class="w"> </span>pod<span class="w"> </span>ps
-</span><span id="__span-7-2"><a id="__codelineno-7-2" name="__codelineno-7-2" href="#__codelineno-7-2"></a>podman<span class="w"> </span>ps
+   <div class="language-bash highlight"><pre><span></span><code><span id="__span-8-1"><a id="__codelineno-8-1" name="__codelineno-8-1" href="#__codelineno-8-1"></a>podman<span class="w"> </span>pod<span class="w"> </span>ps
+</span><span id="__span-8-2"><a id="__codelineno-8-2" name="__codelineno-8-2" href="#__codelineno-8-2"></a>podman<span class="w"> </span>ps
 </span></code></pre></div></p>
 </li>
 <li>
 <p><strong>Stop and Remove the Pod:</strong>
    To stop and remove the pod, use:
-   <div class="language-bash highlight"><pre><span></span><code><span id="__span-8-1"><a id="__codelineno-8-1" name="__codelineno-8-1" href="#__codelineno-8-1"></a>podman<span class="w"> </span>pod<span class="w"> </span>stop<span class="w"> </span>&lt;podId&gt;
-</span><span id="__span-8-2"><a id="__codelineno-8-2" name="__codelineno-8-2" href="#__codelineno-8-2"></a>podman<span class="w"> </span>pod<span class="w"> </span>rm<span class="w"> </span>&lt;podId&gt;
+   <div class="language-bash highlight"><pre><span></span><code><span id="__span-9-1"><a id="__codelineno-9-1" name="__codelineno-9-1" href="#__codelineno-9-1"></a>podman<span class="w"> </span>pod<span class="w"> </span>stop<span class="w"> </span>&lt;podId&gt;
+</span><span id="__span-9-2"><a id="__codelineno-9-2" name="__codelineno-9-2" href="#__codelineno-9-2"></a>podman<span class="w"> </span>pod<span class="w"> </span>rm<span class="w"> </span>&lt;podId&gt;
 </span></code></pre></div></p>
 </li>
 </ol>
@@ -884,16 +898,16 @@
 <li>
 <p><strong>Create Resources in OpenShift:</strong>
     Switch to the desired project and create resources:
-    <div class="language-bash highlight"><pre><span></span><code><span id="__span-9-1"><a id="__codelineno-9-1" name="__codelineno-9-1" href="#__codelineno-9-1"></a>oc<span class="w"> </span>login<span class="w"> </span>--token<span class="o">=</span>&lt;your-token&gt;<span class="w"> </span>--server<span class="o">=</span>&lt;your-server-url&gt;
-</span><span id="__span-9-2"><a id="__codelineno-9-2" name="__codelineno-9-2" href="#__codelineno-9-2"></a>oc<span class="w"> </span>new-project<span class="w"> </span>pod-play
-</span><span id="__span-9-3"><a id="__codelineno-9-3" name="__codelineno-9-3" href="#__codelineno-9-3"></a>oc<span class="w"> </span>create<span class="w"> </span>-f<span class="w"> </span>pod.yaml<span class="w"> </span>-n<span class="w"> </span>pod-play
+    <div class="language-bash highlight"><pre><span></span><code><span id="__span-10-1"><a id="__codelineno-10-1" name="__codelineno-10-1" href="#__codelineno-10-1"></a>oc<span class="w"> </span>login<span class="w"> </span>--token<span class="o">=</span>&lt;your-token&gt;<span class="w"> </span>--server<span class="o">=</span>&lt;your-server-url&gt;
+</span><span id="__span-10-2"><a id="__codelineno-10-2" name="__codelineno-10-2" href="#__codelineno-10-2"></a>oc<span class="w"> </span>new-project<span class="w"> </span>pod-play
+</span><span id="__span-10-3"><a id="__codelineno-10-3" name="__codelineno-10-3" href="#__codelineno-10-3"></a>oc<span class="w"> </span>create<span class="w"> </span>-f<span class="w"> </span>pod.yaml<span class="w"> </span>-n<span class="w"> </span>pod-play
 </span></code></pre></div></p>
 </li>
 <li>
 <p><strong>Add Service and Route:</strong>
     Expose the application by creating a service and route:
-    <div class="language-bash highlight"><pre><span></span><code><span id="__span-10-1"><a id="__codelineno-10-1" name="__codelineno-10-1" href="#__codelineno-10-1"></a>oc<span class="w"> </span>create<span class="w"> </span>-f<span class="w"> </span>service.yaml<span class="w"> </span>-n<span class="w"> </span>pod-play
-</span><span id="__span-10-2"><a id="__codelineno-10-2" name="__codelineno-10-2" href="#__codelineno-10-2"></a>oc<span class="w"> </span>create<span class="w"> </span>-f<span class="w"> </span>route.yaml<span class="w"> </span>-n<span class="w"> </span>pod-play
+    <div class="language-bash highlight"><pre><span></span><code><span id="__span-11-1"><a id="__codelineno-11-1" name="__codelineno-11-1" href="#__codelineno-11-1"></a>oc<span class="w"> </span>create<span class="w"> </span>-f<span class="w"> </span>service.yaml<span class="w"> </span>-n<span class="w"> </span>pod-play
+</span><span id="__span-11-2"><a id="__codelineno-11-2" name="__codelineno-11-2" href="#__codelineno-11-2"></a>oc<span class="w"> </span>create<span class="w"> </span>-f<span class="w"> </span>route.yaml<span class="w"> </span>-n<span class="w"> </span>pod-play
 </span></code></pre></div></p>
 </li>
 <li>
@@ -908,7 +922,7 @@
 <li><strong>Create a Deployment:</strong></li>
 <li>
 <p>Use the following command to create a deployment for your application:
-     <div class="language-bash highlight"><pre><span></span><code><span id="__span-11-1"><a id="__codelineno-11-1" name="__codelineno-11-1" href="#__codelineno-11-1"></a>oc<span class="w"> </span>create<span class="w"> </span>deployment<span class="w"> </span>python-server<span class="w"> </span>--image<span class="o">=</span>registry.redhat.io/ubi9/python-312<span class="w"> </span>-n<span class="w"> </span>pod-play
+     <div class="language-bash highlight"><pre><span></span><code><span id="__span-12-1"><a id="__codelineno-12-1" name="__codelineno-12-1" href="#__codelineno-12-1"></a>oc<span class="w"> </span>create<span class="w"> </span>deployment<span class="w"> </span>python-server<span class="w"> </span>--image<span class="o">=</span>registry.redhat.io/ubi9/python-312<span class="w"> </span>-n<span class="w"> </span>pod-play
 </span></code></pre></div></p>
 </li>
 <li>
@@ -916,14 +930,14 @@
 </li>
 <li>
 <p>Check the status of the deployment to ensure it was created successfully:
-     <div class="language-bash highlight"><pre><span></span><code><span id="__span-12-1"><a id="__codelineno-12-1" name="__codelineno-12-1" href="#__codelineno-12-1"></a>oc<span class="w"> </span>get<span class="w"> </span>deployments<span class="w"> </span>-n<span class="w"> </span>pod-play
+     <div class="language-bash highlight"><pre><span></span><code><span id="__span-13-1"><a id="__codelineno-13-1" name="__codelineno-13-1" href="#__codelineno-13-1"></a>oc<span class="w"> </span>get<span class="w"> </span>deployments<span class="w"> </span>-n<span class="w"> </span>pod-play
 </span></code></pre></div></p>
 </li>
 <li>
 <p><strong>Check the Pods:</strong></p>
 </li>
 <li>Verify that pods are running as part of the deployment:
-     <div class="language-bash highlight"><pre><span></span><code><span id="__span-13-1"><a id="__codelineno-13-1" name="__codelineno-13-1" href="#__codelineno-13-1"></a>oc<span class="w"> </span>get<span class="w"> </span>pods<span class="w"> </span>-n<span class="w"> </span>pod-play
+     <div class="language-bash highlight"><pre><span></span><code><span id="__span-14-1"><a id="__codelineno-14-1" name="__codelineno-14-1" href="#__codelineno-14-1"></a>oc<span class="w"> </span>get<span class="w"> </span>pods<span class="w"> </span>-n<span class="w"> </span>pod-play
 </span></code></pre></div></li>
 </ol>
 <h3 id="exercise-2-scale-the-deployment">Exercise 2: Scale the Deployment</h3>
@@ -932,7 +946,7 @@
 <li><strong>Scale the Deployment:</strong></li>
 <li>
 <p>Increase the number of replicas to handle more traffic:
-     <div class="language-bash highlight"><pre><span></span><code><span id="__span-14-1"><a id="__codelineno-14-1" name="__codelineno-14-1" href="#__codelineno-14-1"></a>oc<span class="w"> </span>scale<span class="w"> </span>deployment/python-server<span class="w"> </span>--replicas<span class="o">=</span><span class="m">3</span><span class="w"> </span>-n<span class="w"> </span>pod-play
+     <div class="language-bash highlight"><pre><span></span><code><span id="__span-15-1"><a id="__codelineno-15-1" name="__codelineno-15-1" href="#__codelineno-15-1"></a>oc<span class="w"> </span>scale<span class="w"> </span>deployment/python-server<span class="w"> </span>--replicas<span class="o">=</span><span class="m">3</span><span class="w"> </span>-n<span class="w"> </span>pod-play
 </span></code></pre></div></p>
 </li>
 <li>
@@ -940,14 +954,14 @@
 </li>
 <li>
 <p>Check the status of the pods to ensure scaling was successful:
-     <div class="language-bash highlight"><pre><span></span><code><span id="__span-15-1"><a id="__codelineno-15-1" name="__codelineno-15-1" href="#__codelineno-15-1"></a>oc<span class="w"> </span>get<span class="w"> </span>pods<span class="w"> </span>-n<span class="w"> </span>pod-play
+     <div class="language-bash highlight"><pre><span></span><code><span id="__span-16-1"><a id="__codelineno-16-1" name="__codelineno-16-1" href="#__codelineno-16-1"></a>oc<span class="w"> </span>get<span class="w"> </span>pods<span class="w"> </span>-n<span class="w"> </span>pod-play
 </span></code></pre></div></p>
 </li>
 <li>
 <p><strong>Test the Application:</strong></p>
 </li>
 <li>Ensure the application is still accessible and functioning correctly:
-     <div class="language-bash highlight"><pre><span></span><code><span id="__span-16-1"><a id="__codelineno-16-1" name="__codelineno-16-1" href="#__codelineno-16-1"></a>curl<span class="w"> </span>http://&lt;route-url&gt;
+     <div class="language-bash highlight"><pre><span></span><code><span id="__span-17-1"><a id="__codelineno-17-1" name="__codelineno-17-1" href="#__codelineno-17-1"></a>curl<span class="w"> </span>http://&lt;route-url&gt;
 </span></code></pre></div></li>
 </ol>
 <h3 id="exercise-3-update-the-deployment-with-a-new-image">Exercise 3: Update the Deployment with a New Image</h3>
@@ -956,7 +970,7 @@
 <li><strong>Build a New Image:</strong></li>
 <li>
 <p>Make changes to your application and build a new image:
-     <div class="language-bash highlight"><pre><span></span><code><span id="__span-17-1"><a id="__codelineno-17-1" name="__codelineno-17-1" href="#__codelineno-17-1"></a>podman<span class="w"> </span>build<span class="w"> </span>-t<span class="w"> </span>python-server:v2<span class="w"> </span>.
+     <div class="language-bash highlight"><pre><span></span><code><span id="__span-18-1"><a id="__codelineno-18-1" name="__codelineno-18-1" href="#__codelineno-18-1"></a>podman<span class="w"> </span>build<span class="w"> </span>-t<span class="w"> </span>python-server:v2<span class="w"> </span>.
 </span></code></pre></div></p>
 </li>
 <li>
@@ -964,7 +978,7 @@
 </li>
 <li>
 <p>Update the deployment to use the new image:
-     <div class="language-bash highlight"><pre><span></span><code><span id="__span-18-1"><a id="__codelineno-18-1" name="__codelineno-18-1" href="#__codelineno-18-1"></a>oc<span class="w"> </span><span class="nb">set</span><span class="w"> </span>image<span class="w"> </span>deployment/python-server<span class="w"> </span>python-server<span class="o">=</span>python-server:v2<span class="w"> </span>-n<span class="w"> </span>pod-play
+     <div class="language-bash highlight"><pre><span></span><code><span id="__span-19-1"><a id="__codelineno-19-1" name="__codelineno-19-1" href="#__codelineno-19-1"></a>oc<span class="w"> </span><span class="nb">set</span><span class="w"> </span>image<span class="w"> </span>deployment/python-server<span class="w"> </span>python-server<span class="o">=</span>python-server:v2<span class="w"> </span>-n<span class="w"> </span>pod-play
 </span></code></pre></div></p>
 </li>
 <li>
@@ -972,14 +986,14 @@
 </li>
 <li>
 <p>Check the status of the deployment to ensure it updated successfully:
-     <div class="language-bash highlight"><pre><span></span><code><span id="__span-19-1"><a id="__codelineno-19-1" name="__codelineno-19-1" href="#__codelineno-19-1"></a>oc<span class="w"> </span>rollout<span class="w"> </span>status<span class="w"> </span>deployment/python-server<span class="w"> </span>-n<span class="w"> </span>pod-play
+     <div class="language-bash highlight"><pre><span></span><code><span id="__span-20-1"><a id="__codelineno-20-1" name="__codelineno-20-1" href="#__codelineno-20-1"></a>oc<span class="w"> </span>rollout<span class="w"> </span>status<span class="w"> </span>deployment/python-server<span class="w"> </span>-n<span class="w"> </span>pod-play
 </span></code></pre></div></p>
 </li>
 <li>
 <p><strong>Test the Updated Application:</strong></p>
 </li>
 <li>Verify that the updated application is running correctly:
-     <div class="language-bash highlight"><pre><span></span><code><span id="__span-20-1"><a id="__codelineno-20-1" name="__codelineno-20-1" href="#__codelineno-20-1"></a>curl<span class="w"> </span>http://&lt;route-url&gt;
+     <div class="language-bash highlight"><pre><span></span><code><span id="__span-21-1"><a id="__codelineno-21-1" name="__codelineno-21-1" href="#__codelineno-21-1"></a>curl<span class="w"> </span>http://&lt;route-url&gt;
 </span></code></pre></div></li>
 </ol>
 
