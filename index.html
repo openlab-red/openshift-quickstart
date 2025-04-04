@@ -277,15 +277,6 @@
   
 </li>
         
-          <li class="md-nav__item">
-  <a href="#open-the-project-with-visual-studio-code" class="md-nav__link">
-    <span class="md-ellipsis">
-      Open the Project with Visual Studio Code
-    </span>
-  </a>
-  
-</li>
-        
       </ul>
     </nav>
   
@@ -668,15 +659,6 @@
   
 </li>
         
-          <li class="md-nav__item">
-  <a href="#open-the-project-with-visual-studio-code" class="md-nav__link">
-    <span class="md-ellipsis">
-      Open the Project with Visual Studio Code
-    </span>
-  </a>
-  
-</li>
-        
       </ul>
     </nav>
   
@@ -723,6 +705,9 @@
 
 
 <h1 id="openshift-quickstart">OpenShift Quickstart</h1>
+<p>Welcome to the OpenShift Quickstart workshop! 
+This workshop is designed to provide you with a seamless development experience, whether you choose to work locally on your laptop or leverage the OpenShift DevSpaces Cloud IDE. 
+Both environments are equipped to help you efficiently set up and manage your development projects with ease. Follow the instructions below to get started with your preferred setup.</p>
 <h2 id="laptop">Laptop</h2>
 <h3 id="prerequisite-install-podman-desktop">Prerequisite: Install Podman Desktop</h3>
 <p>Before proceeding, make sure you have Podman Desktop installed on your laptop. 
@@ -731,58 +716,59 @@ You can download and install it from the official website: (https://podman-deskt
 <h3 id="git-clone">Git Clone</h3>
 <ol>
 <li>Open your terminal.</li>
-<li>Navigate to the directory where you want to clone the project.</li>
-<li>Run the following command to clone the Git repository:
-   <div class="language-text highlight"><pre><span></span><code><span id="__span-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a>git clone https://github.com/openlab-red/openshift-quickstart.git
-</span></code></pre></div>
-   Replace <code>https://github.com/openlab-red/openshift-quickstart.git</code> with the actual URL of the Git repository you want to clone.</li>
-</ol>
-<h3 id="open-the-project-with-visual-studio-code">Open the Project with Visual Studio Code</h3>
-<ol>
-<li>Navigate to the project directory:
-   <div class="language-text highlight"><pre><span></span><code><span id="__span-1-1"><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a>cd openshift-quickstart
-</span></code></pre></div>
-   Replace <code>openshift-quickstart</code> with the name of the directory where you cloned the Git repository.</li>
-<li>Open Visual Studio Code:
-   <div class="language-text highlight"><pre><span></span><code><span id="__span-2-1"><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a>code .
-</span></code></pre></div></li>
+<li>Choose your root workspace project:<ul>
+<li>Decide on the directory where you want your root workspace to reside. This will be the main directory for your project files and configurations.</li>
+</ul>
+</li>
+<li>Navigate to the directory where you want to clone the project (e.g. <code>/projects</code>).</li>
+<li>
+<p>Run the following command to clone the Git repository:
+   <div class="language-bash highlight"><pre><span></span><code><span id="__span-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="nb">cd</span><span class="w"> </span>/projects/
+</span><span id="__span-0-2"><a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a>git<span class="w"> </span>clone<span class="w"> </span>https://github.com/openlab-red/openshift-quickstart.git
+</span><span id="__span-0-3"><a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a>git<span class="w"> </span>clone<span class="w"> </span>https://github.com/openlab-red/openshift-quickstart-manifest.git
+</span></code></pre></div></p>
+</li>
+<li>
+<p>Open Visual Studio Code or your favourite IDEs:
+   <div class="language-bash highlight"><pre><span></span><code><span id="__span-1-1"><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a>code<span class="w"> </span>.
+</span></code></pre></div></p>
+</li>
 </ol>
 <h2 id="devspaces">DevSpaces</h2>
 <h3 id="using-devspaces-with-devfile">Using DevSpaces with Devfile</h3>
-<p>OpenShift DevSpaces provides a cloud-based development environment using the configuration specified in the <code>devfile.yaml</code>. Follow these steps to get started:</p>
+<p>OpenShift DevSpaces provides a cloud-based development environment using the configuration specified in the <code>devfile.yaml</code>. </p>
+<p>Follow these steps to get started:</p>
 <ol>
 <li>
-<p>Log into your OpenShift cluster and navigate to the DevSpaces dashboard.</p>
+<p>Log into your OpenShift cluster.
+   <img alt="OpenShift" src="assets/images/openshift.png" /></p>
+</li>
+<li>
+<p>Navigate to the DevSpaces dashboard.
+   <img alt="DevSpaces" src="assets/images/devspaces.png" /></p>
 </li>
 <li>
 <p>Create a new workspace by importing this repository URL:
-   <div class="language-text highlight"><pre><span></span><code><span id="__span-3-1"><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a>https://github.com/openlab-red/openshift-quickstart.git
+   <div class="language-bash highlight"><pre><span></span><code><span id="__span-2-1"><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a>https://github.com/openlab-red/openshift-quickstart.git
 </span></code></pre></div>
+   <img alt="DevSpaces" src="assets/images/create-workspace.png" />
    DevSpaces will automatically detect and use the <code>devfile.yaml</code> at the root of the project.</p>
 </li>
 <li>
 <p>The devfile configures:</p>
-</li>
+<ul>
 <li>A developer container with ZSH shell</li>
 <li>Default workspace pointing to the project's VS Code workspace</li>
-<li>
-<p>Required environment variables and configurations</p>
+<li>Required environment variables and configurations</li>
+</ul>
 </li>
 <li>
 <p>Once the workspace starts:</p>
-</li>
+<ul>
 <li>You'll have a fully configured development environment</li>
-<li>VS Code server will be available in your browser</li>
-<li>
-<p>All necessary tools and dependencies will be pre-installed</p>
-</li>
-<li>
-<p>Start developing:
-   <div class="language-bash highlight"><pre><span></span><code><span id="__span-4-1"><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a><span class="c1"># Your workspace is ready with:</span>
-</span><span id="__span-4-2"><a id="__codelineno-4-2" name="__codelineno-4-2" href="#__codelineno-4-2"></a>-<span class="w"> </span>ZSH<span class="w"> </span>shell<span class="w"> </span>configured
-</span><span id="__span-4-3"><a id="__codelineno-4-3" name="__codelineno-4-3" href="#__codelineno-4-3"></a>-<span class="w"> </span>VS<span class="w"> </span>Code<span class="w"> </span>extensions
-</span><span id="__span-4-4"><a id="__codelineno-4-4" name="__codelineno-4-4" href="#__codelineno-4-4"></a>-<span class="w"> </span>Project<span class="w"> </span>workspace<span class="w"> </span>loaded
-</span></code></pre></div></p>
+<li>All necessary tools and dependencies will be pre-installed
+   <img alt="DevSpaces" src="assets/images/workspace.png" /></li>
+</ul>
 </li>
 </ol>
 <blockquote>
