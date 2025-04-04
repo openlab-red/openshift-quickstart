@@ -61,6 +61,19 @@ Create the name of the service account to use
 {{- end }}
 {{- end }}
 
+{{- define "pipeline.type" -}}
+{{- $name := .Release.Name -}}
+{{- if contains "java" $name -}}
+java
+{{- else if contains "golang" $name -}}
+golang
+{{- else if contains "js" $name -}}
+js
+{{- else -}}
+{{ fail "Error: Unknown pipeline type detected. Please check the release name." }}
+{{- end -}}
+{{- end }}
+
 
 {{- define "pipeline.java-build" -}}
     - name: build-app
@@ -116,5 +129,33 @@ Create the name of the service account to use
           workspace: {{ include "pipeline.fullname" . }}-ws
 {{- end }}
 
-{{- define "pipeline.js-build" -}}
+{{- define "pipeline.js-build" -}}          
+    - name: build-app
+      params:
+        - name: IMAGE
+          value: registry.redhat.io/ubi9/nodejs-22:latest
+        - name: ARGS
+          value: 
+          - run 
+          - build
+        - name: PATH_CONTEXT
+          value: $(params.CONTEXT_DIR)
+      runAfter:
+        - fetch-repository
+      taskRef:
+        resolver: hub
+        params:
+        - name: catalog
+          value: tekton
+        - name: type
+          value: tekton
+        - name: kind
+          value: task
+        - name: name
+          value: npm
+        - name: version
+          value: "0.1"
+      workspaces:
+        - name: source
+          workspace: {{ include "pipeline.fullname" . }}-ws
 {{- end }}

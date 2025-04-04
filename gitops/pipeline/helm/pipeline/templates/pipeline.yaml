@@ -7,10 +7,6 @@ metadata:
     {{- include "pipeline.labels" . | nindent 4 }}
 spec:
   params:
-    - default: {{ .Release.Name }}
-      description: name of the deployment to be patched
-      name: deployment-name
-      type: string
     - default: 'https://github.com/openlab-red/openshift-quickstart/'
       description: url of the git repo for the code of deployment
       name: git-url
@@ -19,11 +15,11 @@ spec:
       description: revision to be used from repo of the code for deployment
       name: git-revision
       type: string
-    - default: quay.io/quickstart/{{ .Release.Name  }}
+    - default: quay.io/quickstart/{{ include "pipeline.type" . }}
       description: image to be build from the code
       name: IMAGE
       type: string
-    - default: tutorials/{{ .Release.Name  }}/{{ .Values.subPath }}
+    - default: tutorials/{{ include "pipeline.type" . }}/{{ .Values.subPath }}
       description: context dir
       name: CONTEXT_DIR
       type: string
@@ -77,22 +73,22 @@ spec:
         - name: namespace
           value: openshift-pipelines
 
-{{- if eq .Release.Name "java" }}
+{{- if contains "java" .Release.Name }}
     {{ include "pipeline.java-build" . }}
 {{- end }}
 
-{{- if eq .Release.Name "golang" }}
+{{- if contains "golang" .Release.Name }}
     {{ include "pipeline.golang-build" . }}
 {{- end }}
 
-{{- if eq .Release.Name "js" }}
+{{- if contains "js" .Release.Name }}
     {{ include "pipeline.js-build" . }}
 {{- end }}
 
     - name: build-image
       params:
         - name: IMAGE
-          value: 'quay.io/quickstart/{{ .Release.Name }}:s-$(tasks.tag.results.tag)'
+          value: 'quay.io/quickstart/{{ include "pipeline.type" . }}/{{ .Values.appName }}:s-$(tasks.tag.results.tag)'
         - name: CONTEXT
           value: $(params.CONTEXT_DIR)
         - name: DOCKERFILE
@@ -121,10 +117,10 @@ spec:
     - name: publish
       params:
         - name: SOURCE_IMAGE_URL
-          value: 'docker://quay.io/quickstart/{{ .Release.Name }}:s-$(tasks.tag.results.tag)'
+          value: 'docker://quay.io/quickstart/{{ include "pipeline.type" . }}/{{ .Values.appName }}:s-$(tasks.tag.results.tag)'
         - name: DESTINATION_IMAGE_URL
           value: >-
-            docker://quay.io/quickstart/{{ .Release.Name }}:$(tasks.tag.results.tag)
+            docker://quay.io/quickstart/{{ include "pipeline.type" . }}/{{ .Values.appName }}:$(tasks.tag.results.tag)
       runAfter:
         - build-image
       taskRef:
@@ -171,9 +167,10 @@ spec:
       params:
         - name: commands
           value: |
-            VALUES_FILE={{ .Release.Name }}/helm/values-{{ .Release.Namespace }}.yaml && \
+            CONTEXT_PATH={{ include "pipeline.type" . }}{{ if .Values.manifestPath }}/{{ .Values.manifestPath }}{{ end }} && \
+            VALUES_FILE=$CONTEXT_PATH/helm/values-{{ .Release.Namespace }}.yaml && \
             touch $VALUES_FILE && \
-            yq eval '.image.repository = "quay.io/quickstart/{{ .Release.Name }}"' $VALUES_FILE -i && \
+            yq eval '.image.repository = "quay.io/quickstart/{{ include "pipeline.type" . }}"' $VALUES_FILE -i && \
             yq eval '.image.tag = "$(tasks.tag.results.tag)"' $VALUES_FILE -i
       runAfter:
         - fetch-manifest
@@ -196,7 +193,7 @@ spec:
         - name: git_revision
           value: main
         - name: image
-          value: 'quay.io/quickstart/{{ .Release.Name }}:$(tasks.tag.results.tag)'
+          value: 'quay.io/quickstart/{{ include "pipeline.type" . }}:$(tasks.tag.results.tag)'
         - name: push_retry_count
           value: '3'
       runAfter:

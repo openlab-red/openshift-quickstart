@@ -6,4 +6,5 @@
 nameOverride: ""
 fullnameOverride: ""
 
+appName: quarkus
 subPath: quarkus

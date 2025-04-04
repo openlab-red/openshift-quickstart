@@ -6,4 +6,10 @@
 nameOverride: ""
 fullnameOverride: ""
 
+# The following variables are used to configure the pipeline:
+# - appName: The name of the application being deployed.
+appName: ""
+# Specifies the subPath within the git repository
 subPath: ""
+# The 'manifestPath' variable specifies the path within the git repository where the manifest files are located.
+manifestPath: ""

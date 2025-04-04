@@ -20,18 +20,16 @@ spec:
           tekton.dev/pipeline: {{ include "pipeline.fullname" . }}-pipeline
       spec:
         params:
-          - name: deployment-name
-            value: {{ .Release.Name }}
           - name: git-url
             value: 'https://github.com/openlab-red/openshift-quickstart/'
           - name: git-revision
             value: main
           - name: IMAGE
-            value: quay.io/quickstart/{{ .Release.Name }}
+            value: quay.io/quickstart/{{ include "pipeline.type" . }}
           - name: CONTAINER_FILE
             value: Containerfile
           - name: CONTEXT_DIR
-            value: tutorials/{{ .Release.Name }}/{{ .Values.subPath }}
+            value: tutorials/{{ include "pipeline.type" . }}/{{ .Values.subPath }}
           - name: git-manifest-url
             value: 'https://github.com/openlab-red/openshift-quickstart-manifest/'
         pipelineRef:

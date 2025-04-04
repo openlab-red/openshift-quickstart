@@ -6,6 +6,5 @@
 nameOverride: ""
 fullnameOverride: ""
 
-appName: frontend
-subPath: frontend/app
-manifestPath: frontend
+appName: springboot
+subPath: springboot

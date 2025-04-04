@@ -8,7 +8,7 @@
     "startdev": "nodemon index.js",
     "eslint": "eslint ./",
     "eslint-fix": "eslint ./ --fix",
-    "build": "webpack",
+    "build": "npm install && webpack",
     "prod": "node dist/final.js"
   },
   "keywords": [],
@@ -16,11 +16,13 @@
   "license": "ISC",
   "description": "",
   "dependencies": {
+    "build": "^0.1.4",
     "compression": "^1.7.4",
     "cors": "^2.8.5",
     "express": "^4.19.2",
     "path": "^0.12.7",
-    "pg": "^8.12.0"
+    "pg": "^8.12.0",
+    "run": "^1.5.0"
   },
   "devDependencies": {
     "@eslint/js": "^9.9.0",
