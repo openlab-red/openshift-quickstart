@@ -1,0 +1,14 @@
+nav:
+  - index.md
+  - tutorials/simple/index.md
+  - tutorials/python/index.md
+  - tutorials/rbac/index.md
+  - NodeJS: tutorials/js/index.md
+  - tutorials/networkpolicy/index.md
+  - GoLang: tutorials/golang/index.md
+  - Java:
+    - tutorials/java/index.md
+    - tutorials/java/helloworld/index.md
+    - tutorials/java/quarkus/index.md
+    - tutorials/java/springboot/index.md
+  - Pipeline: tutorials/pipeline/index.md
