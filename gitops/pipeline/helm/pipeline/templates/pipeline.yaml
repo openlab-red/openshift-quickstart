@@ -15,7 +15,7 @@ spec:
       description: revision to be used from repo of the code for deployment
       name: git-revision
       type: string
-    - default: quay.io/quickstart/{{ include "pipeline.type" . }}
+    - default: quay.io/quickstart/{{ include "pipeline.type" . }}/{{ .Values.appName }}
       description: image to be build from the code
       name: IMAGE
       type: string
@@ -170,7 +170,7 @@ spec:
             CONTEXT_PATH={{ include "pipeline.type" . }}{{ if .Values.manifestPath }}/{{ .Values.manifestPath }}{{ end }} && \
             VALUES_FILE=$CONTEXT_PATH/helm/values-{{ .Release.Namespace }}.yaml && \
             touch $VALUES_FILE && \
-            yq eval '.image.repository = "quay.io/quickstart/{{ include "pipeline.type" . }}"' $VALUES_FILE -i && \
+            yq eval '.image.repository = "quay.io/quickstart/{{ include "pipeline.type" . }}/{{ .Values.appName }}"' $VALUES_FILE -i && \
             yq eval '.image.tag = "$(tasks.tag.results.tag)"' $VALUES_FILE -i
       runAfter:
         - fetch-manifest
