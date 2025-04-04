@@ -1,0 +1,21 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: go-app
+spec:
+  destination:
+    name: ''
+    namespace: devspaces-admin
+    server: 'https://kubernetes.default.svc'
+  source:
+    path: golang/helm
+    repoURL: 'https://github.com/openlab-red/openshift-quickstart-manifest'
+    targetRevision: HEAD
+    helm:
+      valueFiles:
+      - values-devspaces-admin.yaml
+  project: default
+  syncPolicy:
+    automated:
+      prune: false
+      selfHeal: false

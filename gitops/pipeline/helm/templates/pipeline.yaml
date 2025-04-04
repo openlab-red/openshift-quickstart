@@ -193,7 +193,7 @@ spec:
         - name: git_revision
           value: main
         - name: image
-          value: 'quay.io/quickstart/{{ include "pipeline.type" . }}:$(tasks.tag.results.tag)'
+          value: 'quay.io/quickstart/{{ include "pipeline.type" . }}/{{ .Values.appName }}:$(tasks.tag.results.tag)'
         - name: push_retry_count
           value: '3'
       runAfter:
