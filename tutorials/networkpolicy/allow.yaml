@@ -5,11 +5,11 @@ metadata:
 spec:
   podSelector:
     matchLabels:
-      app.kubernetes.io/name: openshift-quickstart
+      app: python-server
   policyTypes:
   - Ingress
   ingress:
   - from:
     - podSelector:
         matchLabels:
-          app: python-server
+          app: python-server-second

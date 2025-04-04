@@ -1,3 +1,9 @@
+# This YAML configuration defines a Kubernetes Service resource.
+# A Service provides a stable network endpoint to access one or more Pods.
+#
+# The Service is named 'python-server-service' and selects Pods with the label 'app: python-server'.
+# It listens on port 8000 and forwards traffic to port 8000 of the selected Pods.
+# The protocol used is TCP, which is standard for HTTP traffic.
 ---
 apiVersion: v1
 kind: Service

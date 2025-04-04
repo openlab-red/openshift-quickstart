@@ -1,5 +1,5 @@
 ---
-# This RoleBinding assigns the pod-reader Role to user1 in the pod-play namespace
+# This RoleBinding assigns the pod-reader Role to userX in the namespaceX namespace
 # The RoleBinding connects a Role (which defines permissions) to a Subject (user/group/service account)
 kind: RoleBinding
 apiVersion: rbac.authorization.k8s.io/v1
@@ -7,11 +7,11 @@ metadata:
   # Name of this RoleBinding
   name: pod-reader-binding
   # Namespace where this binding applies
-  namespace: pod-play
+  namespace: namespaceX
 subjects:
 # List of subjects (users/groups/service accounts) who get the role
 - kind: User # This binding is for a User
-  name: user1 # The username who gets the permissions
+  name: userX # The username who gets the permissions
   apiGroup: rbac.authorization.k8s.io # API group for RBAC resources
 roleRef:
   # Reference to the Role being bound

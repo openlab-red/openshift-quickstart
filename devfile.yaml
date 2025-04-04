@@ -13,5 +13,13 @@ metadata:
   version: 1.0.0
   displayName: Devfile
   description: Devfile for OpenShift DevSpace.
-projects: []
+projects:
+  - name: openshift-quickstart
+    git:
+      remotes:
+        origin: https://github.com/openlab-red/openshift-quickstart.git
+  - name: openshift-quickstart-manifest
+    git:
+      remotes:
+        origin: https://github.com/openlab-red/openshift-quickstart-manifest.git
 schemaVersion: 2.3.0

@@ -3,6 +3,7 @@ theme:
   features:
     - navigation.instant
     - navigation.instant.progress
+    - content.code.copy
   name: material
   palette:
     scheme: default
@@ -30,3 +31,7 @@ markdown_extensions:
 plugins:
    - search
    - awesome-nav
+   - macros
+
+extra:
+  base_url: 'apps.cluster-2jp75.2jp75.sandbox2851.opentlc.com'

@@ -1,10 +1,11 @@
 nav:
   - index.md
   - tutorials/simple/index.md
-  - tutorials/python/index.md
+  - Simple Pod: tutorials/python/index.md
   - tutorials/rbac/index.md
-  - NodeJS: tutorials/js/index.md
   - tutorials/networkpolicy/index.md
+  - tutorials/helm+kustomize/index.md
+  - NodeJS: tutorials/js/index.md
   - GoLang: tutorials/golang/index.md
   - Java:
     - tutorials/java/index.md

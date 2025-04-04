@@ -1,3 +1,10 @@
+# This YAML configuration defines an OpenShift Route resource.
+# A Route exposes a service at a hostname so external clients can reach it.
+# 
+# The Route is named 'python-server-route' and points to a Service named 'python-server-service'.
+# It routes external traffic to port 8000 of the service.
+# The weight of 100 means all traffic goes to this service (useful for A/B deployments).
+# wildcardPolicy: None means this Route does not accept wildcard subdomain requests.
 ---
 apiVersion: route.openshift.io/v1
 kind: Route

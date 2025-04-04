@@ -2,84 +2,62 @@
 
 ## Tutorials
 
-> The code examples and instructions in this tutorial are located in the `tutorials/rbac` directory. Ensure you are in this directory before executing the commands.
+This demonstrates how to set up and test role-based access control in OpenShift.
 
-This guide demonstrates how to set up and test role-based access control in OpenShift.
+> The code examples and instructions in this tutorial are located under `openshift-quickstart` project in the
+> `tutorials/rbac` directory. 
+> Ensure you are in this directory before executing the commands.
+>
+
+1. Navigate to the Tutorial Directory
+    ```bash
+    # Change to the tutorials/simple directory
+    cd openshift-quickstart/tutorials/rbac
+    ```
+
+2. Or open a New Terminal
 
 ### Steps
 
-1. **Create the Pod Reader Role**
-   As an admin user, create a role that allows reading pod information:
+1. As an admin user of your namespaces, create a role that allows reading pod information:
    ```bash
-   oc create -f pod-reader.yaml -n pod-play
+   oc create -f pod-reader.yaml
    ```
 
-2. **Bind the Role to a User**
-   Create a RoleBinding to assign the pod-reader role to user1:
+2. Create a RoleBinding to assign the pod-reader role to your user friend userX:
    ```bash
-   oc create -f pod-reader-binding.yaml -n pod-play
+   # Replace userX with the target user and namespaceX with your namespace in the pod-reader-binding.
+   sed -i 's/namespaceX/<your-namespace>/g' pod-reader-binding.yaml
+   sed -i 's/userX/user2/g' pod-reader-binding.yaml
+   oc create -f pod-reader-binding.yaml
    ```
 
-3. **Test Limited Access**
-   Login as user1 and verify that you can:
+3. Ask your friend as userX and verify that you can:
    - View pods (`oc get pods`)
    - Cannot access other resources (services, routes, etc.)
 
-4. **Grant Additional Permissions**
-   Add the standard view role to allow broader access:
+4. Add the standard view role to allow broader access:
    ```bash
-   oc adm policy add-role-to-user view user1 -n pod-play
+   oc adm policy add-role-to-user view userX -n <your-namespace>
    ```
 
-5. **Verify Extended Access**
-   Login as user1 again and confirm that you can now:
+5. Login as userX again and confirm that you can now:
    - View all basic resources in the namespace
-   - View pods, services, routes, configmaps, etc.
+   - View pods, services, routes, configmaps, etc (no secrets).
    - Cannot modify any resources (read-only access)
 
 ## Exercises
 
-### Exercise 1: Create a Custom Role
-
-**Objective:** Learn how to create a custom role with specific permissions.
-
-1. **Define a Custom Role:**
-   - Create a YAML file named `custom-role.yaml` with the following content to define a role that allows listing and watching pods:
-     ```yaml
-     kind: Role
-     apiVersion: rbac.authorization.k8s.io/v1
-     metadata:
-       namespace: pod-play
-       name: custom-pod-watcher
-     rules:
-     - apiGroups: [""]
-       resources: ["pods"]
-       verbs: ["list", "watch"]
-     ```
-
-2. **Create the Role:**
-   - Apply the role using the following command:
-     ```bash
-     oc create -f custom-role.yaml -n pod-play
-     ```
-
-3. **Verify the Role:**
-   - Check that the role has been created:
-     ```bash
-     oc get roles -n pod-play
-     ```
-
-### Exercise 2: Modify an Existing Role
+### Exercise 1: Modify an Existing Role
 
 **Objective:** Learn how to modify an existing role to add or remove permissions.
 
-1. **Edit the Pod Reader Role:**
-   - Open the `pod-reader.yaml` file and add permissions to list services:
+1. Open the `pod-reader.yaml` file and add permissions to list services:
      ```yaml
      kind: Role
      apiVersion: rbac.authorization.k8s.io/v1
      metadata:
-       namespace: pod-play
+       namespace: namespaceX
        name: pod-reader
      rules:
      - apiGroups: [""]
@@ -90,55 +68,79 @@ This guide demonstrates how to set up and test role-based access control in Open
        verbs: ["list"]
      ```
 
-2. **Update the Role:**
-   - Apply the changes to update the role:
+2. Apply the changes to update the role:
+   ```bash
+     oc apply -f pod-reader.yaml
+   ```
+
+3. Check the updated role to ensure the changes were applied:
+   ```bash
+   oc get role pod-reader -o yaml
+   ```
+
+4. Verify that you user friend can now list services in addition to viewing pods:
+    ```bash
+    oc get services
+    oc get pods
+    ```
+   Ensure that you cannot modify any resources:
+   ```bash
+   # Attempting to delete a pod should fail
+   oc delete pod <pod-name>
+   ```
+   Confirm that you still cannot access other resources like secrets:
+   ```bash
+   oc get secrets
+   ```
+
+### Exercise 3: Create a Service Account
+
+**Objective:** Learn how to create a service account and bind a role to it within your own namespace.
+
+> Note: A service account in Kubernetes is an identity that processes within a pod can use to interact with the Kubernetes API. It provides a way to control access to resources within a namespace, allowing for more granular permission management compared to using user accounts. Service accounts are particularly useful for applications running within the cluster that need to interact with the Kubernetes API.
+
+
+1. Use the following command to create a service account named `pod-viewer` in your namespace:
+    ```bash
+    oc create serviceaccount pod-viewer -n pod-play
+    ```
+
+2. Create a YAML file named `sa-rolebinding.yaml` to bind the `view` role to the `pod-viewer` service account:
+    > Note: Ensure to replace `namespaceX` with your actual namespace where you want the service account and role binding to be applied.
+
+    ```yaml
+    kind: RoleBinding
+    apiVersion: rbac.authorization.k8s.io/v1
+    metadata:
+      name: sa-view-binding
+      namespace: namespaceX
+    subjects:
+    - kind: ServiceAccount
+      name: pod-viewer
+      namespace: namespaceX
+    roleRef:
+      kind: Role
+      name: view
+      apiGroup: rbac.authorization.k8s.io
+    ```
+
+3. Use the following command to create the role binding for the service account:
      ```bash
-     oc apply -f pod-reader.yaml -n pod-play
+     oc create -f sa-rolebinding.yaml
      ```
 
-3. **Verify the Changes:**
-   - Check the updated role to ensure the changes were applied:
+4. Check that the service account and role binding have been created:
      ```bash
-     oc get role pod-reader -o yaml -n pod-play
+     oc get serviceaccounts
+     oc get rolebindings
      ```
 
-### Exercise 3: Create a RoleBinding for a Group
-
-**Objective:** Learn how to bind a role to a group of users.
-
-1. **Create a Group:**
-   - Add users to a group named `dev-team`:
+5. Use the service account to verify that it can view and list pods in the `namespaceX` namespace:
      ```bash
-     oc adm groups new dev-team
-     oc adm groups add-users dev-team user2 user3
+     oc auth can-i get pods --as=system:serviceaccount:namespaceX:pod-viewer -n namespaceX
      ```
-
-2. **Create a RoleBinding:**
-   - Create a YAML file named `group-rolebinding.yaml` to bind the `view` role to the `dev-team` group:
-     ```yaml
-     kind: RoleBinding
-     apiVersion: rbac.authorization.k8s.io/v1
-     metadata:
-       name: view-binding
-       namespace: pod-play
-     subjects:
-     - kind: Group
-       name: dev-team
-       apiGroup: rbac.authorization.k8s.io
-     roleRef:
-       kind: Role
-       name: view
-       apiGroup: rbac.authorization.k8s.io
-     ```
-
-3. **Apply the RoleBinding:**
-   - Use the following command to create the role binding:
+   Ensure that the service account cannot modify resources:
      ```bash
-     oc create -f group-rolebinding.yaml -n pod-play
-     ```
-
-4. **Verify the RoleBinding:**
-   - Check that the role binding has been created:
-     ```bash
-     oc get rolebindings -n pod-play
+     # Attempting to delete a pod should fail
+     oc auth can-i delete pod --as=system:serviceaccount:namespaceX:pod-viewer -n namespaceX
      ```

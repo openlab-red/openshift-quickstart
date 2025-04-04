@@ -6,11 +6,13 @@ namespace: openshift-operators
 components:
 - ../components/featuregate
 - ../components/containerruntime
+- ../components/operators/imageregistry
 - ../components/operators/devspaces
 - ../components/operators/devworkspaces
 - ../components/operators/kubernetes-imagepuller
+- ../components/operators/pipeline
+- ../components/operators/gitops
 - ../components/scc/nested-container
-- ../components/scc/pipeline
-- ../components/scc/gitops
+
 
 resources: []
