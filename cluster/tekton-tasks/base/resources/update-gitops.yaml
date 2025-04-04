@@ -44,6 +44,7 @@ spec:
       script: |
         git config --global --add safe.directory /workspace/source
         git config --global credential.helper store
+         git config pull.rebase true
         echo "https://$(cat /workspace/git-credentials/username | sed 's/@/%40/g'):$(cat /workspace/git-credentials/password)@github.com" > /tekton/home/.git-credentials
 
         git add .
