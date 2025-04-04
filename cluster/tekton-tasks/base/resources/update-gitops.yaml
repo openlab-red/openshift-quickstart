@@ -1,9 +1,9 @@
 apiVersion: tekton.dev/v1beta1
 kind: Task
 metadata:
-  name: {{ include "pipeline.fullname" . }}-gitops
+  name: update-gitops
   labels:
-    {{- include "pipeline.labels" . | nindent 4 }}
+    app.kubernetes.io/version: "0.1"
   annotations:
     tekton.dev/pipelines.minVersion: "0.12.1"
     tekton.dev/categories: Build Tools

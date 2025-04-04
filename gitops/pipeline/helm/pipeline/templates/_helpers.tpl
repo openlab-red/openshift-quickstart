@@ -103,8 +103,14 @@ Create the name of the service account to use
       runAfter:
         - fetch-repository
       taskRef:
-          name: golang-build
-          kind: Task
+        resolver: cluster
+        params:
+        - name: kind
+          value: task
+        - name: name
+          value: golang-build
+        - name: namespace
+          value: openshift-pipelines
       workspaces:
         - name: source
           workspace: {{ include "pipeline.fullname" . }}-ws

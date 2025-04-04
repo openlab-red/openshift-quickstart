@@ -2,9 +2,7 @@
 apiVersion: tekton.dev/v1beta1
 kind: Task
 metadata:
-  name: {{ include "pipeline.fullname" . }}-yq
-  labels:
-    {{- include "pipeline.labels" . | nindent 4 }}
+  name: gen-tag
   labels:
     app.kubernetes.io/version: "0.1"
   annotations:
@@ -14,17 +12,19 @@ metadata:
     tekton.dev/displayName: "tag"
     tekton.dev/platforms: "linux/amd64,linux/s390x,linux/ppc64le,linux/arm64"
 spec:
-  workspaces:
-    - name: source
+  description: Tag timestamp
   params:
-    - name: commands
+    - name: prefix
       type: string
-      description: The set of commands to run
+      description: prefix
+  results:
+    - description: tag
+      name: tag
+      type: string
   steps:
-    - name: yq
-      workingDir: $(workspaces.source.path)
-      image: mikefarah/yq:4
+    - image: redhat/ubi8-minimal
+      name: get-tag
+      resources: {}
       script: |
-        #!/usr/bin/env sh
-        set -x
-        $(params.commands)
+        #!/usr/bin/env bash
+        echo $(params.prefix)-$(date +%H%M) |  tr -d "\n" | tee $(results.tag.path)

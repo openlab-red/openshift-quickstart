@@ -64,9 +64,18 @@ spec:
     - name: tag
       runAfter:
         - fetch-repository
+      params:
+        - name: prefix
+          value: {{ .Release.Namespace }}
       taskRef:
-        kind: Task
-        name: {{ include "pipeline.fullname" . }}-tag
+        resolver: cluster
+        params:
+        - name: kind
+          value: task
+        - name: name
+          value: gen-tag
+        - name: namespace
+          value: openshift-pipelines
 
 {{- if eq .Release.Name "java" }}
     {{ include "pipeline.java-build" . }}
@@ -169,14 +178,20 @@ spec:
       runAfter:
         - fetch-manifest
       taskRef:
-        kind: Task
-        name: {{ include "pipeline.fullname" . }}-yq
+        resolver: cluster
+        params:
+        - name: kind
+          value: task
+        - name: name
+          value: yq
+        - name: namespace
+          value: openshift-pipelines
       workspaces:
         - name: source
           workspace: {{ include "pipeline.fullname" . }}-resource-ws
 
 
-    - name: gitops-update-image
+    - name: update-gitops
       params:
         - name: git_revision
           value: main
@@ -187,8 +202,14 @@ spec:
       runAfter:
         - update-manifest
       taskRef:
-        kind: Task
-        name: {{ include "pipeline.fullname" . }}-gitops
+        resolver: cluster
+        params:
+          - name: kind
+            value: task
+          - name: name
+            value: update-gitops
+          - name: namespace
+            value: openshift-pipelines
       workspaces:
         - name: source
           workspace: {{ include "pipeline.fullname" . }}-resource-ws
