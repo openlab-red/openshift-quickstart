@@ -698,139 +698,143 @@
 <h2 id="tutorial">Tutorial</h2>
 <p>This guide walks through basic container operations using Podman.</p>
 <blockquote>
-<p>The code examples and instructions in this tutorial are located in the <code>tutorials/simple</code> directory. Ensure you are in this directory before executing the commands.</p>
+<p>The code examples and instructions in this tutorial are located under <code>openshift-quickstart</code> project in the
+<code>tutorials/simple</code> directory. 
+Ensure you are in this directory before executing the commands.
+</p>
 </blockquote>
 <ol>
 <li>
-<p>Build the Container Image</p>
-<div class="language-bash highlight"><pre><span></span><code><span id="__span-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="c1"># Build an image tagged as &#39;simple:latest&#39; from the Dockerfile in current directory</span>
-</span><span id="__span-0-2"><a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a>podman<span class="w"> </span>build<span class="w"> </span>-t<span class="w"> </span>simple:latest<span class="w"> </span>.
-</span></code></pre></div>
+<p>Navigate to the Tutorial Directory
+    <div class="language-bash highlight"><pre><span></span><code><span id="__span-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="c1"># Change to the tutorials/simple directory</span>
+</span><span id="__span-0-2"><a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a><span class="nb">cd</span><span class="w"> </span>openshift-quickstart/tutorials/simple
+</span></code></pre></div></p>
 </li>
 <li>
-<p>Run the Container</p>
-<div class="language-bash highlight"><pre><span></span><code><span id="__span-1-1"><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a><span class="c1"># Run the container in detached mode</span>
-</span><span id="__span-1-2"><a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a>podman<span class="w"> </span>run<span class="w"> </span>-d<span class="w"> </span>simple:latest
-</span></code></pre></div>
+<p>Or open a New Terminal
+  <img alt="Terminal" src="../../assets/images/tutorials/simple/terminal.png" /></p>
+</li>
+<li>
+<p>Build the Container Image
+    <div class="language-bash highlight"><pre><span></span><code><span id="__span-1-1"><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a><span class="c1"># Build an image tagged as &#39;simple:latest&#39; from the Dockerfile in current directory</span>
+</span><span id="__span-1-2"><a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a>podman<span class="w"> </span>build<span class="w"> </span>-t<span class="w"> </span>simple:latest<span class="w"> </span>.
+</span></code></pre></div></p>
+</li>
+<li>
+<p>Run the Container
+    <div class="language-bash highlight"><pre><span></span><code><span id="__span-2-1"><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a><span class="c1"># Run the container in detached mode</span>
+</span><span id="__span-2-2"><a id="__codelineno-2-2" name="__codelineno-2-2" href="#__codelineno-2-2"></a>podman<span class="w"> </span>run<span class="w"> </span>-d<span class="w"> </span>simple:latest
+</span></code></pre></div></p>
 </li>
 <li>
 <p>View Running Containers
-    <div class="language-bash highlight"><pre><span></span><code><span id="__span-2-1"><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a><span class="c1"># List all running containers</span>
-</span><span id="__span-2-2"><a id="__codelineno-2-2" name="__codelineno-2-2" href="#__codelineno-2-2"></a>podman<span class="w"> </span>ps<span class="w"> </span>-a
+    <div class="language-bash highlight"><pre><span></span><code><span id="__span-3-1"><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a><span class="c1"># List all running containers</span>
+</span><span id="__span-3-2"><a id="__codelineno-3-2" name="__codelineno-3-2" href="#__codelineno-3-2"></a>podman<span class="w"> </span>ps<span class="w"> </span>-a
 </span></code></pre></div></p>
 </li>
 <li>
 <p>Interactive Shell Access
-    <div class="language-bash highlight"><pre><span></span><code><span id="__span-3-1"><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a><span class="c1"># Start a new container with an interactive bash shell</span>
-</span><span id="__span-3-2"><a id="__codelineno-3-2" name="__codelineno-3-2" href="#__codelineno-3-2"></a>podman<span class="w"> </span>run<span class="w"> </span>-it<span class="w"> </span>--entrypoint<span class="w"> </span>/bin/bash<span class="w"> </span>simple:latest
+    <div class="language-bash highlight"><pre><span></span><code><span id="__span-4-1"><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a><span class="c1"># Start a new container with an interactive bash shell</span>
+</span><span id="__span-4-2"><a id="__codelineno-4-2" name="__codelineno-4-2" href="#__codelineno-4-2"></a>podman<span class="w"> </span>run<span class="w"> </span>-it<span class="w"> </span>--entrypoint<span class="w"> </span>/bin/bash<span class="w"> </span>simple:latest
 </span></code></pre></div></p>
 </li>
 <li>
 <p>View Container Logs, split the terminal
-    <div class="language-bash highlight"><pre><span></span><code><span id="__span-4-1"><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a><span class="c1"># First get the container ID</span>
-</span><span id="__span-4-2"><a id="__codelineno-4-2" name="__codelineno-4-2" href="#__codelineno-4-2"></a>podman<span class="w"> </span>ps
-</span><span id="__span-4-3"><a id="__codelineno-4-3" name="__codelineno-4-3" href="#__codelineno-4-3"></a>
-</span><span id="__span-4-4"><a id="__codelineno-4-4" name="__codelineno-4-4" href="#__codelineno-4-4"></a><span class="c1"># Stream the logs from the container (-f follows the log output)</span>
-</span><span id="__span-4-5"><a id="__codelineno-4-5" name="__codelineno-4-5" href="#__codelineno-4-5"></a>podman<span class="w"> </span>logs<span class="w"> </span>-f<span class="w"> </span>&lt;containerID&gt;
+    <div class="language-bash highlight"><pre><span></span><code><span id="__span-5-1"><a id="__codelineno-5-1" name="__codelineno-5-1" href="#__codelineno-5-1"></a><span class="c1"># First get the container ID</span>
+</span><span id="__span-5-2"><a id="__codelineno-5-2" name="__codelineno-5-2" href="#__codelineno-5-2"></a>podman<span class="w"> </span>ps
+</span><span id="__span-5-3"><a id="__codelineno-5-3" name="__codelineno-5-3" href="#__codelineno-5-3"></a>
+</span><span id="__span-5-4"><a id="__codelineno-5-4" name="__codelineno-5-4" href="#__codelineno-5-4"></a><span class="c1"># Stream the logs from the container (-f follows the log output)</span>
+</span><span id="__span-5-5"><a id="__codelineno-5-5" name="__codelineno-5-5" href="#__codelineno-5-5"></a>podman<span class="w"> </span>logs<span class="w"> </span>-f<span class="w"> </span>&lt;containerID&gt;
 </span></code></pre></div></p>
+<p><img alt="Terminal" src="../../assets/images/tutorials/simple/split.png" /></p>
 <blockquote>
 <p>Note: Replace <code>&lt;containerID&gt;</code> with the actual container ID from <code>podman ps</code> output or <code>$(podman ps -q)</code>.
 </p>
 </blockquote>
-</li>
-<li>
-<p>Development Workflow
-    <div class="language-bash highlight"><pre><span></span><code><span id="__span-5-1"><a id="__codelineno-5-1" name="__codelineno-5-1" href="#__codelineno-5-1"></a><span class="c1"># After editing the Dockerfile, rebuild the image:</span>
-</span><span id="__span-5-2"><a id="__codelineno-5-2" name="__codelineno-5-2" href="#__codelineno-5-2"></a>podman<span class="w"> </span>build<span class="w"> </span>-t<span class="w"> </span>simple:latest<span class="w"> </span>.
-</span><span id="__span-5-3"><a id="__codelineno-5-3" name="__codelineno-5-3" href="#__codelineno-5-3"></a>
-</span><span id="__span-5-4"><a id="__codelineno-5-4" name="__codelineno-5-4" href="#__codelineno-5-4"></a><span class="c1"># Then run a new container with the updated image:</span>
-</span><span id="__span-5-5"><a id="__codelineno-5-5" name="__codelineno-5-5" href="#__codelineno-5-5"></a>podman<span class="w"> </span>run<span class="w"> </span>-d<span class="w"> </span>simple:latest
-</span></code></pre></div></p>
 </li>
 </ol>
 <h2 id="exercies">Exercies</h2>
 <h3 id="exercise-1-modify-and-rebuild-the-container-image">Exercise 1: Modify and Rebuild the Container Image</h3>
 <p><strong>Objective:</strong> Learn how to modify a <code>Containerfile</code> and rebuild the container image.</p>
 <ol>
-<li><strong>Edit the <code>Containerfile</code>:</strong></li>
-<li>Open the <code>Containerfile</code> in a text editor.</li>
 <li>
+<p><strong>Edit the <code>Containerfile</code>:</strong></p>
+<p>Open the <code>Containerfile</code> in a text editor.</p>
 <p>Add a new environment variable to the image. For example, add the line:
-     <div class="language-dockerfile highlight"><pre><span></span><code><span id="__span-6-1"><a id="__codelineno-6-1" name="__codelineno-6-1" href="#__codelineno-6-1"></a><span class="k">ENV</span><span class="w"> </span><span class="nv">MY_VAR</span><span class="o">=</span><span class="s2">&quot;Hello, Podman!&quot;</span>
+<div class="language-dockerfile highlight"><pre><span></span><code><span id="__span-6-1"><a id="__codelineno-6-1" name="__codelineno-6-1" href="#__codelineno-6-1"></a><span class="k">ENV</span><span class="w"> </span><span class="nv">MY_VAR</span><span class="o">=</span><span class="s2">&quot;Hello, Podman!&quot;</span>
 </span></code></pre></div></p>
 </li>
 <li>
 <p><strong>Rebuild the Container Image:</strong></p>
-</li>
-<li>
 <p>Use the following command to rebuild the image with the new changes:
-     <div class="language-bash highlight"><pre><span></span><code><span id="__span-7-1"><a id="__codelineno-7-1" name="__codelineno-7-1" href="#__codelineno-7-1"></a>podman<span class="w"> </span>build<span class="w"> </span>-t<span class="w"> </span>simple:latest<span class="w"> </span>.
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-7-1"><a id="__codelineno-7-1" name="__codelineno-7-1" href="#__codelineno-7-1"></a>podman<span class="w"> </span>build<span class="w"> </span>-t<span class="w"> </span>simple:latest<span class="w"> </span>.
 </span></code></pre></div></p>
 </li>
 <li>
 <p><strong>Verify the Changes:</strong></p>
+<p>Run a new container and check if the environment variable is set:
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-8-1"><a id="__codelineno-8-1" name="__codelineno-8-1" href="#__codelineno-8-1"></a>podman<span class="w"> </span>run<span class="w"> </span>--rm<span class="w"> </span>--entrypoint<span class="w"> </span>printenv<span class="w"> </span>simple:latest<span class="w"> </span>MY_VAR
+</span></code></pre></div></p>
+<blockquote>
+<p>Note: The <code>--entrypoint</code> flag overrides the default <code>echo</code> command defined in the Containerfile, allowing us to run the <code>printenv</code> command instead to verify our environment variable.</p>
+</blockquote>
 </li>
-<li>Run a new container and check if the environment variable is set:
-     <div class="language-bash highlight"><pre><span></span><code><span id="__span-8-1"><a id="__codelineno-8-1" name="__codelineno-8-1" href="#__codelineno-8-1"></a>podman<span class="w"> </span>run<span class="w"> </span>--rm<span class="w"> </span>simple:latest<span class="w"> </span>printenv<span class="w"> </span>MY_VAR
-</span></code></pre></div></li>
 </ol>
 <h3 id="exercise-2-create-and-use-a-volume">Exercise 2: Create and Use a Volume</h3>
 <p><strong>Objective:</strong> Understand how to create and use volumes to persist data.</p>
 <ol>
-<li><strong>Create a Volume:</strong></li>
 <li>
+<p><strong>Create a Volume:</strong></p>
 <p>Create a new volume named <code>mydata</code>:
-     <div class="language-bash highlight"><pre><span></span><code><span id="__span-9-1"><a id="__codelineno-9-1" name="__codelineno-9-1" href="#__codelineno-9-1"></a>podman<span class="w"> </span>volume<span class="w"> </span>create<span class="w"> </span>mydata
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-9-1"><a id="__codelineno-9-1" name="__codelineno-9-1" href="#__codelineno-9-1"></a>podman<span class="w"> </span>volume<span class="w"> </span>create<span class="w"> </span>mydata
 </span></code></pre></div></p>
 </li>
 <li>
 <p><strong>Run a Container with the Volume:</strong></p>
-</li>
-<li>
 <p>Start a container and mount the volume to <code>/data</code> inside the container:
-     <div class="language-bash highlight"><pre><span></span><code><span id="__span-10-1"><a id="__codelineno-10-1" name="__codelineno-10-1" href="#__codelineno-10-1"></a>podman<span class="w"> </span>run<span class="w"> </span>-d<span class="w"> </span>-v<span class="w"> </span>mydata:/data<span class="w"> </span>simple:latest
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-10-1"><a id="__codelineno-10-1" name="__codelineno-10-1" href="#__codelineno-10-1"></a>podman<span class="w"> </span>run<span class="w"> </span>-it<span class="w"> </span>-d<span class="w"> </span>-v<span class="w"> </span>mydata:/data<span class="w"> </span>--entrypoint<span class="w"> </span>cat<span class="w"> </span>simple:latest
 </span></code></pre></div></p>
+<blockquote>
+<p>Note: The <code>-it</code> flags enable an interactive terminal session. We use <code>cat</code> as the entrypoint to keep the container running in detached mode (<code>-d</code>), since <code>cat</code> will wait for input indefinitely.</p>
+</blockquote>
 </li>
 <li>
 <p><strong>Verify the Volume:</strong></p>
-</li>
-<li>
 <p>Access the container and create a file in the <code>/data</code> directory:
-     <div class="language-bash highlight"><pre><span></span><code><span id="__span-11-1"><a id="__codelineno-11-1" name="__codelineno-11-1" href="#__codelineno-11-1"></a>podman<span class="w"> </span><span class="nb">exec</span><span class="w"> </span>-it<span class="w"> </span>&lt;containerID&gt;<span class="w"> </span>/bin/bash
-</span><span id="__span-11-2"><a id="__codelineno-11-2" name="__codelineno-11-2" href="#__codelineno-11-2"></a>touch<span class="w"> </span>/data/hello.txt
-</span><span id="__span-11-3"><a id="__codelineno-11-3" name="__codelineno-11-3" href="#__codelineno-11-3"></a><span class="nb">exit</span>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-11-1"><a id="__codelineno-11-1" name="__codelineno-11-1" href="#__codelineno-11-1"></a>podman<span class="w"> </span>ps
+</span><span id="__span-11-2"><a id="__codelineno-11-2" name="__codelineno-11-2" href="#__codelineno-11-2"></a>podman<span class="w"> </span><span class="nb">exec</span><span class="w"> </span>-it<span class="w"> </span>&lt;containerID&gt;<span class="w"> </span>touch<span class="w"> </span>/data/hello.txt
 </span></code></pre></div></p>
 </li>
 <li>
 <p><strong>Check the Volume Content:</strong></p>
+<p>Verify the file exists in the volume:
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-12-1"><a id="__codelineno-12-1" name="__codelineno-12-1" href="#__codelineno-12-1"></a>podman<span class="w"> </span>run<span class="w"> </span>-it<span class="w"> </span>-v<span class="w"> </span>mydata:/data<span class="w"> </span>--entrypoint<span class="w"> </span>/bin/bash<span class="w"> </span>simple:latest
+</span><span id="__span-12-2"><a id="__codelineno-12-2" name="__codelineno-12-2" href="#__codelineno-12-2"></a><span class="o">[</span>root@283f981a19f2<span class="w"> </span>/<span class="o">]</span><span class="c1"># ls /data</span>
+</span><span id="__span-12-3"><a id="__codelineno-12-3" name="__codelineno-12-3" href="#__codelineno-12-3"></a>hello.txt
+</span></code></pre></div></p>
 </li>
-<li>Verify the file exists in the volume:
-     <div class="language-bash highlight"><pre><span></span><code><span id="__span-12-1"><a id="__codelineno-12-1" name="__codelineno-12-1" href="#__codelineno-12-1"></a>podman<span class="w"> </span>run<span class="w"> </span>--rm<span class="w"> </span>-v<span class="w"> </span>mydata:/data<span class="w"> </span>simple:latest<span class="w"> </span>ls<span class="w"> </span>/data
-</span></code></pre></div></li>
 </ol>
 <h3 id="exercise-3-inspect-and-manage-container-logs">Exercise 3: Inspect and Manage Container Logs</h3>
 <p><strong>Objective:</strong> Learn how to inspect and manage logs from a running container.</p>
 <ol>
-<li><strong>Run a Container:</strong></li>
 <li>
-<p>Start a container that outputs logs:
-     <div class="language-bash highlight"><pre><span></span><code><span id="__span-13-1"><a id="__codelineno-13-1" name="__codelineno-13-1" href="#__codelineno-13-1"></a>podman<span class="w"> </span>run<span class="w"> </span>-d<span class="w"> </span>simple:latest<span class="w"> </span>/bin/sh<span class="w"> </span>-c<span class="w"> </span><span class="s2">&quot;while true; do echo &#39;Hello from container&#39;; sleep 5; done&quot;</span>
+<p><strong>Run a Container:</strong>
+    Start a container that outputs logs:
+    <div class="language-bash highlight"><pre><span></span><code><span id="__span-13-1"><a id="__codelineno-13-1" name="__codelineno-13-1" href="#__codelineno-13-1"></a>podman<span class="w"> </span>run<span class="w"> </span>-d<span class="w"> </span>--entrypoint<span class="w"> </span>/bin/sh<span class="w"> </span>simple:latest<span class="w"> </span>-c<span class="w"> </span><span class="s2">&quot;while true; do echo &#39;Hello from container&#39;; sleep 5; done&quot;</span>
 </span></code></pre></div></p>
 </li>
 <li>
 <p><strong>View Logs:</strong></p>
-</li>
-<li>
 <p>Use the following command to stream logs from the container:
-     <div class="language-bash highlight"><pre><span></span><code><span id="__span-14-1"><a id="__codelineno-14-1" name="__codelineno-14-1" href="#__codelineno-14-1"></a>podman<span class="w"> </span>logs<span class="w"> </span>-f<span class="w"> </span>&lt;containerID&gt;
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-14-1"><a id="__codelineno-14-1" name="__codelineno-14-1" href="#__codelineno-14-1"></a>podman<span class="w"> </span>logs<span class="w"> </span>-f<span class="w"> </span>&lt;containerID&gt;
 </span></code></pre></div></p>
 </li>
 <li>
 <p><strong>Stop the Container:</strong></p>
+<p>Stop the container after observing the logs:
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-15-1"><a id="__codelineno-15-1" name="__codelineno-15-1" href="#__codelineno-15-1"></a>podman<span class="w"> </span>stop<span class="w"> </span>&lt;containerID&gt;
+</span></code></pre></div></p>
 </li>
-<li>Stop the container after observing the logs:
-     <div class="language-bash highlight"><pre><span></span><code><span id="__span-15-1"><a id="__codelineno-15-1" name="__codelineno-15-1" href="#__codelineno-15-1"></a>podman<span class="w"> </span>stop<span class="w"> </span>&lt;containerID&gt;
-</span></code></pre></div></li>
 </ol>
 
 
