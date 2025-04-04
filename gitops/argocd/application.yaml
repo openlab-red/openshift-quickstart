@@ -1,11 +1,11 @@
 apiVersion: argoproj.io/v1alpha1
 kind: Application
 metadata:
-  name: openshift-quickstart
+  name: java-app
 spec:
   destination:
     name: ''
-    namespace: bit-play
+    namespace: devspaces-admin
     server: 'https://kubernetes.default.svc'
   source:
     path: java/helm
@@ -13,7 +13,7 @@ spec:
     targetRevision: HEAD
     helm:
       valueFiles:
-      - dev/values.yaml
+      - values-devspaces-admin.yaml
   project: default
   syncPolicy:
     automated:
