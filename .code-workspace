@@ -3,6 +3,10 @@
 		{
 			"name": "openshift-quickstart",
 			"path": "/projects/openshift-quickstart"
+		},
+		{
+			"name": "openshift-quickstart-manifest",
+			"path": "/projects/openshift-quickstart-manifest"
 		}
 	],
 	"extensions": {

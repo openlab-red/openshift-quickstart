@@ -8,6 +8,7 @@ Before you begin, ensure you have the following tools installed:
 - OpenShift CLI (`oc`)
 - Kustomize
 - Access to an OpenShift cluster with sufficient permissions
+- OpenShift version 4.18.x or higher
 
 ## Setup Steps
 
@@ -40,8 +41,6 @@ Finally, deploy the DevSpaces configuration with nested container support:
 ```bash
 kustomize build devspaces/overlays/nested-container | oc apply -f -
 ```
-
-This configures the development workspace environment with support for nested containers.
 
 ## Verification
 

@@ -12,6 +12,10 @@ metadata:
   labels:
     app: python-server
 spec:
+  securityContext:
+    runAsNonRoot: true
+    seccompProfile:
+      type: RuntimeDefault
   containers:
   - name: python-server-container
     image: registry.redhat.io/ubi9/python-312
@@ -25,6 +29,11 @@ spec:
       requests:
         cpu: "0.2"
         memory: "256Mi"
+    securityContext:
+      allowPrivilegeEscalation: false
+      capabilities:
+        drop: ["ALL"]
+      readOnlyRootFilesystem: true
     livenessProbe:
       httpGet:
         path: /
@@ -33,4 +42,3 @@ spec:
       periodSeconds: 3
 # This YAML configuration defines a Kubernetes Pod named 'python-server-pod'.
 # The Pod contains a single container named 'python-server-container'.
-

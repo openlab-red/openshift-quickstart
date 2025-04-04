@@ -48,7 +48,7 @@ commands:
       commandLine: >
         sh -c 'mkdir -p /home/user/.config/containers &&
                [ ! -e /home/user/.config/containers/auth.json ] &&
-               ln -s /home/user/.dockerconfig/auth.json /home/user/.config/containers/auth.json'
+               cp /home/user/.dockerconfig/auth.json /home/user/.config/containers/auth.json'
       component: developer-image
       workingDir: /
       group:
@@ -59,7 +59,7 @@ commands:
       commandLine: >
         sh -c 'mkdir -p /home/user/.docker &&
                [ ! -e /home/user/.docker/config.json ] &&
-               ln -s /home/user/.dockerconfig/auth.json /home/user/.docker/config.json'
+               cp /home/user/.dockerconfig/auth.json /home/user/.docker/config.json'
       component: developer-image
       workingDir: /
       group:

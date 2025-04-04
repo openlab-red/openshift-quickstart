@@ -5,6 +5,7 @@ namespace: openshift-operators
 
 components:
 - ../components/featuregate
+- ../components/imageregistry
 - ../components/containerruntime
 - ../components/operators/devspaces
 - ../components/operators/devworkspaces

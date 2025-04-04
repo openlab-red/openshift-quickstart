@@ -40,6 +40,9 @@ spec:
 #  containerRegistry:
 #    hostname: docker.example.com
   devEnvironments:
+    user:
+      clusterRoles:
+        - admin
     startTimeoutSeconds: 600
     security:
       podSecurityContext:
