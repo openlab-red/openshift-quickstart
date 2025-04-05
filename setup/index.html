@@ -630,7 +630,8 @@
 <p>Before you begin, ensure you have the following tools installed:
 - OpenShift CLI (<code>oc</code>)
 - Kustomize
-- Access to an OpenShift cluster with sufficient permissions</p>
+- Access to an OpenShift cluster with sufficient permissions
+- OpenShift version 4.18.x or higher</p>
 <h2 id="setup-steps">Setup Steps</h2>
 <h3 id="1-deploy-base-cluster-configuration">1. Deploy Base Cluster Configuration</h3>
 <p>First, deploy the base cluster configuration using Kustomize:</p>
@@ -648,7 +649,6 @@
 <p>Finally, deploy the DevSpaces configuration with nested container support:</p>
 <div class="language-bash highlight"><pre><span></span><code><span id="__span-2-1"><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a>kustomize<span class="w"> </span>build<span class="w"> </span>devspaces/overlays/nested-container<span class="w"> </span><span class="p">|</span><span class="w"> </span>oc<span class="w"> </span>apply<span class="w"> </span>-f<span class="w"> </span>-
 </span></code></pre></div>
-<p>This configures the development workspace environment with support for nested containers.</p>
 <h2 id="verification">Verification</h2>
 <p>After running all commands, verify your setup by:
 1. Checking that all resources are in the <code>Running</code> or <code>Completed</code> state
