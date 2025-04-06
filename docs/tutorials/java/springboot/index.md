@@ -1,6 +1,59 @@
 # Spring Boot Sample Application
 
-Welcome to the Spring Boot Sample Application! This project leverages Spring Boot, a powerful Java framework for building production-ready applications. In this guide, you'll learn how to build, run, and debug a Spring Boot application using Visual Studio Code, making the most of Spring Boot's capabilities.
+This tutorial guides you through building and running a simple REST API using SpringBoot and PostgreSQL.
+
+## Tutorial
+
+> The code examples and instructions in this tutorial are located under the `openshift-quickstart` project in the `tutorials/java/springboot` directory.  
+> Ensure you are in this directory before executing the commands.
+
+1. Navigate to the Tutorial Directory
+```bash
+cd openshift-quickstart/tutorials/java/springboot
+```
+
+2. Or open a New Terminal
+
+---
+
+## 🚀 Features
+
+### Backend (SpringBoot REST API)
+- Provides RESTful endpoints.
+- Secure database interactions using prepared statements (PostgreSQL).
+- Implements API health check (ping functionality).
+
+---
+
+## 🛠️ Initial Setup
+
+### Prerequisite: Spin Up PostgreSQL Container on Laptop
+
+To set up a PostgreSQL container locally, follow these steps:
+
+1. **Run PostgreSQL Container:**
+
+Start a new PostgreSQL container with the following command:
+
+```bash
+podman run -d -v $(pwd):/projects -e POSTGRESQL_USER=user -e POSTGRESQL_PASSWORD=pass -e POSTGRESQL_ROOT_PASSWORD=root -e POSTGRESQL_DATABASE=db -p 5432:5432 registry.redhat.io/rhel9/postgresql-16:latest
+```
+
+2. **Verify Container is Running:**
+
+Check that your PostgreSQL container is running:
+
+```bash
+podman ps
+```
+
+### Database Configuration (First-time setup)
+
+The SpringBoot application will automatically initialize the database schema on first startup. The schema creation is handled by Hibernate ORM using the entity classes defined in the application.
+
+You can verify the schema creation by checking the application logs during startup:
+
+---
 
 ## Building the Application
 
@@ -54,10 +107,6 @@ Expose the endpoint and access the application.
 
 To build a container for your Quarkus application, follow these steps:
 
-### Deploy external postgresql database
-
-To deploy it, you can simply run the Task `099 - Install Postgres with OpenShift` from the Task Manager.
-
 ### Steps
 
 1. **Ensure the Application is Packaged**:
@@ -78,87 +127,89 @@ To deploy it, you can simply run the Task `099 - Install Postgres with OpenShift
    Once the image is built, you can run the container using:
 
    ```bash
-   podman_run boot:latest -p 8080:8080 
-   ```
-
-4. **Deploy with the helm chart**:
-
-   ```bash
-   podman tag boot:latest quay.io/mmascia/stack-java/boot:latest
-   podman push quay.io/mmascia/stack-java/boot:latest
-   cd ..
-   helm upgrade --install boot helm/java-app -f helm/java-app/values-boot.yaml
+   podman run boot:latest -p 8080:8080 
    ```
 
 These steps will help you build and run your Spring Boot application in a container, allowing for easy deployment and testing.
 
-// ... existing content ...
+### Explore API Endpoints
 
-## Database
+Access the API endpoints directly via your browser or API testing tools like Postman or curl.
 
-The application supports multiple database configurations through Spring profiles. You can run the application with different databases using the following methods:
+---
 
-### Prerequisites for Database Containers
+## ✅ Testing the Application
 
-Before running the application with a specific database profile, ensure that the respective database container is up and running. You can use the following commands to start the database containers:
+1. **Verify Functionality:**
+   - Check message retrieval and display.
+   - Test adding new messages.
+   - Use ping functionality to verify API health.
 
-- **PostgreSQL**: 
+Example curl commands:
 
-  Note: PostgreSQL is already running as a sidecar container in the workspace. If you need to start it manually, execute the following command:
-
-- **MySQL**: 
-  To start the MySQL container, execute the following command:
-
-  ```bash
-  podman run --name mysql -e MYSQL_USER=user -e MYSQL_PASSWORD=pass -e MYSQL_ROOT_PASSWORD=root -e MYSQL_DATABASE=db -p 3306:3306 registry.redhat.io/rhel8/mysql-80:latest
-  ```
-
-- **MongoDB**: 
-  To start the MongoDB container, execute the following command:
-
-  ```bash
-  podman run --name mongodb -v /tmp/:/bitnami -e MONGODB_ROOT_USER=user -e MONGODB_ROOT_PASSWORD=pass -e MONGODB_REPLICA_SET_MODE=primary -e MONGODB_REPLICA_SET_NAME=rs0 -e MONGODB_REPLICA_SET_KEY=replicakey123456 -e MONGODB_DATABASE=db -p 27017:27017 docker.io/bitnami/mongodb:latest
-  ```
-
-Ensure that the respective database container is running before starting the application with the desired profile.
-
-
-### PostgreSQL (Default)
-
-The default profile uses PostgreSQL. Run the application with either:
-
+- Health check:
 ```bash
-mvn spring-boot:run
+curl http://localhost:8080/api/ping
 ```
 
-Or explicitly specify the PostgreSQL profile:
-
+- Retrieve messages:
 ```bash
-mvn spring-boot:run
+curl http://localhost:8080/api
 ```
 
-### MySQL
-
-To run the application with MySQL:
-
+- Add a new message:
 ```bash
-mvn spring-boot:run -Dspring-boot.run.profiles=mysql
+curl -X POST -H "Content-Type: application/json" http://localhost:8080/api/add/Hello
 ```
 
-### MongoDB
+---
 
-To run the application with MongoDB:
+🎉 **Congratulations!** You've successfully set up and tested your Quarkus REST API with PostgreSQL.
+
+---
+
+## 🚀 Deploying Backend on OpenShift using Helm
+
+### Steps to Deploy
+
+1. **Navigate to the Backend Helm Chart Directory:**
+
+Change to the directory containing the Helm chart for the backend:
 
 ```bash
-mvn spring-boot:run -Dspring-boot.run.profiles=mongodb
+cd openshift-quickstart-manifest/java/helm
 ```
 
-## Additional Resources
+2. **Deploy the Backend using Helm:**
 
-- [Spring Boot Documentation](https://spring.io/projects/spring-boot)
-- [VSCode Java Documentation](https://code.visualstudio.com/docs/java/java-tutorial)
+Use the following command to deploy the backend application on OpenShift:
 
-## Troubleshooting
+```bash
+helm dependency build
+helm install springboot-backend . -f values-boot.yaml
+```
 
-- Ensure all dependencies are correctly installed.
-- Check the `pom.xml` for any missing dependencies or plugins.
+This command will deploy the backend application using the Helm chart located in the current directory.
+
+3. **Verify Deployment:**
+
+Check the status of the deployed pods to ensure everything is running smoothly:
+
+```bash
+oc get pods -lapp.kubernetes.io/instance=springboot-backend
+```
+
+You should see the backend and postgres pods up and running.
+
+4. **Access the Backend Service:**
+
+Once deployed, you can access the backend service using the route created by OpenShift. Retrieve the route with:
+
+```bash
+oc get routes springboot-backend
+```
+
+Use the URL provided to interact with your backend API.
+
+
+## 🚀 Bonus: Switch the Angular Frontend to Use the Spring Boot Backend

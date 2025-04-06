@@ -9,6 +9,8 @@ This guide walks through basic container operations using Podman.
 > Ensure you are in this directory before executing the commands.
 >
 
+---
+
 1. Navigate to the Tutorial Directory
     ```bash
     # Change to the tutorials/simple directory
@@ -56,6 +58,8 @@ This guide walks through basic container operations using Podman.
     > Note: Replace `<containerID>` with the actual container ID from `podman ps` output or `$(podman ps -q)`.
     >
 
+---
+
 ## Exercies
 
 ### Exercise 1: Modify and Rebuild the Container Image
@@ -85,6 +89,8 @@ This guide walks through basic container operations using Podman.
     podman run --rm --entrypoint printenv simple:latest MY_VAR
     ```
     > Note: The `--entrypoint` flag overrides the default `echo` command defined in the Containerfile, allowing us to run the `printenv` command instead to verify our environment variable.
+
+---
 
 ### Exercise 2: Create and Use a Volume
 
@@ -121,6 +127,8 @@ This guide walks through basic container operations using Podman.
     [root@283f981a19f2 /]# ls /data
     hello.txt
     ```
+
+---
 
 ### Exercise 3: Inspect and Manage Container Logs
 

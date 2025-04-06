@@ -16,13 +16,15 @@ You'll learn the basics of each tool through practical exercises and see how com
 
 2. Or open a New Terminal
 
-## Exercise 1: Helm Basics
+---
 
-### Objective:
+## Exercises
+
+### Exercise 1: Helm Basics
+
 Deploy a simple application using Helm.
 
-### Steps:
-1. **Create a Helm Chart**
+1. Create a Helm Chart
    ```bash
    helm create myapp
    ```
@@ -56,12 +58,11 @@ Deploy a simple application using Helm.
    oc get pods
    ```
 
-## Exercise 2: Kustomize Basics
+---
 
-### Objective:
+### Exercise 2: Kustomize Basics
+
 Deploy the same application using Kustomize.
-
-### Steps:
 
 1. Create a directory structure:
      ```
@@ -74,8 +75,7 @@ Deploy the same application using Kustomize.
          └── dev/
              └── kustomization.yaml
      ```
-2. **Define Base Resources**
-   - Populate `deployment.yaml` and `service.yaml` with basic Kubernetes manifests.
+2. Populate `deployment.yaml` and `service.yaml` with basic Kubernetes manifests.
    - Create `deployment.yaml`:
      ```yaml
       apiVersion: apps/v1
@@ -154,13 +154,11 @@ Deploy the same application using Kustomize.
    oc get pods
    ```
 
+---
+
 ### Exercise 3: Using Kustomize with Helm Charts (`--enable-helm`)
 
-### Objective:
-
 Leverage Kustomize's built-in Helm integration to directly manage Helm charts without manually rendering templates.
-
-### Steps:
 
 1. Create Directory Structure
    ```bash
@@ -203,7 +201,8 @@ Leverage Kustomize's built-in Helm integration to directly manage Helm charts wi
    kustomize build --enable-helm helm-k/overlays/prod |grep replicas
    ```
 
-### Explanation:
+### Explanation
+
 - The `--enable-helm` flag allows Kustomize to directly process Helm charts, simplifying the workflow by eliminating the need to manually run `helm template`.
 - Inline values (`valuesInline`) provide a convenient way to customize Helm chart parameters directly within the Kustomize configuration.
 

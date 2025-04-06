@@ -15,6 +15,8 @@
 
 2. Or open a New Terminal
 
+---
+
 ### Steps
 
 > Note: At this point, you should have at least one Python pods up and running in your namespace.
@@ -115,6 +117,8 @@
     curl -I http://python-server-service:8000
     ```
 
+---
+
 ## Exercises
 
 ### Exercise 1: A third pod
@@ -201,11 +205,10 @@
     curl -I http://python-server-service:8000
     exit
     ```
-I'll help you create another exercise that builds upon the network policy concepts shown in the tutorial. Here's a suggested exercise:
+
+---
 
 ### Exercise 2: Multi-tier Application Network Policies
-
-This exercise will simulate a more realistic scenario with a multi-tier application setup, helping users understand how to implement network policies for different application layers.
 
 1. Deploy a three-tier application setup with the following components:
 
@@ -403,7 +406,7 @@ spec:
   - Egress
 ```
 
-2. Frontend Network Policy (allows incoming external traffic and outgoing to API):
+5. Frontend Network Policy (allows incoming external traffic and outgoing to API):
 
 ```yaml
 apiVersion: networking.k8s.io/v1
@@ -428,7 +431,7 @@ spec:
         - port: 5000
 ```
 
-3. API Layer Network Policy (allows frontend traffic and connection to database):
+6. API Layer Network Policy (allows frontend traffic and connection to database):
 
 ```yaml
 apiVersion: networking.k8s.io/v1
@@ -454,7 +457,7 @@ spec:
   - {}
 ```
 
-4. Database Network Policy (only allows API layer access):
+7. Database Network Policy (only allows API layer access):
 
 ```yaml
 apiVersion: networking.k8s.io/v1
@@ -477,7 +480,7 @@ spec:
       port: 5432
 ```
 
-6. Testing Commands:
+8. Testing Commands:
 
 ```bash
 # Test frontend to API communication (should succeed)
@@ -497,7 +500,7 @@ exit
 
 ```
 
-7. Expected Results:
+9. Expected Results:
 
 - Frontend pod should only be able to communicate with the API service
 - API pod should only be able to communicate with the database service

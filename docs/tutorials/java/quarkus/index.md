@@ -1,6 +1,59 @@
 # Quarkus Hello World Application
 
-Welcome to the Quarkus Hello World Application! This project leverages Quarkus, a high-performance Java framework designed for modern cloud-native applications. In this guide, you'll learn how to build, run, and debug a straightforward "Hello World" application using Visual Studio Code, making the most of Quarkus's capabilities.
+This tutorial guides you through building and running a simple REST API using Quarkus and PostgreSQL.
+
+## Tutorial
+
+> The code examples and instructions in this tutorial are located under the `openshift-quickstart` project in the `tutorials/java/quarkus` directory.  
+> Ensure you are in this directory before executing the commands.
+
+1. Navigate to the Tutorial Directory
+```bash
+cd openshift-quickstart/tutorials/java/quarkus
+```
+
+2. Or open a New Terminal
+
+---
+
+## 🚀 Features
+
+### Backend (Quarkus REST API)
+- Provides RESTful endpoints.
+- Secure database interactions using prepared statements (PostgreSQL).
+- Implements API health check (ping functionality).
+
+---
+
+## 🛠️ Initial Setup
+
+### Prerequisite: Spin Up PostgreSQL Container on Laptop
+
+To set up a PostgreSQL container locally, follow these steps:
+
+1. **Run PostgreSQL Container:**
+
+Start a new PostgreSQL container with the following command:
+
+```bash
+podman run -d -v $(pwd):/projects -e POSTGRESQL_USER=user -e POSTGRESQL_PASSWORD=pass -e POSTGRESQL_ROOT_PASSWORD=root -e POSTGRESQL_DATABASE=db -p 5432:5432 registry.redhat.io/rhel9/postgresql-16:latest
+```
+
+2. **Verify Container is Running:**
+
+Check that your PostgreSQL container is running:
+
+```bash
+podman ps
+```
+
+### Database Configuration (First-time setup)
+
+The Quarkus application will automatically initialize the database schema on first startup. The schema creation is handled by Hibernate ORM using the entity classes defined in the application.
+
+You can verify the schema creation by checking the application logs during startup:
+
+---
 
 ## Building the Application
 
@@ -33,10 +86,6 @@ Expose the endpoint and access the application.
 ![endpoint](../assets/quarkus/endpoint.png)
 
 ## Debugging with VSCode
-
->
-> It is already defined in the project.
->
 
 1. **Configure Launch Settings**:
    Create a `launch.json` file in the `.vscode` directory with the following configuration:
@@ -83,7 +132,24 @@ Run the packaged application using:
 java -jar target/quarkus-app/quarkus-run.jar
 ```
 
-## Creating a Native Executable
+## Build the Image
+
+   Use the following command to build the image. This command uses the Dockerfile located at `src/main/docker/Dockerfile.jvm`:
+
+   ```bash
+   podman build -f src/main/docker/Dockerfile.jvm -t quarkus:latest .
+   ```
+
+3. **Run the Docker Container**:
+   Once the image is built, you can run the container using:
+
+   ```bash
+   podman run quarkus:latest -p 8080:8080
+   ````
+
+## (Optional) Creating a Native Executable
+
+> **Note:** Building a native executable can be resource-intensive and may require significant CPU and memory resources. Ensure your system has sufficient resources available before proceeding.
 
 You can create a native executable using:
 
@@ -97,108 +163,84 @@ Run the native executable with:
 ./target/quarkus-1.0.0-SNAPSHOT-runner -Dquarkus.http.port=8081
 ```
 
-## Building the Container
+### Explore API Endpoints
 
-To build a container for your Quarkus application, follow these steps:
+Access the API endpoints directly via your browser or API testing tools like Postman or curl.
 
-### Deploy external postgresql database
+---
 
-To deploy it, you can simply run the Task `099 - Install Postgres with OpenShift` from the Task Manager.
+## ✅ Testing the Application
 
-### Steps
+1. **Verify Functionality:**
+   - Check message retrieval and display.
+   - Test adding new messages.
+   - Use ping functionality to verify API health.
 
-1. **Ensure the Application is Packaged**:
-   Before building the Docker image, make sure your application is packaged. You can do this by running:
+Example curl commands:
 
-   ```bash
-   mvn package -Dquarkus.profile=prod
-   ```
+- Health check:
+```bash
+curl http://localhost:8080/api/ping
+```
 
-2. **Build the Image**:
-   Use the following command to build the image. This command uses the Dockerfile located at `src/main/docker/Dockerfile.jvm`:
+- Retrieve messages:
+```bash
+curl http://localhost:8080/api
+```
 
-   ```bash
-   podman build -f src/main/docker/Dockerfile.jvm -t quarkus:latest .
-   ```
+- Add a new message:
+```bash
+curl -X POST -H "Content-Type: application/json" http://localhost:8080/api/add/Hello
+```
 
-3. **Run the Docker Container**:
-   Once the image is built, you can run the container using:
+---
 
-   ```bash
-   podman_run quarkus:latest -p 8080:8080 
-   ```
+🎉 **Congratulations!** You've successfully set up and tested your Quarkus REST API with PostgreSQL.
 
-4. **Deploy with the helm chart**:
+---
 
-   ```bash
-   podman tag quarkus:latest quay.io/mmascia/stack-java/quarkus:latest
-   podman push quay.io/mmascia/stack-java/quarkus:latest
-   cd ..
-   helm upgrade --install quarkus helm/java-app
-   ```
+## 🚀 Deploying Backend on OpenShift using Helm
 
-These steps will help you build and run your Quarkus application in a container, allowing for easy deployment and testing.
+### Steps to Deploy
 
+1. **Navigate to the Backend Helm Chart Directory:**
 
-## Database
+Change to the directory containing the Helm chart for the backend:
 
-The Quarkus application supports multiple database configurations. You can run the application with different databases using the following methods:
+```bash
+cd openshift-quickstart-manifest/java/helm
+```
 
-### Prerequisites for Database Containers
+2. **Deploy the Backend using Helm:**
 
-Before running the application with a specific database profile, ensure that the respective database container is up and running. You can use the following commands to start the database containers:
+Use the following command to deploy the backend application on OpenShift:
 
-- **PostgreSQL**: 
+```bash
+helm dependency build
+helm install quarkus-backend .
+```
 
-  Note: PostgreSQL is already running as a sidecar container in the workspace. If you need to start it manually, execute the following command:
+This command will deploy the backend application using the Helm chart located in the current directory.
 
-- **MySQL**: 
-  To start the MySQL container, execute the following command:
+3. **Verify Deployment:**
 
-  ```bash
-  podman run --name mysql -e MYSQL_USER=user -e MYSQL_PASSWORD=pass -e MYSQL_ROOT_PASSWORD=root -e MYSQL_DATABASE=db -p 3306:3306 registry.redhat.io/rhel8/mysql-80:latest
-  ```
+Check the status of the deployed pods to ensure everything is running smoothly:
 
-- **MongoDB**: 
-  To start the MongoDB container, execute the following command:
+```bash
+oc get pods -lapp.kubernetes.io/instance=quarkus-backend
+```
 
-  ```bash
-  podman run --name mongodb -v /tmp/:/bitnami -e MONGODB_ROOT_USER=user -e MONGODB_ROOT_PASSWORD=pass -e MONGODB_REPLICA_SET_MODE=primary -e MONGODB_REPLICA_SET_NAME=rs0 -e MONGODB_REPLICA_SET_KEY=replicakey123456 -e MONGODB_DATABASE=db -p 27017:27017 docker.io/bitnami/mongodb:latest
-  ```
+You should see the backend and postgres pods up and running.
 
-Ensure that the respective database container is running before starting the application with the desired profile.
+4. **Access the Backend Service:**
 
-### Launching the Application
+Once deployed, you can access the backend service using the route created by OpenShift. Retrieve the route with:
 
-To launch the Quarkus application with a specific database profile, use the following commands:
+```bash
+oc get routes quarkus-backend
+```
 
-- **PostgreSQL (Default)**:
-  Run the application with the default PostgreSQL profile:
-
-  ```bash
-  mvn quarkus:dev
-  ```
-
-- **MySQL**:
-  To run the application with MySQL, specify the MySQL profile:
-
-  ```bash
-  mvn quarkus:dev -Dquarkus.profile=mysql
-  ```
-
-- **MongoDB**:
-  To run the application with MongoDB, specify the MongoDB profile:
-
-  ```bash
-  mvn quarkus:dev -Dquarkus.profile=mongodb
-  ```
-
-These commands will start the Quarkus application in development mode with the specified database configuration.
+Use the URL provided to interact with your backend API.
 
 
-## Additional Resources
-
-- [Quarkus Official Documentation](https://quarkus.io/documentation/)
-- [Quarkus Guides](https://quarkus.io/guides/)
-
-This guide should help you get started with building, running, and debugging a Quarkus application using VSCode. If you encounter any issues, refer to the Quarkus documentation or seek help from the community.
+## 🚀 Bonus: Switch the Angular Frontend to Use the Quarkus Backend

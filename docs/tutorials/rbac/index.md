@@ -17,6 +17,8 @@ This demonstrates how to set up and test role-based access control in OpenShift.
 
 2. Or open a New Terminal
 
+---
+
 ### Steps
 
 1. As an admin user of your namespaces, create a role that allows reading pod information:
@@ -45,6 +47,8 @@ This demonstrates how to set up and test role-based access control in OpenShift.
    - View all basic resources in the namespace
    - View pods, services, routes, configmaps, etc (no secrets).
    - Cannot modify any resources (read-only access)
+
+---
 
 ## Exercises
 
@@ -93,7 +97,9 @@ This demonstrates how to set up and test role-based access control in OpenShift.
    oc get secrets
    ```
 
-### Exercise 3: Create a Service Account
+---
+
+### Exercise 2: Create a Service Account
 
 **Objective:** Learn how to create a service account and bind a role to it within your own namespace.
 

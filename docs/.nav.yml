@@ -8,8 +8,7 @@ nav:
   - NodeJS: tutorials/js/index.md
   - GoLang: tutorials/golang/index.md
   - Java:
-    - tutorials/java/index.md
-    - tutorials/java/helloworld/index.md
-    - tutorials/java/quarkus/index.md
-    - tutorials/java/springboot/index.md
+    - Java Overview: tutorials/java/index.md
+    - Quarkus: tutorials/java/quarkus/index.md
+    - Spring Boot: tutorials/java/springboot/index.md
   - Pipeline: tutorials/pipeline/index.md

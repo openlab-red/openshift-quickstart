@@ -15,6 +15,8 @@
 
 2. Or open a New Terminal
 
+---
+
 ### Building the Container Image
 
 1. **Build the Container Image:**
@@ -114,6 +116,8 @@
 4. **Note on Pod Deletion:**
     Be aware that deleting the pod will result in the loss of the running instance.
 
+---
+
 ## Exercises
 
 ### Exercise 1: Create a Deployment in OpenShift
@@ -139,6 +143,8 @@
    oc get pods
    ```
 
+---
+
 ### Exercise 2: Scale the Deployment
 
 **Objective:** Understand how to scale a deployment to handle more traffic.
@@ -160,6 +166,8 @@
    ```bash
    curl http://$(oc get route python-server-route -o jsonpath='{.spec.host}')
    ```
+
+---
 
 ### Exercise 3: Update the Deployment with a New Image
 
