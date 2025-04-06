@@ -12,7 +12,7 @@
         <link rel="prev" href="../python/">
       
       
-        <link rel="next" href="../js/">
+        <link rel="next" href="../networkpolicy/">
       
       
       <link rel="icon" href="../../assets/images/favicon.png">
@@ -352,27 +352,18 @@
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#exercise-1-create-a-custom-role" class="md-nav__link">
+  <a href="#exercise-1-modify-an-existing-role" class="md-nav__link">
     <span class="md-ellipsis">
-      Exercise 1: Create a Custom Role
+      Exercise 1: Modify an Existing Role
     </span>
   </a>
   
 </li>
         
           <li class="md-nav__item">
-  <a href="#exercise-2-modify-an-existing-role" class="md-nav__link">
+  <a href="#exercise-3-create-a-service-account" class="md-nav__link">
     <span class="md-ellipsis">
-      Exercise 2: Modify an Existing Role
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#exercise-3-create-a-rolebinding-for-a-group" class="md-nav__link">
-    <span class="md-ellipsis">
-      Exercise 3: Create a RoleBinding for a Group
+      Exercise 3: Create a Service Account
     </span>
   </a>
   
@@ -398,12 +389,12 @@
   
   
     <li class="md-nav__item">
-      <a href="../js/" class="md-nav__link">
+      <a href="../networkpolicy/" class="md-nav__link">
         
   
   
   <span class="md-ellipsis">
-    NodeJS
+    Network Policy
     
   </span>
   
@@ -420,12 +411,12 @@
   
   
     <li class="md-nav__item">
-      <a href="../networkpolicy/" class="md-nav__link">
+      <a href="../js/" class="md-nav__link">
         
   
   
   <span class="md-ellipsis">
-    Network Policy
+    NodeJS
     
   </span>
   
@@ -677,27 +668,18 @@
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#exercise-1-create-a-custom-role" class="md-nav__link">
+  <a href="#exercise-1-modify-an-existing-role" class="md-nav__link">
     <span class="md-ellipsis">
-      Exercise 1: Create a Custom Role
+      Exercise 1: Modify an Existing Role
     </span>
   </a>
   
 </li>
         
           <li class="md-nav__item">
-  <a href="#exercise-2-modify-an-existing-role" class="md-nav__link">
+  <a href="#exercise-3-create-a-service-account" class="md-nav__link">
     <span class="md-ellipsis">
-      Exercise 2: Modify an Existing Role
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#exercise-3-create-a-rolebinding-for-a-group" class="md-nav__link">
-    <span class="md-ellipsis">
-      Exercise 3: Create a RoleBinding for a Group
+      Exercise 3: Create a Service Account
     </span>
   </a>
   
@@ -726,158 +708,151 @@
 
 <h1 id="rbac-role-based-access-control">RBAC (Role-Based Access Control)</h1>
 <h2 id="tutorials">Tutorials</h2>
+<p>This demonstrates how to set up and test role-based access control in OpenShift.</p>
 <blockquote>
-<p>The code examples and instructions in this tutorial are located in the <code>tutorials/rbac</code> directory. Ensure you are in this directory before executing the commands.</p>
+<p>The code examples and instructions in this tutorial are located under <code>openshift-quickstart</code> project in the
+<code>tutorials/rbac</code> directory. 
+Ensure you are in this directory before executing the commands.
+</p>
 </blockquote>
-<p>This guide demonstrates how to set up and test role-based access control in OpenShift.</p>
+<ol>
+<li>
+<p>Navigate to the Tutorial Directory
+    <div class="language-bash highlight"><pre><span></span><code><span id="__span-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="c1"># Change to the tutorials/simple directory</span>
+</span><span id="__span-0-2"><a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a><span class="nb">cd</span><span class="w"> </span>openshift-quickstart/tutorials/rbac
+</span></code></pre></div></p>
+</li>
+<li>
+<p>Or open a New Terminal</p>
+</li>
+</ol>
 <h3 id="steps">Steps</h3>
 <ol>
 <li>
-<p><strong>Create the Pod Reader Role</strong>
-   As an admin user, create a role that allows reading pod information:
-   <div class="language-bash highlight"><pre><span></span><code><span id="__span-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a>oc<span class="w"> </span>create<span class="w"> </span>-f<span class="w"> </span>pod-reader.yaml<span class="w"> </span>-n<span class="w"> </span>pod-play
+<p>As an admin user of your namespaces, create a role that allows reading pod information:
+   <div class="language-bash highlight"><pre><span></span><code><span id="__span-1-1"><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a>oc<span class="w"> </span>create<span class="w"> </span>-f<span class="w"> </span>pod-reader.yaml
 </span></code></pre></div></p>
 </li>
 <li>
-<p><strong>Bind the Role to a User</strong>
-   Create a RoleBinding to assign the pod-reader role to user1:
-   <div class="language-bash highlight"><pre><span></span><code><span id="__span-1-1"><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a>oc<span class="w"> </span>create<span class="w"> </span>-f<span class="w"> </span>pod-reader-binding.yaml<span class="w"> </span>-n<span class="w"> </span>pod-play
+<p>Create a RoleBinding to assign the pod-reader role to your user friend userX:
+   <div class="language-bash highlight"><pre><span></span><code><span id="__span-2-1"><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a><span class="c1"># Replace userX with the target user and namespaceX with your namespace in the pod-reader-binding.</span>
+</span><span id="__span-2-2"><a id="__codelineno-2-2" name="__codelineno-2-2" href="#__codelineno-2-2"></a>sed<span class="w"> </span>-i<span class="w"> </span><span class="s1">&#39;s/namespaceX/&lt;your-namespace&gt;/g&#39;</span><span class="w"> </span>pod-reader-binding.yaml
+</span><span id="__span-2-3"><a id="__codelineno-2-3" name="__codelineno-2-3" href="#__codelineno-2-3"></a>sed<span class="w"> </span>-i<span class="w"> </span><span class="s1">&#39;s/userX/user2/g&#39;</span><span class="w"> </span>pod-reader-binding.yaml
+</span><span id="__span-2-4"><a id="__codelineno-2-4" name="__codelineno-2-4" href="#__codelineno-2-4"></a>oc<span class="w"> </span>create<span class="w"> </span>-f<span class="w"> </span>pod-reader-binding.yaml
 </span></code></pre></div></p>
 </li>
 <li>
-<p><strong>Test Limited Access</strong>
-   Login as user1 and verify that you can:</p>
+<p>Ask your friend as userX and verify that you can:</p>
 </li>
 <li>View pods (<code>oc get pods</code>)</li>
 <li>
 <p>Cannot access other resources (services, routes, etc.)</p>
 </li>
 <li>
-<p><strong>Grant Additional Permissions</strong>
-   Add the standard view role to allow broader access:
-   <div class="language-bash highlight"><pre><span></span><code><span id="__span-2-1"><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a>oc<span class="w"> </span>adm<span class="w"> </span>policy<span class="w"> </span>add-role-to-user<span class="w"> </span>view<span class="w"> </span>user1<span class="w"> </span>-n<span class="w"> </span>pod-play
+<p>Add the standard view role to allow broader access:
+   <div class="language-bash highlight"><pre><span></span><code><span id="__span-3-1"><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a>oc<span class="w"> </span>adm<span class="w"> </span>policy<span class="w"> </span>add-role-to-user<span class="w"> </span>view<span class="w"> </span>userX<span class="w"> </span>-n<span class="w"> </span>&lt;your-namespace&gt;
 </span></code></pre></div></p>
 </li>
 <li>
-<p><strong>Verify Extended Access</strong>
-   Login as user1 again and confirm that you can now:</p>
+<p>Login as userX again and confirm that you can now:</p>
 </li>
 <li>View all basic resources in the namespace</li>
-<li>View pods, services, routes, configmaps, etc.</li>
+<li>View pods, services, routes, configmaps, etc (no secrets).</li>
 <li>Cannot modify any resources (read-only access)</li>
 </ol>
 <h2 id="exercises">Exercises</h2>
-<h3 id="exercise-1-create-a-custom-role">Exercise 1: Create a Custom Role</h3>
-<p><strong>Objective:</strong> Learn how to create a custom role with specific permissions.</p>
-<ol>
-<li><strong>Define a Custom Role:</strong></li>
-<li>
-<p>Create a YAML file named <code>custom-role.yaml</code> with the following content to define a role that allows listing and watching pods:
-     <div class="language-yaml highlight"><pre><span></span><code><span id="__span-3-1"><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a><span class="nt">kind</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Role</span>
-</span><span id="__span-3-2"><a id="__codelineno-3-2" name="__codelineno-3-2" href="#__codelineno-3-2"></a><span class="nt">apiVersion</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">rbac.authorization.k8s.io/v1</span>
-</span><span id="__span-3-3"><a id="__codelineno-3-3" name="__codelineno-3-3" href="#__codelineno-3-3"></a><span class="nt">metadata</span><span class="p">:</span>
-</span><span id="__span-3-4"><a id="__codelineno-3-4" name="__codelineno-3-4" href="#__codelineno-3-4"></a><span class="w">  </span><span class="nt">namespace</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">pod-play</span>
-</span><span id="__span-3-5"><a id="__codelineno-3-5" name="__codelineno-3-5" href="#__codelineno-3-5"></a><span class="w">  </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">custom-pod-watcher</span>
-</span><span id="__span-3-6"><a id="__codelineno-3-6" name="__codelineno-3-6" href="#__codelineno-3-6"></a><span class="nt">rules</span><span class="p">:</span>
-</span><span id="__span-3-7"><a id="__codelineno-3-7" name="__codelineno-3-7" href="#__codelineno-3-7"></a><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">apiGroups</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">[</span><span class="s">&quot;&quot;</span><span class="p p-Indicator">]</span>
-</span><span id="__span-3-8"><a id="__codelineno-3-8" name="__codelineno-3-8" href="#__codelineno-3-8"></a><span class="w">  </span><span class="nt">resources</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">[</span><span class="s">&quot;pods&quot;</span><span class="p p-Indicator">]</span>
-</span><span id="__span-3-9"><a id="__codelineno-3-9" name="__codelineno-3-9" href="#__codelineno-3-9"></a><span class="w">  </span><span class="nt">verbs</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">[</span><span class="s">&quot;list&quot;</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="s">&quot;watch&quot;</span><span class="p p-Indicator">]</span>
-</span></code></pre></div></p>
-</li>
-<li>
-<p><strong>Create the Role:</strong></p>
-</li>
-<li>
-<p>Apply the role using the following command:
-     <div class="language-bash highlight"><pre><span></span><code><span id="__span-4-1"><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a>oc<span class="w"> </span>create<span class="w"> </span>-f<span class="w"> </span>custom-role.yaml<span class="w"> </span>-n<span class="w"> </span>pod-play
-</span></code></pre></div></p>
-</li>
-<li>
-<p><strong>Verify the Role:</strong></p>
-</li>
-<li>Check that the role has been created:
-     <div class="language-bash highlight"><pre><span></span><code><span id="__span-5-1"><a id="__codelineno-5-1" name="__codelineno-5-1" href="#__codelineno-5-1"></a>oc<span class="w"> </span>get<span class="w"> </span>roles<span class="w"> </span>-n<span class="w"> </span>pod-play
-</span></code></pre></div></li>
-</ol>
-<h3 id="exercise-2-modify-an-existing-role">Exercise 2: Modify an Existing Role</h3>
+<h3 id="exercise-1-modify-an-existing-role">Exercise 1: Modify an Existing Role</h3>
 <p><strong>Objective:</strong> Learn how to modify an existing role to add or remove permissions.</p>
 <ol>
-<li><strong>Edit the Pod Reader Role:</strong></li>
 <li>
 <p>Open the <code>pod-reader.yaml</code> file and add permissions to list services:
-     <div class="language-yaml highlight"><pre><span></span><code><span id="__span-6-1"><a id="__codelineno-6-1" name="__codelineno-6-1" href="#__codelineno-6-1"></a><span class="nt">kind</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Role</span>
-</span><span id="__span-6-2"><a id="__codelineno-6-2" name="__codelineno-6-2" href="#__codelineno-6-2"></a><span class="nt">apiVersion</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">rbac.authorization.k8s.io/v1</span>
-</span><span id="__span-6-3"><a id="__codelineno-6-3" name="__codelineno-6-3" href="#__codelineno-6-3"></a><span class="nt">metadata</span><span class="p">:</span>
-</span><span id="__span-6-4"><a id="__codelineno-6-4" name="__codelineno-6-4" href="#__codelineno-6-4"></a><span class="w">  </span><span class="nt">namespace</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">pod-play</span>
-</span><span id="__span-6-5"><a id="__codelineno-6-5" name="__codelineno-6-5" href="#__codelineno-6-5"></a><span class="w">  </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">pod-reader</span>
-</span><span id="__span-6-6"><a id="__codelineno-6-6" name="__codelineno-6-6" href="#__codelineno-6-6"></a><span class="nt">rules</span><span class="p">:</span>
-</span><span id="__span-6-7"><a id="__codelineno-6-7" name="__codelineno-6-7" href="#__codelineno-6-7"></a><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">apiGroups</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">[</span><span class="s">&quot;&quot;</span><span class="p p-Indicator">]</span>
-</span><span id="__span-6-8"><a id="__codelineno-6-8" name="__codelineno-6-8" href="#__codelineno-6-8"></a><span class="w">  </span><span class="nt">resources</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">[</span><span class="s">&quot;pods&quot;</span><span class="p p-Indicator">]</span>
-</span><span id="__span-6-9"><a id="__codelineno-6-9" name="__codelineno-6-9" href="#__codelineno-6-9"></a><span class="w">  </span><span class="nt">verbs</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">[</span><span class="s">&quot;get&quot;</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="s">&quot;list&quot;</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="s">&quot;watch&quot;</span><span class="p p-Indicator">]</span>
-</span><span id="__span-6-10"><a id="__codelineno-6-10" name="__codelineno-6-10" href="#__codelineno-6-10"></a><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">apiGroups</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">[</span><span class="s">&quot;&quot;</span><span class="p p-Indicator">]</span>
-</span><span id="__span-6-11"><a id="__codelineno-6-11" name="__codelineno-6-11" href="#__codelineno-6-11"></a><span class="w">  </span><span class="nt">resources</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">[</span><span class="s">&quot;services&quot;</span><span class="p p-Indicator">]</span>
-</span><span id="__span-6-12"><a id="__codelineno-6-12" name="__codelineno-6-12" href="#__codelineno-6-12"></a><span class="w">  </span><span class="nt">verbs</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">[</span><span class="s">&quot;list&quot;</span><span class="p p-Indicator">]</span>
+     <div class="language-yaml highlight"><pre><span></span><code><span id="__span-4-1"><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a><span class="nt">kind</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Role</span>
+</span><span id="__span-4-2"><a id="__codelineno-4-2" name="__codelineno-4-2" href="#__codelineno-4-2"></a><span class="nt">apiVersion</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">rbac.authorization.k8s.io/v1</span>
+</span><span id="__span-4-3"><a id="__codelineno-4-3" name="__codelineno-4-3" href="#__codelineno-4-3"></a><span class="nt">metadata</span><span class="p">:</span>
+</span><span id="__span-4-4"><a id="__codelineno-4-4" name="__codelineno-4-4" href="#__codelineno-4-4"></a><span class="w">  </span><span class="nt">namespace</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">namespaceX</span>
+</span><span id="__span-4-5"><a id="__codelineno-4-5" name="__codelineno-4-5" href="#__codelineno-4-5"></a><span class="w">  </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">pod-reader</span>
+</span><span id="__span-4-6"><a id="__codelineno-4-6" name="__codelineno-4-6" href="#__codelineno-4-6"></a><span class="nt">rules</span><span class="p">:</span>
+</span><span id="__span-4-7"><a id="__codelineno-4-7" name="__codelineno-4-7" href="#__codelineno-4-7"></a><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">apiGroups</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">[</span><span class="s">&quot;&quot;</span><span class="p p-Indicator">]</span>
+</span><span id="__span-4-8"><a id="__codelineno-4-8" name="__codelineno-4-8" href="#__codelineno-4-8"></a><span class="w">  </span><span class="nt">resources</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">[</span><span class="s">&quot;pods&quot;</span><span class="p p-Indicator">]</span>
+</span><span id="__span-4-9"><a id="__codelineno-4-9" name="__codelineno-4-9" href="#__codelineno-4-9"></a><span class="w">  </span><span class="nt">verbs</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">[</span><span class="s">&quot;get&quot;</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="s">&quot;list&quot;</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="s">&quot;watch&quot;</span><span class="p p-Indicator">]</span>
+</span><span id="__span-4-10"><a id="__codelineno-4-10" name="__codelineno-4-10" href="#__codelineno-4-10"></a><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">apiGroups</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">[</span><span class="s">&quot;&quot;</span><span class="p p-Indicator">]</span>
+</span><span id="__span-4-11"><a id="__codelineno-4-11" name="__codelineno-4-11" href="#__codelineno-4-11"></a><span class="w">  </span><span class="nt">resources</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">[</span><span class="s">&quot;services&quot;</span><span class="p p-Indicator">]</span>
+</span><span id="__span-4-12"><a id="__codelineno-4-12" name="__codelineno-4-12" href="#__codelineno-4-12"></a><span class="w">  </span><span class="nt">verbs</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">[</span><span class="s">&quot;list&quot;</span><span class="p p-Indicator">]</span>
 </span></code></pre></div></p>
-</li>
-<li>
-<p><strong>Update the Role:</strong></p>
 </li>
 <li>
 <p>Apply the changes to update the role:
-     <div class="language-bash highlight"><pre><span></span><code><span id="__span-7-1"><a id="__codelineno-7-1" name="__codelineno-7-1" href="#__codelineno-7-1"></a>oc<span class="w"> </span>apply<span class="w"> </span>-f<span class="w"> </span>pod-reader.yaml<span class="w"> </span>-n<span class="w"> </span>pod-play
+   <div class="language-bash highlight"><pre><span></span><code><span id="__span-5-1"><a id="__codelineno-5-1" name="__codelineno-5-1" href="#__codelineno-5-1"></a><span class="w">  </span>oc<span class="w"> </span>apply<span class="w"> </span>-f<span class="w"> </span>pod-reader.yaml
 </span></code></pre></div></p>
 </li>
 <li>
-<p><strong>Verify the Changes:</strong></p>
+<p>Check the updated role to ensure the changes were applied:
+   <div class="language-bash highlight"><pre><span></span><code><span id="__span-6-1"><a id="__codelineno-6-1" name="__codelineno-6-1" href="#__codelineno-6-1"></a>oc<span class="w"> </span>get<span class="w"> </span>role<span class="w"> </span>pod-reader<span class="w"> </span>-o<span class="w"> </span>yaml
+</span></code></pre></div></p>
 </li>
-<li>Check the updated role to ensure the changes were applied:
-     <div class="language-bash highlight"><pre><span></span><code><span id="__span-8-1"><a id="__codelineno-8-1" name="__codelineno-8-1" href="#__codelineno-8-1"></a>oc<span class="w"> </span>get<span class="w"> </span>role<span class="w"> </span>pod-reader<span class="w"> </span>-o<span class="w"> </span>yaml<span class="w"> </span>-n<span class="w"> </span>pod-play
-</span></code></pre></div></li>
+<li>
+<p>Verify that you user friend can now list services in addition to viewing pods:
+    <div class="language-bash highlight"><pre><span></span><code><span id="__span-7-1"><a id="__codelineno-7-1" name="__codelineno-7-1" href="#__codelineno-7-1"></a>oc<span class="w"> </span>get<span class="w"> </span>services
+</span><span id="__span-7-2"><a id="__codelineno-7-2" name="__codelineno-7-2" href="#__codelineno-7-2"></a>oc<span class="w"> </span>get<span class="w"> </span>pods
+</span></code></pre></div>
+   Ensure that you cannot modify any resources:
+   <div class="language-bash highlight"><pre><span></span><code><span id="__span-8-1"><a id="__codelineno-8-1" name="__codelineno-8-1" href="#__codelineno-8-1"></a><span class="c1"># Attempting to delete a pod should fail</span>
+</span><span id="__span-8-2"><a id="__codelineno-8-2" name="__codelineno-8-2" href="#__codelineno-8-2"></a>oc<span class="w"> </span>delete<span class="w"> </span>pod<span class="w"> </span>&lt;pod-name&gt;
+</span></code></pre></div>
+   Confirm that you still cannot access other resources like secrets:
+   <div class="language-bash highlight"><pre><span></span><code><span id="__span-9-1"><a id="__codelineno-9-1" name="__codelineno-9-1" href="#__codelineno-9-1"></a>oc<span class="w"> </span>get<span class="w"> </span>secrets
+</span></code></pre></div></p>
+</li>
 </ol>
-<h3 id="exercise-3-create-a-rolebinding-for-a-group">Exercise 3: Create a RoleBinding for a Group</h3>
-<p><strong>Objective:</strong> Learn how to bind a role to a group of users.</p>
+<h3 id="exercise-3-create-a-service-account">Exercise 3: Create a Service Account</h3>
+<p><strong>Objective:</strong> Learn how to create a service account and bind a role to it within your own namespace.</p>
+<blockquote>
+<p>Note: A service account in Kubernetes is an identity that processes within a pod can use to interact with the Kubernetes API. It provides a way to control access to resources within a namespace, allowing for more granular permission management compared to using user accounts. Service accounts are particularly useful for applications running within the cluster that need to interact with the Kubernetes API.</p>
+</blockquote>
 <ol>
-<li><strong>Create a Group:</strong></li>
 <li>
-<p>Add users to a group named <code>dev-team</code>:
-     <div class="language-bash highlight"><pre><span></span><code><span id="__span-9-1"><a id="__codelineno-9-1" name="__codelineno-9-1" href="#__codelineno-9-1"></a>oc<span class="w"> </span>adm<span class="w"> </span>groups<span class="w"> </span>new<span class="w"> </span>dev-team
-</span><span id="__span-9-2"><a id="__codelineno-9-2" name="__codelineno-9-2" href="#__codelineno-9-2"></a>oc<span class="w"> </span>adm<span class="w"> </span>groups<span class="w"> </span>add-users<span class="w"> </span>dev-team<span class="w"> </span>user2<span class="w"> </span>user3
+<p>Use the following command to create a service account named <code>pod-viewer</code> in your namespace:
+    <div class="language-bash highlight"><pre><span></span><code><span id="__span-10-1"><a id="__codelineno-10-1" name="__codelineno-10-1" href="#__codelineno-10-1"></a>oc<span class="w"> </span>create<span class="w"> </span>serviceaccount<span class="w"> </span>pod-viewer<span class="w"> </span>-n<span class="w"> </span>pod-play
 </span></code></pre></div></p>
 </li>
 <li>
-<p><strong>Create a RoleBinding:</strong></p>
+<p>Create a YAML file named <code>sa-rolebinding.yaml</code> to bind the <code>view</code> role to the <code>pod-viewer</code> service account:
+    &gt; Note: Ensure to replace <code>namespaceX</code> with your actual namespace where you want the service account and role binding to be applied.</p>
+<div class="language-yaml highlight"><pre><span></span><code><span id="__span-11-1"><a id="__codelineno-11-1" name="__codelineno-11-1" href="#__codelineno-11-1"></a><span class="nt">kind</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">RoleBinding</span>
+</span><span id="__span-11-2"><a id="__codelineno-11-2" name="__codelineno-11-2" href="#__codelineno-11-2"></a><span class="nt">apiVersion</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">rbac.authorization.k8s.io/v1</span>
+</span><span id="__span-11-3"><a id="__codelineno-11-3" name="__codelineno-11-3" href="#__codelineno-11-3"></a><span class="nt">metadata</span><span class="p">:</span>
+</span><span id="__span-11-4"><a id="__codelineno-11-4" name="__codelineno-11-4" href="#__codelineno-11-4"></a><span class="w">  </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">sa-view-binding</span>
+</span><span id="__span-11-5"><a id="__codelineno-11-5" name="__codelineno-11-5" href="#__codelineno-11-5"></a><span class="w">  </span><span class="nt">namespace</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">namespaceX</span>
+</span><span id="__span-11-6"><a id="__codelineno-11-6" name="__codelineno-11-6" href="#__codelineno-11-6"></a><span class="nt">subjects</span><span class="p">:</span>
+</span><span id="__span-11-7"><a id="__codelineno-11-7" name="__codelineno-11-7" href="#__codelineno-11-7"></a><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">kind</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">ServiceAccount</span>
+</span><span id="__span-11-8"><a id="__codelineno-11-8" name="__codelineno-11-8" href="#__codelineno-11-8"></a><span class="w">  </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">pod-viewer</span>
+</span><span id="__span-11-9"><a id="__codelineno-11-9" name="__codelineno-11-9" href="#__codelineno-11-9"></a><span class="w">  </span><span class="nt">namespace</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">namespaceX</span>
+</span><span id="__span-11-10"><a id="__codelineno-11-10" name="__codelineno-11-10" href="#__codelineno-11-10"></a><span class="nt">roleRef</span><span class="p">:</span>
+</span><span id="__span-11-11"><a id="__codelineno-11-11" name="__codelineno-11-11" href="#__codelineno-11-11"></a><span class="w">  </span><span class="nt">kind</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Role</span>
+</span><span id="__span-11-12"><a id="__codelineno-11-12" name="__codelineno-11-12" href="#__codelineno-11-12"></a><span class="w">  </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">view</span>
+</span><span id="__span-11-13"><a id="__codelineno-11-13" name="__codelineno-11-13" href="#__codelineno-11-13"></a><span class="w">  </span><span class="nt">apiGroup</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">rbac.authorization.k8s.io</span>
+</span></code></pre></div>
 </li>
 <li>
-<p>Create a YAML file named <code>group-rolebinding.yaml</code> to bind the <code>view</code> role to the <code>dev-team</code> group:
-     <div class="language-yaml highlight"><pre><span></span><code><span id="__span-10-1"><a id="__codelineno-10-1" name="__codelineno-10-1" href="#__codelineno-10-1"></a><span class="nt">kind</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">RoleBinding</span>
-</span><span id="__span-10-2"><a id="__codelineno-10-2" name="__codelineno-10-2" href="#__codelineno-10-2"></a><span class="nt">apiVersion</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">rbac.authorization.k8s.io/v1</span>
-</span><span id="__span-10-3"><a id="__codelineno-10-3" name="__codelineno-10-3" href="#__codelineno-10-3"></a><span class="nt">metadata</span><span class="p">:</span>
-</span><span id="__span-10-4"><a id="__codelineno-10-4" name="__codelineno-10-4" href="#__codelineno-10-4"></a><span class="w">  </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">view-binding</span>
-</span><span id="__span-10-5"><a id="__codelineno-10-5" name="__codelineno-10-5" href="#__codelineno-10-5"></a><span class="w">  </span><span class="nt">namespace</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">pod-play</span>
-</span><span id="__span-10-6"><a id="__codelineno-10-6" name="__codelineno-10-6" href="#__codelineno-10-6"></a><span class="nt">subjects</span><span class="p">:</span>
-</span><span id="__span-10-7"><a id="__codelineno-10-7" name="__codelineno-10-7" href="#__codelineno-10-7"></a><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">kind</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Group</span>
-</span><span id="__span-10-8"><a id="__codelineno-10-8" name="__codelineno-10-8" href="#__codelineno-10-8"></a><span class="w">  </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">dev-team</span>
-</span><span id="__span-10-9"><a id="__codelineno-10-9" name="__codelineno-10-9" href="#__codelineno-10-9"></a><span class="w">  </span><span class="nt">apiGroup</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">rbac.authorization.k8s.io</span>
-</span><span id="__span-10-10"><a id="__codelineno-10-10" name="__codelineno-10-10" href="#__codelineno-10-10"></a><span class="nt">roleRef</span><span class="p">:</span>
-</span><span id="__span-10-11"><a id="__codelineno-10-11" name="__codelineno-10-11" href="#__codelineno-10-11"></a><span class="w">  </span><span class="nt">kind</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Role</span>
-</span><span id="__span-10-12"><a id="__codelineno-10-12" name="__codelineno-10-12" href="#__codelineno-10-12"></a><span class="w">  </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">view</span>
-</span><span id="__span-10-13"><a id="__codelineno-10-13" name="__codelineno-10-13" href="#__codelineno-10-13"></a><span class="w">  </span><span class="nt">apiGroup</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">rbac.authorization.k8s.io</span>
+<p>Use the following command to create the role binding for the service account:
+     <div class="language-bash highlight"><pre><span></span><code><span id="__span-12-1"><a id="__codelineno-12-1" name="__codelineno-12-1" href="#__codelineno-12-1"></a>oc<span class="w"> </span>create<span class="w"> </span>-f<span class="w"> </span>sa-rolebinding.yaml
 </span></code></pre></div></p>
 </li>
 <li>
-<p><strong>Apply the RoleBinding:</strong></p>
-</li>
-<li>
-<p>Use the following command to create the role binding:
-     <div class="language-bash highlight"><pre><span></span><code><span id="__span-11-1"><a id="__codelineno-11-1" name="__codelineno-11-1" href="#__codelineno-11-1"></a>oc<span class="w"> </span>create<span class="w"> </span>-f<span class="w"> </span>group-rolebinding.yaml<span class="w"> </span>-n<span class="w"> </span>pod-play
+<p>Check that the service account and role binding have been created:
+     <div class="language-bash highlight"><pre><span></span><code><span id="__span-13-1"><a id="__codelineno-13-1" name="__codelineno-13-1" href="#__codelineno-13-1"></a>oc<span class="w"> </span>get<span class="w"> </span>serviceaccounts
+</span><span id="__span-13-2"><a id="__codelineno-13-2" name="__codelineno-13-2" href="#__codelineno-13-2"></a>oc<span class="w"> </span>get<span class="w"> </span>rolebindings
 </span></code></pre></div></p>
 </li>
 <li>
-<p><strong>Verify the RoleBinding:</strong></p>
+<p>Use the service account to verify that it can view and list pods in the <code>namespaceX</code> namespace:
+     <div class="language-bash highlight"><pre><span></span><code><span id="__span-14-1"><a id="__codelineno-14-1" name="__codelineno-14-1" href="#__codelineno-14-1"></a>oc<span class="w"> </span>auth<span class="w"> </span>can-i<span class="w"> </span>get<span class="w"> </span>pods<span class="w"> </span>--as<span class="o">=</span>system:serviceaccount:namespaceX:pod-viewer<span class="w"> </span>-n<span class="w"> </span>namespaceX
+</span></code></pre></div>
+   Ensure that the service account cannot modify resources:
+     <div class="language-bash highlight"><pre><span></span><code><span id="__span-15-1"><a id="__codelineno-15-1" name="__codelineno-15-1" href="#__codelineno-15-1"></a><span class="c1"># Attempting to delete a pod should fail</span>
+</span><span id="__span-15-2"><a id="__codelineno-15-2" name="__codelineno-15-2" href="#__codelineno-15-2"></a>oc<span class="w"> </span>auth<span class="w"> </span>can-i<span class="w"> </span>delete<span class="w"> </span>pod<span class="w"> </span>--as<span class="o">=</span>system:serviceaccount:namespaceX:pod-viewer<span class="w"> </span>-n<span class="w"> </span>namespaceX
+</span></code></pre></div></p>
 </li>
-<li>Check that the role binding has been created:
-     <div class="language-bash highlight"><pre><span></span><code><span id="__span-12-1"><a id="__codelineno-12-1" name="__codelineno-12-1" href="#__codelineno-12-1"></a>oc<span class="w"> </span>get<span class="w"> </span>rolebindings<span class="w"> </span>-n<span class="w"> </span>pod-play
-</span></code></pre></div></li>
 </ol>
 
 

@@ -434,12 +434,12 @@
   
   
     <li class="md-nav__item">
-      <a href="../js/" class="md-nav__link">
+      <a href="../networkpolicy/" class="md-nav__link">
         
   
   
   <span class="md-ellipsis">
-    NodeJS
+    Network Policy
     
   </span>
   
@@ -456,12 +456,12 @@
   
   
     <li class="md-nav__item">
-      <a href="../networkpolicy/" class="md-nav__link">
+      <a href="../js/" class="md-nav__link">
         
   
   
   <span class="md-ellipsis">
-    Network Policy
+    NodeJS
     
   </span>
   
@@ -986,13 +986,13 @@ Ensure you are in this directory before executing the commands.
 </p>
 </blockquote>
 <p>Use the following command to log in to the OpenShift internal registry:
-   <div class="language-bash highlight"><pre><span></span><code><span id="__span-20-1"><a id="__codelineno-20-1" name="__codelineno-20-1" href="#__codelineno-20-1"></a>podman<span class="w"> </span>login<span class="w"> </span>-u<span class="w"> </span><span class="k">$(</span>oc<span class="w"> </span>whoami<span class="k">)</span><span class="w"> </span>-p<span class="w"> </span><span class="k">$(</span>oc<span class="w"> </span>whoami<span class="w"> </span>-t<span class="k">)</span><span class="w"> </span>https://default-route-openshift-image-registry.apps.cluster-9gpzv.9gpzv.sandbox2541.opentlc.com
+   <div class="language-bash highlight"><pre><span></span><code><span id="__span-20-1"><a id="__codelineno-20-1" name="__codelineno-20-1" href="#__codelineno-20-1"></a>podman<span class="w"> </span>login<span class="w"> </span>-u<span class="w"> </span><span class="k">$(</span>oc<span class="w"> </span>whoami<span class="k">)</span><span class="w"> </span>-p<span class="w"> </span><span class="k">$(</span>oc<span class="w"> </span>whoami<span class="w"> </span>-t<span class="k">)</span><span class="w"> </span>https://default-route-openshift-image-registry.apps.cluster-2jp75.2jp75.sandbox2851.opentlc.com
 </span></code></pre></div>
    Tag your local image with the OpenShift registry namespace:
-   <div class="language-bash highlight"><pre><span></span><code><span id="__span-21-1"><a id="__codelineno-21-1" name="__codelineno-21-1" href="#__codelineno-21-1"></a>podman<span class="w"> </span>tag<span class="w"> </span>python-server:v2<span class="w"> </span>default-route-openshift-image-registry.apps.cluster-9gpzv.9gpzv.sandbox2541.opentlc.com/devspaces-user1/python-server:v2
+   <div class="language-bash highlight"><pre><span></span><code><span id="__span-21-1"><a id="__codelineno-21-1" name="__codelineno-21-1" href="#__codelineno-21-1"></a>podman<span class="w"> </span>tag<span class="w"> </span>python-server:v2<span class="w"> </span>default-route-openshift-image-registry.apps.cluster-2jp75.2jp75.sandbox2851.opentlc.com/devspaces-user1/python-server:v2
 </span></code></pre></div>
    Push the tagged image to the OpenShift internal registry:
-   <div class="language-bash highlight"><pre><span></span><code><span id="__span-22-1"><a id="__codelineno-22-1" name="__codelineno-22-1" href="#__codelineno-22-1"></a>podman<span class="w"> </span>push<span class="w"> </span>default-route-openshift-image-registry.apps.cluster-9gpzv.9gpzv.sandbox2541.opentlc.com/devspaces-user1/python-server:v2
+   <div class="language-bash highlight"><pre><span></span><code><span id="__span-22-1"><a id="__codelineno-22-1" name="__codelineno-22-1" href="#__codelineno-22-1"></a>podman<span class="w"> </span>push<span class="w"> </span>default-route-openshift-image-registry.apps.cluster-2jp75.2jp75.sandbox2851.opentlc.com/devspaces-user1/python-server:v2
 </span></code></pre></div></p>
 <p><strong>For DevSpaces Users:</strong></p>
 <p>Use the following command to log in to the OpenShift internal registry:
