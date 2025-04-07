@@ -641,7 +641,7 @@
 - Apply them directly to your OpenShift cluster</p>
 <h3 id="2-deploy-tekton-tasks">2. Deploy Tekton Tasks</h3>
 <p>Next, deploy the required Tekton tasks for the workshop:</p>
-<div class="language-bash highlight"><pre><span></span><code><span id="__span-1-1"><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a>kustomize<span class="w"> </span>build<span class="w"> </span>cluster/tekton-tasks<span class="w"> </span><span class="p">|</span><span class="w"> </span>oc<span class="w"> </span>apply<span class="w"> </span>-f<span class="w"> </span>-
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-1-1"><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a>kustomize<span class="w"> </span>build<span class="w"> </span>cluster/tekton-tasks/base<span class="w"> </span><span class="p">|</span><span class="w"> </span>oc<span class="w"> </span>apply<span class="w"> </span>-f<span class="w"> </span>-
 </span></code></pre></div>
 <p>This step sets up the CI/CD pipeline components needed for the workshop environment.</p>
 <h3 id="3-deploy-devspaces-configuration">3. Deploy DevSpaces Configuration</h3>
@@ -663,8 +663,7 @@
 <ul>
 <li>Make sure to run these commands in the order specified</li>
 <li>Wait for each step to complete before proceeding to the next</li>
-<li>Monitor the cluster events during deployment for any potential issues
-```</li>
+<li>Monitor the cluster events during deployment for any potential issues</li>
 </ul>
 
 

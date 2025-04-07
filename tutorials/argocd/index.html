@@ -9,8 +9,6 @@
       
       
       
-        <link rel="prev" href="../java/springboot/">
-      
       
       
       <link rel="icon" href="../../assets/images/favicon.png">
@@ -18,7 +16,7 @@
     
     
       
-        <title>Pipeline - OpenShift Quickstart</title>
+        <title>Argo CD Setup Tutorial - OpenShift Quickstart</title>
       
     
     
@@ -70,7 +68,7 @@
     <div data-md-component="skip">
       
         
-        <a href="#pipeline-setup" class="md-skip">
+        <a href="#argo-cd-setup-tutorial" class="md-skip">
           Skip to content
         </a>
       
@@ -105,7 +103,7 @@
         <div class="md-header__topic" data-md-component="header-topic">
           <span class="md-ellipsis">
             
-              Pipeline
+              Argo CD Setup Tutorial
             
           </span>
         </div>
@@ -487,32 +485,10 @@
       
   
   
-    
   
   
-  
-    <li class="md-nav__item md-nav__item--active">
-      
-      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
-      
-      
-        
-      
-      
-        <label class="md-nav__link md-nav__link--active" for="__toc">
-          
-  
-  
-  <span class="md-ellipsis">
-    Pipeline
-    
-  </span>
-  
-
-          <span class="md-nav__icon md-icon"></span>
-        </label>
-      
-      <a href="./" class="md-nav__link md-nav__link--active">
+    <li class="md-nav__item">
+      <a href="../pipeline/" class="md-nav__link">
         
   
   
@@ -523,53 +499,6 @@
   
 
       </a>
-      
-        
-
-<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
-  
-  
-  
-    
-  
-  
-    <label class="md-nav__title" for="__toc">
-      <span class="md-nav__icon md-icon"></span>
-      Table of contents
-    </label>
-    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
-      
-        <li class="md-nav__item">
-  <a href="#1-install-the-pipeline-using-helm" class="md-nav__link">
-    <span class="md-ellipsis">
-      1. Install the Pipeline Using Helm
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#additional-recommendations-for-clarity" class="md-nav__link">
-    <span class="md-ellipsis">
-      Additional Recommendations for Clarity:
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#2-launch-the-pipelinerun" class="md-nav__link">
-    <span class="md-ellipsis">
-      2. Launch the PipelineRun
-    </span>
-  </a>
-  
-</li>
-      
-    </ul>
-  
-</nav>
-      
     </li>
   
 
@@ -601,27 +530,135 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#1-install-the-pipeline-using-helm" class="md-nav__link">
+  <a href="#1-install-argo-cd-on-openshift" class="md-nav__link">
     <span class="md-ellipsis">
-      1. Install the Pipeline Using Helm
+      1. Install Argo CD on OpenShift
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="1. Install Argo CD on OpenShift">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#navigate-to-the-argo-cd-directory" class="md-nav__link">
+    <span class="md-ellipsis">
+      Navigate to the Argo CD Directory
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#adjust-namespace-in-argo-cd-manifest" class="md-nav__link">
+    <span class="md-ellipsis">
+      Adjust Namespace in Argo CD Manifest
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#apply-the-argo-cd-manifest" class="md-nav__link">
+    <span class="md-ellipsis">
+      Apply the Argo CD Manifest
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#2-access-the-argo-cd-ui" class="md-nav__link">
+    <span class="md-ellipsis">
+      2. Access the Argo CD UI
     </span>
   </a>
   
 </li>
       
         <li class="md-nav__item">
-  <a href="#additional-recommendations-for-clarity" class="md-nav__link">
+  <a href="#3-deploy-applications-using-argo-cd" class="md-nav__link">
     <span class="md-ellipsis">
-      Additional Recommendations for Clarity:
+      3. Deploy Applications Using Argo CD
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="3. Deploy Applications Using Argo CD">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#adjust-namespace-in-application-manifests" class="md-nav__link">
+    <span class="md-ellipsis">
+      Adjust Namespace in Application Manifests
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#deploying-the-applications" class="md-nav__link">
+    <span class="md-ellipsis">
+      Deploying the Applications
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Deploying the Applications">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#deploy-go-application-go-app" class="md-nav__link">
+    <span class="md-ellipsis">
+      Deploy Go Application (go-app):
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#deploy-angular-application-angular-app" class="md-nav__link">
+    <span class="md-ellipsis">
+      Deploy Angular Application (angular-app):
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#deploy-java-application-java-app" class="md-nav__link">
+    <span class="md-ellipsis">
+      Deploy Java Application (java-app):
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#4-synchronize-applications-in-argo-cd-ui" class="md-nav__link">
+    <span class="md-ellipsis">
+      4. Synchronize Applications in Argo CD UI
     </span>
   </a>
   
 </li>
       
         <li class="md-nav__item">
-  <a href="#2-launch-the-pipelinerun" class="md-nav__link">
+  <a href="#5-verify-application-deployment" class="md-nav__link">
     <span class="md-ellipsis">
-      2. Launch the PipelineRun
+      5. Verify Application Deployment
     </span>
   </a>
   
@@ -643,132 +680,85 @@
 
 
 
-<h1 id="pipeline-setup">Pipeline Setup</h1>
-<p>This tutorial will guide you through the process of setting up and executing a pipeline using the provided Helm chart. We will cover creating a pipeline and PVC, launching a PipelineRun, and setting up event listeners and triggers.</p>
+<h1 id="argo-cd-setup-tutorial">Argo CD Setup Tutorial</h1>
+<p>This tutorial guides you through setting up Argo CD on OpenShift and deploying applications using Argo CD Application manifests. We'll cover installing Argo CD, configuring it, and deploying example applications (<code>go-app</code>, <code>angular-app</code>, and <code>java-app</code>).</p>
 <blockquote>
-<p>The code examples and instructions in this tutorial are located under <code>openshift-quickstart</code> project in the
-<code>tutorials/pipeline</code> directory. 
-Ensure you are in this directory before executing the commands.
-</p>
+<p><strong>Note:</strong> All YAML files referenced in this tutorial are located under the <code>openshift-quickstart/gitops/argocd</code> directory. Ensure you navigate to this directory before executing commands.</p>
 </blockquote>
-<ol>
-<li>
-<p>Navigate to the Tutorial Directory
-    <div class="language-bash highlight"><pre><span></span><code><span id="__span-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="c1"># Change to the tutorials/simple directory</span>
-</span><span id="__span-0-2"><a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a><span class="nb">cd</span><span class="w"> </span>openshift-quickstart/tutorials/pipeline
-</span></code></pre></div></p>
-</li>
-<li>
-<p>Or open a New Terminal</p>
-</li>
-</ol>
 <hr />
-<h3 id="1-install-the-pipeline-using-helm">1. Install the Pipeline Using Helm</h3>
-<p>The provided Helm chart is designed to be generic and reusable, allowing multiple users and pipeline types to utilize the same chart with minimal configuration. This is achieved through parameterization and naming conventions.</p>
-<p><strong>Conventions Explained:</strong></p>
-<ul>
-<li><strong>Release Name:</strong><br />
-  The Helm release name should reflect the pipeline type you are deploying. Common examples include:</li>
-<li><code>java</code></li>
-<li><code>golang</code></li>
-<li><code>nodejs</code></li>
-</ul>
-<p>This naming convention helps distinguish between different pipeline instances clearly and consistently.</p>
-<ul>
-<li><strong>Namespace:</strong><br />
-  The namespace parameter allows multiple users to deploy their pipelines independently without conflicts. Typically, each user or team has a dedicated namespace, such as:</li>
-<li><code>user1</code></li>
-<li><code>devspaces-user1</code></li>
-</ul>
-<p>Using separate namespaces ensures isolation and prevents resource conflicts between different users or teams.</p>
-<ul>
-<li><strong>Generic Chart Structure:</strong><br />
-  The Helm chart uses templating to dynamically generate Kubernetes resources based on the provided parameters. This approach allows the same chart to be reused across different pipeline types and namespaces without modification.</li>
-</ul>
-<p><strong>Example Installation Command:</strong></p>
-<p>Replace <code>&lt;pipeline-type&gt;</code> with your chosen pipeline type (<code>java</code>, <code>golang</code>, or <code>nodejs</code>) and <code>&lt;namespace&gt;</code> with your user-specific namespace (<code>user1</code> or <code>devspaces-user1</code>):</p>
-<div class="language-bash highlight"><pre><span></span><code><span id="__span-1-1"><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a><span class="nb">cd</span><span class="w"> </span>gitops/pipeline
-</span><span id="__span-1-2"><a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a>
-</span><span id="__span-1-3"><a id="__codelineno-1-3" name="__codelineno-1-3" href="#__codelineno-1-3"></a>helm<span class="w"> </span>install<span class="w"> </span>&lt;pipeline-type&gt;<span class="w"> </span>helm/pipeline<span class="w"> </span>--namespace<span class="w"> </span>&lt;namespace&gt;
+<h2 id="1-install-argo-cd-on-openshift">1. Install Argo CD on OpenShift</h2>
+<p>First, we need to install Argo CD using the provided YAML manifest (<code>argocd.yaml</code>). This manifest configures Argo CD with OpenShift OAuth integration, resource limits, and exclusions.</p>
+<h3 id="navigate-to-the-argo-cd-directory">Navigate to the Argo CD Directory</h3>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="nb">cd</span><span class="w"> </span>openshift-quickstart/gitops/argocd
 </span></code></pre></div>
-<p><strong>Detailed Example:</strong></p>
-<p>For instance, if you are deploying a Java pipeline for user <code>user1</code>, your command would look like this:</p>
-<div class="language-bash highlight"><pre><span></span><code><span id="__span-2-1"><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a>helm<span class="w"> </span>install<span class="w"> </span>java<span class="w"> </span>helm/pipeline<span class="w"> </span>--namespace<span class="w"> </span>user1
+<h3 id="adjust-namespace-in-argo-cd-manifest">Adjust Namespace in Argo CD Manifest</h3>
+<p>Before applying the manifest, edit the <code>argocd.yaml</code> file to replace the default namespace (<code>devspaces-admin</code>) with your specific user namespace (<code>user1</code>, <code>devspaces-user1</code>, etc.):</p>
+<div class="language-yaml highlight"><pre><span></span><code><span id="__span-1-1"><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a><span class="c1"># argocd.yaml</span>
+</span><span id="__span-1-2"><a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a><span class="nt">metadata</span><span class="p">:</span>
+</span><span id="__span-1-3"><a id="__codelineno-1-3" name="__codelineno-1-3" href="#__codelineno-1-3"></a><span class="w">  </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">argocd</span>
+</span><span id="__span-1-4"><a id="__codelineno-1-4" name="__codelineno-1-4" href="#__codelineno-1-4"></a><span class="w">  </span><span class="nt">namespace</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">&lt;your-user-namespace&gt;</span><span class="w"> </span><span class="c1"># Replace with your namespace</span>
+</span></code></pre></div>
+<h3 id="apply-the-argo-cd-manifest">Apply the Argo CD Manifest</h3>
+<p>Deploy Argo CD using the following command:</p>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-2-1"><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a>oc<span class="w"> </span>apply<span class="w"> </span>-f<span class="w"> </span>argocd.yaml
 </span></code></pre></div>
 <p>This command will:</p>
 <ul>
-<li>Deploy pipeline resources specifically tailored for Java applications.</li>
-<li>Place all resources within the <code>user1</code> namespace, ensuring isolation from other users.</li>
+<li>Deploy Argo CD in your specified user namespace.</li>
+<li>Enable OpenShift OAuth integration for Single Sign-On (SSO).</li>
+<li>Configure resource limits and requests for Argo CD components.</li>
+<li>Exclude Tekton resources (<code>TaskRun</code>, <code>PipelineRun</code>) from Argo CD management.</li>
 </ul>
 <hr />
-<h3 id="additional-recommendations-for-clarity">Additional Recommendations for Clarity:</h3>
-<ul>
-<li>
-<p><strong>Explicitly Document Parameters:</strong><br />
-  Clearly document all available parameters in the Helm chart's <code>values.yaml</code> file, explaining their purpose and default values.</p>
-</li>
-<li>
-<p><strong>Provide Examples:</strong><br />
-  Include concrete examples for each pipeline type and namespace scenario to help users quickly understand and apply the conventions.</p>
-</li>
-<li>
-<p><strong>Explain Resource Naming:</strong><br />
-  Clarify how resources (PVCs, workspaces, secrets) are named based on the pipeline type and namespace, ensuring users understand how to reference these resources correctly during pipeline execution.</p>
-</li>
-</ul>
-<p>By incorporating these improvements, your documentation will become clearer, more informative, and easier for users to follow, especially when multiple users and pipeline types are involved.</p>
-<h3 id="2-launch-the-pipelinerun">2. Launch the PipelineRun</h3>
-<p>To execute the pipeline, we need to create a PipelineRun using the OpenShift UI.</p>
+<h2 id="2-access-the-argo-cd-ui">2. Access the Argo CD UI</h2>
+<p>After installation, access the Argo CD UI through the OpenShift route:</p>
 <ol>
-<li>
-<p><strong>Create the PipelineRun:</strong></p>
-</li>
-<li>
-<p>Navigate to the OpenShift Console and log in with your credentials.</p>
-</li>
-<li>Go to the "Pipelines" section in your project.</li>
-<li>Click on the target pipeline from the list.</li>
-<li>
-<p>Click Actions and "Start" button.</p>
-</li>
-<li>
-<p><strong>Select Workspaces:</strong></p>
-</li>
+<li>Log in to your OpenShift Console.</li>
+<li>Navigate to <strong>Networking → Routes</strong> in your specific user namespace.</li>
+<li>Click on the Argo CD route URL to open the Argo CD UI.</li>
+<li>Log in using your OpenShift credentials (OAuth integration is enabled).</li>
 </ol>
-<p>Before starting the PipelineRun, ensure that you have selected the appropriate workspaces and PVCs. This is crucial for the pipeline to access necessary resources and credentials.</p>
-<ul>
-<li>
-<p><strong>Select Workspaces:</strong></p>
-<ul>
-<li>Ensure the following workspaces are selected:</li>
-<li><code>&lt;pipeline-type&gt;-ws</code></li>
-<li><code>&lt;pipeline-type&gt;-resource-ws</code></li>
-<li><code>&lt;pipeline-type&gt;-dockerconfig</code></li>
-<li><code>&lt;pipeline-type&gt;-git-credentials</code></li>
-</ul>
-</li>
-<li>
-<p><strong>Select PVCs:</strong></p>
-<ul>
-<li>Ensure the following PVCs are selected:</li>
-<li><code>&lt;pipeline-type&gt;-ws</code> (replace with actual PVC name)</li>
-<li><code>&lt;pipeline-type&gt;-resource-ws</code> (replace with actual PVC name)</li>
-</ul>
-</li>
-<li>
-<p><strong>Link Docker and GitHub Credentials:</strong></p>
-<ul>
-<li>Ensure that the Docker and GitHub credentials are linked to the pipeline service account:</li>
-<li><code>registry-credentials</code> for Docker</li>
-<li><code>git-credentials</code> for GitHub</li>
-</ul>
-</li>
-</ul>
-<p>After selecting the workspaces, PVCs, and linking the credentials, proceed to the next step.</p>
+<hr />
+<h2 id="3-deploy-applications-using-argo-cd">3. Deploy Applications Using Argo CD</h2>
+<p>We will deploy three example applications (<code>go-app</code>, <code>angular-app</code>, and <code>java-app</code>) using Argo CD Application manifests.</p>
+<h3 id="adjust-namespace-in-application-manifests">Adjust Namespace in Application Manifests</h3>
+<p>Before deploying, edit each application manifest (<code>go-app.yaml</code>, <code>angular.yaml</code>, <code>java-app.yaml</code>) to replace the default namespace (<code>devspaces-admin</code>) with your specific user namespace:</p>
+<div class="language-yaml highlight"><pre><span></span><code><span id="__span-3-1"><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a><span class="c1"># Example adjustment in go-app.yaml, angular.yaml, java-app.yaml</span>
+</span><span id="__span-3-2"><a id="__codelineno-3-2" name="__codelineno-3-2" href="#__codelineno-3-2"></a><span class="nt">spec</span><span class="p">:</span>
+</span><span id="__span-3-3"><a id="__codelineno-3-3" name="__codelineno-3-3" href="#__codelineno-3-3"></a><span class="w">  </span><span class="nt">destination</span><span class="p">:</span>
+</span><span id="__span-3-4"><a id="__codelineno-3-4" name="__codelineno-3-4" href="#__codelineno-3-4"></a><span class="w">    </span><span class="nt">namespace</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">&lt;your-user-namespace&gt;</span><span class="w"> </span><span class="c1"># Replace with your namespace</span>
+</span><span id="__span-3-5"><a id="__codelineno-3-5" name="__codelineno-3-5" href="#__codelineno-3-5"></a><span class="w">    </span><span class="nt">server</span><span class="p">:</span><span class="w"> </span><span class="s">&#39;https://kubernetes.default.svc&#39;</span>
+</span></code></pre></div>
+<hr />
+<h3 id="deploying-the-applications">Deploying the Applications</h3>
+<p>Deploy each application by applying its respective YAML manifest:</p>
+<h4 id="deploy-go-application-go-app">Deploy Go Application (<code>go-app</code>):</h4>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-4-1"><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a>oc<span class="w"> </span>apply<span class="w"> </span>-f<span class="w"> </span>application/go-app.yaml
+</span></code></pre></div>
+<h4 id="deploy-angular-application-angular-app">Deploy Angular Application (<code>angular-app</code>):</h4>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-5-1"><a id="__codelineno-5-1" name="__codelineno-5-1" href="#__codelineno-5-1"></a>oc<span class="w"> </span>apply<span class="w"> </span>-f<span class="w"> </span>application/angular.yaml
+</span></code></pre></div>
+<h4 id="deploy-java-application-java-app">Deploy Java Application (<code>java-app</code>):</h4>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-6-1"><a id="__codelineno-6-1" name="__codelineno-6-1" href="#__codelineno-6-1"></a>oc<span class="w"> </span>apply<span class="w"> </span>-f<span class="w"> </span>application/java-app.yaml
+</span></code></pre></div>
+<hr />
+<h2 id="4-synchronize-applications-in-argo-cd-ui">4. Synchronize Applications in Argo CD UI</h2>
+<p>After applying the manifests, synchronize the applications through the Argo CD UI:</p>
 <ol>
-<li><strong>Click "Start":</strong></li>
+<li>Open the Argo CD UI.</li>
+<li>Navigate to the <strong>Applications</strong> section.</li>
+<li>You should see the newly created applications (<code>go-app</code>, <code>angular-app</code>, <code>java-app</code>) listed.</li>
+<li>Click on each application and then click <strong>Sync</strong> to deploy the application resources to your cluster.</li>
 </ol>
-<p>Once all selections are made, click the "Start" button to initiate the PipelineRun.</p>
+<hr />
+<h2 id="5-verify-application-deployment">5. Verify Application Deployment</h2>
+<p>Verify that your applications are successfully deployed:</p>
+<ul>
+<li>Navigate to the OpenShift Console.</li>
+<li>Go to <strong>Workloads → Pods</strong> in your specific user namespace.</li>
+<li>Confirm that pods for each application (<code>go-app</code>, <code>angular-app</code>, <code>java-app</code>) are running and healthy.</li>
+</ul>
+<hr />
 
 
 
