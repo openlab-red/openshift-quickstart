@@ -523,15 +523,6 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#additional-resources" class="md-nav__link">
-    <span class="md-ellipsis">
-      📌 Additional Resources
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
   <a href="#deploying-backend-on-openshift-using-helm" class="md-nav__link">
     <span class="md-ellipsis">
       🚀 Deploying Backend on OpenShift using Helm
@@ -875,15 +866,6 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#additional-resources" class="md-nav__link">
-    <span class="md-ellipsis">
-      📌 Additional Resources
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
   <a href="#deploying-backend-on-openshift-using-helm" class="md-nav__link">
     <span class="md-ellipsis">
       🚀 Deploying Backend on OpenShift using Helm
@@ -1035,16 +1017,9 @@ Ensure you are in this directory before executing the commands.</p>
 </li>
 <li>
 <p>Add a new message:
-<div class="language-bash highlight"><pre><span></span><code><span id="__span-10-1"><a id="__codelineno-10-1" name="__codelineno-10-1" href="#__codelineno-10-1"></a>curl<span class="w"> </span>-X<span class="w"> </span>POST<span class="w"> </span>-H<span class="w"> </span><span class="s2">&quot;Content-Type: application/json&quot;</span><span class="w"> </span>-d<span class="w"> </span><span class="s1">&#39;{&quot;Hello, Golang!&quot;}&#39;</span><span class="w"> </span>http://localhost:8080/api/add/messages/Hello
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-10-1"><a id="__codelineno-10-1" name="__codelineno-10-1" href="#__codelineno-10-1"></a>curl<span class="w"> </span>-X<span class="w"> </span>POST<span class="w"> </span>-H<span class="w"> </span><span class="s2">&quot;Content-Type: application/json&quot;</span><span class="w"> </span>http://localhost:8080/api/add/Hello
 </span></code></pre></div></p>
 </li>
-</ul>
-<hr />
-<h2 id="additional-resources">📌 Additional Resources</h2>
-<ul>
-<li><a href="https://golang.org/doc/">Golang Documentation</a></li>
-<li><a href="https://www.postgresql.org/docs/">PostgreSQL Documentation</a></li>
-<li><a href="https://gin-gonic.com/">Gin Web Framework</a> (if used)</li>
 </ul>
 <hr />
 <p>🎉 <strong>Congratulations!</strong> You've successfully set up and tested your Golang REST API with PostgreSQL.</p>
@@ -1055,7 +1030,7 @@ Ensure you are in this directory before executing the commands.</p>
 <li><strong>Navigate to the Backend Helm Chart Directory:</strong></li>
 </ol>
 <p>Change to the directory containing the Helm chart for the backend:</p>
-<div class="language-bash highlight"><pre><span></span><code><span id="__span-11-1"><a id="__codelineno-11-1" name="__codelineno-11-1" href="#__codelineno-11-1"></a><span class="nb">cd</span><span class="w"> </span>openshift-quickstart-manifest/golang/backend/helm
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-11-1"><a id="__codelineno-11-1" name="__codelineno-11-1" href="#__codelineno-11-1"></a><span class="nb">cd</span><span class="w"> </span>openshift-quickstart-manifest/golang/helm
 </span></code></pre></div>
 <ol>
 <li><strong>Deploy the Backend using Helm:</strong></li>
