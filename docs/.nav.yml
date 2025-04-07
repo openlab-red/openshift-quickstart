@@ -11,4 +11,6 @@ nav:
     - Java Overview: tutorials/java/index.md
     - Quarkus: tutorials/java/quarkus/index.md
     - Spring Boot: tutorials/java/springboot/index.md
-  - Pipeline: tutorials/pipeline/index.md
+  - GitOps:
+    - Pipeline: tutorials/gitops/pipeline/index.md
+    - ArgoCD: tutorials/gitops/argocd/index.md

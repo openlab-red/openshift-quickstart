@@ -4,10 +4,11 @@ apiVersion: v1
 metadata:
   name: profile
   labels:
+    app.kubernetes.io/component: workspaces-config
+    app.kubernetes.io/part-of: che.eclipse.org
     controller.devfile.io/mount-to-devworkspace: 'true'
     controller.devfile.io/watch-configmap: 'true'
   annotations:
-    argocd.argoproj.io/sync-options: SkipPrune
     controller.devfile.io/mount-as: subpath
     controller.devfile.io/mount-path: /home/user
 data:
@@ -47,14 +48,7 @@ data:
     # alias
     alias code="code-oss"
 
-    if ! grep -Fe "[container]" -e "container.disabled" ~/.config/starship.toml >/dev/null 2>&1; then
-      echo "container.disabled = true" >> ~/.config/starship.toml
-    fi
-
   .gitconfig: |
-    [user]
-      email = mattiam7@gmail.com
-      name = Mattia Mascia
     [column]
             ui = auto
     [branch]
