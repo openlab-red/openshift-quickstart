@@ -35,6 +35,19 @@ This guide provides instructions on how to deploy Devspaces using Kustomize and 
 
    This command will deploy the Devspaces resources as defined in the `kustomization.yaml` file.
 
+4. **Pre-provision User Namespaces**
+
+   Run the pre-provision script to create and configure user namespaces:
+
+   ```bash
+   ./scripts/pre-provision.sh
+   ```
+
+   This script will:
+   - Create namespaces for each user (up to 25 users by default)
+   - Add required labels and annotations for DevSpaces
+   - Configure appropriate RBAC permissions
+
 ## Additional Information
 
 - The `kustomization.yaml` file in the `nested-container` overlay directory specifies the resources and patches to be applied.

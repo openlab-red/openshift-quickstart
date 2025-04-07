@@ -40,9 +40,6 @@ spec:
 #  containerRegistry:
 #    hostname: docker.example.com
   devEnvironments:
-    user:
-      clusterRoles:
-        - admin
     startTimeoutSeconds: 600
     security:
       podSecurityContext:
@@ -79,7 +76,7 @@ spec:
 #    trustedCerts:
 #     gitTrustedCertsConfigMapName: custom-ca-bundle
     defaultNamespace:
-#      autoProvision: false
+      autoProvision: false
       template: devspaces-<username>
     secondsOfInactivityBeforeIdling: 3600
     storage:

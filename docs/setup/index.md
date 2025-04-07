@@ -29,7 +29,7 @@ This command will:
 Next, deploy the required Tekton tasks for the workshop:
 
 ```bash
-kustomize build cluster/tekton-tasks | oc apply -f -
+kustomize build cluster/tekton-tasks/base | oc apply -f -
 ```
 
 This step sets up the CI/CD pipeline components needed for the workshop environment.
@@ -62,4 +62,3 @@ If you encounter any issues:
 - Make sure to run these commands in the order specified
 - Wait for each step to complete before proceeding to the next
 - Monitor the cluster events during deployment for any potential issues
-```
