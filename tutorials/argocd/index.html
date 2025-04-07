@@ -9,6 +9,8 @@
       
       
       
+        <link rel="prev" href="../pipeline/">
+      
       
       
       <link rel="icon" href="../../assets/images/favicon.png">
@@ -16,7 +18,7 @@
     
     
       
-        <title>Argo CD Setup Tutorial - OpenShift Quickstart</title>
+        <title>ArgoCD - OpenShift Quickstart</title>
       
     
     
@@ -103,7 +105,7 @@
         <div class="md-header__topic" data-md-component="header-topic">
           <span class="md-ellipsis">
             
-              Argo CD Setup Tutorial
+              ArgoCD
             
           </span>
         </div>
@@ -499,6 +501,205 @@
   
 
       </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    ArgoCD
+    
+  </span>
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  
+  <span class="md-ellipsis">
+    ArgoCD
+    
+  </span>
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#1-install-argo-cd-on-openshift" class="md-nav__link">
+    <span class="md-ellipsis">
+      1. Install Argo CD on OpenShift
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="1. Install Argo CD on OpenShift">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#navigate-to-the-argo-cd-directory" class="md-nav__link">
+    <span class="md-ellipsis">
+      Navigate to the Argo CD Directory
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#adjust-namespace-in-argo-cd-manifest" class="md-nav__link">
+    <span class="md-ellipsis">
+      Adjust Namespace in Argo CD Manifest
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#apply-the-argo-cd-manifest" class="md-nav__link">
+    <span class="md-ellipsis">
+      Apply the Argo CD Manifest
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#2-access-the-argo-cd-ui" class="md-nav__link">
+    <span class="md-ellipsis">
+      2. Access the Argo CD UI
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#3-deploy-applications-using-argo-cd" class="md-nav__link">
+    <span class="md-ellipsis">
+      3. Deploy Applications Using Argo CD
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="3. Deploy Applications Using Argo CD">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#adjust-namespace-in-application-manifests" class="md-nav__link">
+    <span class="md-ellipsis">
+      Adjust Namespace in Application Manifests
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#deploying-the-applications" class="md-nav__link">
+    <span class="md-ellipsis">
+      Deploying the Applications
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Deploying the Applications">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#deploy-go-application-go-app" class="md-nav__link">
+    <span class="md-ellipsis">
+      Deploy Go Application (go-app):
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#deploy-angular-application-angular-app" class="md-nav__link">
+    <span class="md-ellipsis">
+      Deploy Angular Application (angular-app):
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#deploy-java-application-java-app" class="md-nav__link">
+    <span class="md-ellipsis">
+      Deploy Java Application (java-app):
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#4-synchronize-applications-in-argo-cd-ui" class="md-nav__link">
+    <span class="md-ellipsis">
+      4. Synchronize Applications in Argo CD UI
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#5-verify-application-deployment" class="md-nav__link">
+    <span class="md-ellipsis">
+      5. Verify Application Deployment
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
     </li>
   
 
