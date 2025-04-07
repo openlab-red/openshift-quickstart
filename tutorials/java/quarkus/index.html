@@ -9,7 +9,7 @@
       
       
       
-        <link rel="prev" href="../helloworld/">
+        <link rel="prev" href="../">
       
       
         <link rel="next" href="../springboot/">
@@ -20,7 +20,7 @@
     
     
       
-        <title>Quarkus Hello World Application - OpenShift Quickstart</title>
+        <title>Quarkus - OpenShift Quickstart</title>
       
     
     
@@ -107,7 +107,7 @@
         <div class="md-header__topic" data-md-component="header-topic">
           <span class="md-ellipsis">
             
-              Quarkus Hello World Application
+              Quarkus
             
           </span>
         </div>
@@ -423,30 +423,7 @@
   
   
   <span class="md-ellipsis">
-    Java Stack
-    
-  </span>
-  
-
-      </a>
-    </li>
-  
-
-              
-            
-              
-                
-  
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../helloworld/" class="md-nav__link">
-        
-  
-  
-  <span class="md-ellipsis">
-    Hello World Maven Project
+    Java Overview
     
   </span>
   
@@ -478,7 +455,7 @@
   
   
   <span class="md-ellipsis">
-    Quarkus Hello World Application
+    Quarkus
     
   </span>
   
@@ -491,7 +468,7 @@
   
   
   <span class="md-ellipsis">
-    Quarkus Hello World Application
+    Quarkus
     
   </span>
   
@@ -512,6 +489,72 @@
       Table of contents
     </label>
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#tutorial" class="md-nav__link">
+    <span class="md-ellipsis">
+      Tutorial
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#features" class="md-nav__link">
+    <span class="md-ellipsis">
+      🚀 Features
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="🚀 Features">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#backend-quarkus-rest-api" class="md-nav__link">
+    <span class="md-ellipsis">
+      Backend (Quarkus REST API)
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#initial-setup" class="md-nav__link">
+    <span class="md-ellipsis">
+      🛠️ Initial Setup
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="🛠️ Initial Setup">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#prerequisite-spin-up-postgresql-container-on-laptop" class="md-nav__link">
+    <span class="md-ellipsis">
+      Prerequisite: Spin Up PostgreSQL Container on Laptop
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#database-configuration-first-time-setup" class="md-nav__link">
+    <span class="md-ellipsis">
+      Database Configuration (First-time setup)
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
       
         <li class="md-nav__item">
   <a href="#building-the-application" class="md-nav__link">
@@ -550,37 +593,28 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#creating-a-native-executable" class="md-nav__link">
+  <a href="#build-the-image" class="md-nav__link">
     <span class="md-ellipsis">
-      Creating a Native Executable
+      Build the Image
     </span>
   </a>
   
 </li>
       
         <li class="md-nav__item">
-  <a href="#building-the-container" class="md-nav__link">
+  <a href="#optional-creating-a-native-executable" class="md-nav__link">
     <span class="md-ellipsis">
-      Building the Container
+      (Optional) Creating a Native Executable
     </span>
   </a>
   
-    <nav class="md-nav" aria-label="Building the Container">
+    <nav class="md-nav" aria-label="(Optional) Creating a Native Executable">
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#deploy-external-postgresql-database" class="md-nav__link">
+  <a href="#explore-api-endpoints" class="md-nav__link">
     <span class="md-ellipsis">
-      Deploy external postgresql database
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#steps" class="md-nav__link">
-    <span class="md-ellipsis">
-      Steps
+      Explore API Endpoints
     </span>
   </a>
   
@@ -592,28 +626,28 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#database" class="md-nav__link">
+  <a href="#testing-the-application" class="md-nav__link">
     <span class="md-ellipsis">
-      Database
-    </span>
-  </a>
-  
-    <nav class="md-nav" aria-label="Database">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#prerequisites-for-database-containers" class="md-nav__link">
-    <span class="md-ellipsis">
-      Prerequisites for Database Containers
+      ✅ Testing the Application
     </span>
   </a>
   
 </li>
+      
+        <li class="md-nav__item">
+  <a href="#deploying-backend-on-openshift-using-helm" class="md-nav__link">
+    <span class="md-ellipsis">
+      🚀 Deploying Backend on OpenShift using Helm
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="🚀 Deploying Backend on OpenShift using Helm">
+      <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#launching-the-application" class="md-nav__link">
+  <a href="#steps-to-deploy" class="md-nav__link">
     <span class="md-ellipsis">
-      Launching the Application
+      Steps to Deploy
     </span>
   </a>
   
@@ -625,9 +659,9 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#additional-resources" class="md-nav__link">
+  <a href="#bonus-switch-the-angular-frontend-to-use-the-quarkus-backend" class="md-nav__link">
     <span class="md-ellipsis">
-      Additional Resources
+      🚀 Bonus: Switch the Angular Frontend to Use the Quarkus Backend
     </span>
   </a>
   
@@ -654,7 +688,7 @@
   
   
   <span class="md-ellipsis">
-    Spring Boot Sample Application
+    Spring Boot
     
   </span>
   
@@ -721,6 +755,72 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
+  <a href="#tutorial" class="md-nav__link">
+    <span class="md-ellipsis">
+      Tutorial
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#features" class="md-nav__link">
+    <span class="md-ellipsis">
+      🚀 Features
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="🚀 Features">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#backend-quarkus-rest-api" class="md-nav__link">
+    <span class="md-ellipsis">
+      Backend (Quarkus REST API)
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#initial-setup" class="md-nav__link">
+    <span class="md-ellipsis">
+      🛠️ Initial Setup
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="🛠️ Initial Setup">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#prerequisite-spin-up-postgresql-container-on-laptop" class="md-nav__link">
+    <span class="md-ellipsis">
+      Prerequisite: Spin Up PostgreSQL Container on Laptop
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#database-configuration-first-time-setup" class="md-nav__link">
+    <span class="md-ellipsis">
+      Database Configuration (First-time setup)
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#building-the-application" class="md-nav__link">
     <span class="md-ellipsis">
       Building the Application
@@ -757,37 +857,28 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#creating-a-native-executable" class="md-nav__link">
+  <a href="#build-the-image" class="md-nav__link">
     <span class="md-ellipsis">
-      Creating a Native Executable
+      Build the Image
     </span>
   </a>
   
 </li>
       
         <li class="md-nav__item">
-  <a href="#building-the-container" class="md-nav__link">
+  <a href="#optional-creating-a-native-executable" class="md-nav__link">
     <span class="md-ellipsis">
-      Building the Container
+      (Optional) Creating a Native Executable
     </span>
   </a>
   
-    <nav class="md-nav" aria-label="Building the Container">
+    <nav class="md-nav" aria-label="(Optional) Creating a Native Executable">
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#deploy-external-postgresql-database" class="md-nav__link">
+  <a href="#explore-api-endpoints" class="md-nav__link">
     <span class="md-ellipsis">
-      Deploy external postgresql database
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#steps" class="md-nav__link">
-    <span class="md-ellipsis">
-      Steps
+      Explore API Endpoints
     </span>
   </a>
   
@@ -799,28 +890,28 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#database" class="md-nav__link">
+  <a href="#testing-the-application" class="md-nav__link">
     <span class="md-ellipsis">
-      Database
-    </span>
-  </a>
-  
-    <nav class="md-nav" aria-label="Database">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#prerequisites-for-database-containers" class="md-nav__link">
-    <span class="md-ellipsis">
-      Prerequisites for Database Containers
+      ✅ Testing the Application
     </span>
   </a>
   
 </li>
+      
+        <li class="md-nav__item">
+  <a href="#deploying-backend-on-openshift-using-helm" class="md-nav__link">
+    <span class="md-ellipsis">
+      🚀 Deploying Backend on OpenShift using Helm
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="🚀 Deploying Backend on OpenShift using Helm">
+      <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#launching-the-application" class="md-nav__link">
+  <a href="#steps-to-deploy" class="md-nav__link">
     <span class="md-ellipsis">
-      Launching the Application
+      Steps to Deploy
     </span>
   </a>
   
@@ -832,9 +923,9 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#additional-resources" class="md-nav__link">
+  <a href="#bonus-switch-the-angular-frontend-to-use-the-quarkus-backend" class="md-nav__link">
     <span class="md-ellipsis">
-      Additional Resources
+      🚀 Bonus: Switch the Angular Frontend to Use the Quarkus Backend
     </span>
   </a>
   
@@ -857,50 +948,89 @@
 
 
 <h1 id="quarkus-hello-world-application">Quarkus Hello World Application</h1>
-<p>Welcome to the Quarkus Hello World Application! This project leverages Quarkus, a high-performance Java framework designed for modern cloud-native applications. In this guide, you'll learn how to build, run, and debug a straightforward "Hello World" application using Visual Studio Code, making the most of Quarkus's capabilities.</p>
+<p>This tutorial guides you through building and running a simple REST API using Quarkus and PostgreSQL.</p>
+<h2 id="tutorial">Tutorial</h2>
+<blockquote>
+<p>The code examples and instructions in this tutorial are located under the <code>openshift-quickstart</code> project in the <code>tutorials/java/quarkus</code> directory.<br />
+Ensure you are in this directory before executing the commands.</p>
+</blockquote>
+<ol>
+<li>
+<p>Navigate to the Tutorial Directory
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="nb">cd</span><span class="w"> </span>openshift-quickstart/tutorials/java/quarkus
+</span></code></pre></div></p>
+</li>
+<li>
+<p>Or open a New Terminal</p>
+</li>
+</ol>
+<hr />
+<h2 id="features">🚀 Features</h2>
+<h3 id="backend-quarkus-rest-api">Backend (Quarkus REST API)</h3>
+<ul>
+<li>Provides RESTful endpoints.</li>
+<li>Secure database interactions using prepared statements (PostgreSQL).</li>
+<li>Implements API health check (ping functionality).</li>
+</ul>
+<hr />
+<h2 id="initial-setup">🛠️ Initial Setup</h2>
+<h3 id="prerequisite-spin-up-postgresql-container-on-laptop">Prerequisite: Spin Up PostgreSQL Container on Laptop</h3>
+<p>To set up a PostgreSQL container locally, follow these steps:</p>
+<ol>
+<li><strong>Run PostgreSQL Container:</strong></li>
+</ol>
+<p>Start a new PostgreSQL container with the following command:</p>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-1-1"><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a>podman<span class="w"> </span>run<span class="w"> </span>-d<span class="w"> </span>-v<span class="w"> </span><span class="k">$(</span><span class="nb">pwd</span><span class="k">)</span>:/projects<span class="w"> </span>-e<span class="w"> </span><span class="nv">POSTGRESQL_USER</span><span class="o">=</span>user<span class="w"> </span>-e<span class="w"> </span><span class="nv">POSTGRESQL_PASSWORD</span><span class="o">=</span>pass<span class="w"> </span>-e<span class="w"> </span><span class="nv">POSTGRESQL_ROOT_PASSWORD</span><span class="o">=</span>root<span class="w"> </span>-e<span class="w"> </span><span class="nv">POSTGRESQL_DATABASE</span><span class="o">=</span>db<span class="w"> </span>-p<span class="w"> </span><span class="m">5432</span>:5432<span class="w"> </span>registry.redhat.io/rhel9/postgresql-16:latest
+</span></code></pre></div>
+<ol>
+<li><strong>Verify Container is Running:</strong></li>
+</ol>
+<p>Check that your PostgreSQL container is running:</p>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-2-1"><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a>podman<span class="w"> </span>ps
+</span></code></pre></div>
+<h3 id="database-configuration-first-time-setup">Database Configuration (First-time setup)</h3>
+<p>The Quarkus application will automatically initialize the database schema on first startup. The schema creation is handled by Hibernate ORM using the entity classes defined in the application.</p>
+<p>You can verify the schema creation by checking the application logs during startup:</p>
+<hr />
 <h2 id="building-the-application">Building the Application</h2>
 <p>To build the application, use the following Maven command:</p>
-<div class="language-bash highlight"><pre><span></span><code><span id="__span-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="nb">cd</span><span class="w"> </span>quarkus
-</span><span id="__span-0-2"><a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a>mvn<span class="w"> </span>clean<span class="w"> </span>package
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-3-1"><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a><span class="nb">cd</span><span class="w"> </span>quarkus
+</span><span id="__span-3-2"><a id="__codelineno-3-2" name="__codelineno-3-2" href="#__codelineno-3-2"></a>mvn<span class="w"> </span>clean<span class="w"> </span>package
 </span></code></pre></div>
 <p>This command will compile the project and package it into a JAR file located in the <code>target/quarkus-app/</code> directory.</p>
 <h2 id="running-the-application">Running the Application</h2>
 <p>You can run the application like normal java app.</p>
-<div class="language-bash highlight"><pre><span></span><code><span id="__span-1-1"><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a>java<span class="w"> </span>-jar<span class="w"> </span>target/quarkus-app/quarkus-run.jar
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-4-1"><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a>java<span class="w"> </span>-jar<span class="w"> </span>target/quarkus-app/quarkus-run.jar
 </span></code></pre></div>
 <p>Or you can run your application in development mode, which enables live coding, using:</p>
-<div class="language-bash highlight"><pre><span></span><code><span id="__span-2-1"><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a>mvn<span class="w"> </span>quarkus:dev
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-5-1"><a id="__codelineno-5-1" name="__codelineno-5-1" href="#__codelineno-5-1"></a>mvn<span class="w"> </span>quarkus:dev
 </span></code></pre></div>
 <p>Expose the endpoint and access the application.</p>
 <p><img alt="listening" src="../assets/quarkus/listening.png" />
 <img alt="endpoint" src="../assets/quarkus/endpoint.png" /></p>
 <h2 id="debugging-with-vscode">Debugging with VSCode</h2>
-<blockquote>
-<p>It is already defined in the project.
-</p>
-</blockquote>
 <ol>
 <li><strong>Configure Launch Settings</strong>:
    Create a <code>launch.json</code> file in the <code>.vscode</code> directory with the following configuration:</li>
 </ol>
-<div class="language-json highlight"><pre><span></span><code><span id="__span-3-1"><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a><span class="p">{</span>
-</span><span id="__span-3-2"><a id="__codelineno-3-2" name="__codelineno-3-2" href="#__codelineno-3-2"></a><span class="w">  </span><span class="nt">&quot;version&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;0.2.0&quot;</span><span class="p">,</span>
-</span><span id="__span-3-3"><a id="__codelineno-3-3" name="__codelineno-3-3" href="#__codelineno-3-3"></a><span class="w">  </span><span class="nt">&quot;configurations&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span>
-</span><span id="__span-3-4"><a id="__codelineno-3-4" name="__codelineno-3-4" href="#__codelineno-3-4"></a><span class="w">    </span><span class="p">{</span>
-</span><span id="__span-3-5"><a id="__codelineno-3-5" name="__codelineno-3-5" href="#__codelineno-3-5"></a><span class="w">      </span><span class="nt">&quot;type&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;java&quot;</span><span class="p">,</span>
-</span><span id="__span-3-6"><a id="__codelineno-3-6" name="__codelineno-3-6" href="#__codelineno-3-6"></a><span class="w">      </span><span class="nt">&quot;name&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Quarkus Debug (Attach)&quot;</span><span class="p">,</span>
-</span><span id="__span-3-7"><a id="__codelineno-3-7" name="__codelineno-3-7" href="#__codelineno-3-7"></a><span class="w">      </span><span class="nt">&quot;request&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;attach&quot;</span><span class="p">,</span>
-</span><span id="__span-3-8"><a id="__codelineno-3-8" name="__codelineno-3-8" href="#__codelineno-3-8"></a><span class="w">      </span><span class="nt">&quot;hostName&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;localhost&quot;</span><span class="p">,</span>
-</span><span id="__span-3-9"><a id="__codelineno-3-9" name="__codelineno-3-9" href="#__codelineno-3-9"></a><span class="w">      </span><span class="nt">&quot;port&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">5005</span>
-</span><span id="__span-3-10"><a id="__codelineno-3-10" name="__codelineno-3-10" href="#__codelineno-3-10"></a><span class="w">    </span><span class="p">}</span>
-</span><span id="__span-3-11"><a id="__codelineno-3-11" name="__codelineno-3-11" href="#__codelineno-3-11"></a><span class="w">  </span><span class="p">]</span>
-</span><span id="__span-3-12"><a id="__codelineno-3-12" name="__codelineno-3-12" href="#__codelineno-3-12"></a><span class="p">}</span>
+<div class="language-json highlight"><pre><span></span><code><span id="__span-6-1"><a id="__codelineno-6-1" name="__codelineno-6-1" href="#__codelineno-6-1"></a><span class="p">{</span>
+</span><span id="__span-6-2"><a id="__codelineno-6-2" name="__codelineno-6-2" href="#__codelineno-6-2"></a><span class="w">  </span><span class="nt">&quot;version&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;0.2.0&quot;</span><span class="p">,</span>
+</span><span id="__span-6-3"><a id="__codelineno-6-3" name="__codelineno-6-3" href="#__codelineno-6-3"></a><span class="w">  </span><span class="nt">&quot;configurations&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span>
+</span><span id="__span-6-4"><a id="__codelineno-6-4" name="__codelineno-6-4" href="#__codelineno-6-4"></a><span class="w">    </span><span class="p">{</span>
+</span><span id="__span-6-5"><a id="__codelineno-6-5" name="__codelineno-6-5" href="#__codelineno-6-5"></a><span class="w">      </span><span class="nt">&quot;type&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;java&quot;</span><span class="p">,</span>
+</span><span id="__span-6-6"><a id="__codelineno-6-6" name="__codelineno-6-6" href="#__codelineno-6-6"></a><span class="w">      </span><span class="nt">&quot;name&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Quarkus Debug (Attach)&quot;</span><span class="p">,</span>
+</span><span id="__span-6-7"><a id="__codelineno-6-7" name="__codelineno-6-7" href="#__codelineno-6-7"></a><span class="w">      </span><span class="nt">&quot;request&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;attach&quot;</span><span class="p">,</span>
+</span><span id="__span-6-8"><a id="__codelineno-6-8" name="__codelineno-6-8" href="#__codelineno-6-8"></a><span class="w">      </span><span class="nt">&quot;hostName&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;localhost&quot;</span><span class="p">,</span>
+</span><span id="__span-6-9"><a id="__codelineno-6-9" name="__codelineno-6-9" href="#__codelineno-6-9"></a><span class="w">      </span><span class="nt">&quot;port&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">5005</span>
+</span><span id="__span-6-10"><a id="__codelineno-6-10" name="__codelineno-6-10" href="#__codelineno-6-10"></a><span class="w">    </span><span class="p">}</span>
+</span><span id="__span-6-11"><a id="__codelineno-6-11" name="__codelineno-6-11" href="#__codelineno-6-11"></a><span class="w">  </span><span class="p">]</span>
+</span><span id="__span-6-12"><a id="__codelineno-6-12" name="__codelineno-6-12" href="#__codelineno-6-12"></a><span class="p">}</span>
 </span></code></pre></div>
 <ol>
 <li><strong>Start the Application in Debug Mode</strong>:
    Run the application with debugging enabled:</li>
 </ol>
-<div class="language-bash highlight"><pre><span></span><code><span id="__span-4-1"><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a>mvn<span class="w"> </span>quarkus:dev
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-7-1"><a id="__codelineno-7-1" name="__codelineno-7-1" href="#__codelineno-7-1"></a>mvn<span class="w"> </span>quarkus:dev
 </span></code></pre></div>
 <ol>
 <li><strong>Attach the Debugger</strong></li>
@@ -909,98 +1039,94 @@
 <p><img alt="Debug" src="../assets/quarkus/debug.png" /></p>
 <h2 id="packaging-the-application">Packaging the Application</h2>
 <p>To package the application execute:</p>
-<div class="language-bash highlight"><pre><span></span><code><span id="__span-5-1"><a id="__codelineno-5-1" name="__codelineno-5-1" href="#__codelineno-5-1"></a>mvn<span class="w"> </span>package
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-8-1"><a id="__codelineno-8-1" name="__codelineno-8-1" href="#__codelineno-8-1"></a>mvn<span class="w"> </span>package
 </span></code></pre></div>
 <p>Run the packaged application using:</p>
-<div class="language-bash highlight"><pre><span></span><code><span id="__span-6-1"><a id="__codelineno-6-1" name="__codelineno-6-1" href="#__codelineno-6-1"></a>java<span class="w"> </span>-jar<span class="w"> </span>target/quarkus-app/quarkus-run.jar
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-9-1"><a id="__codelineno-9-1" name="__codelineno-9-1" href="#__codelineno-9-1"></a>java<span class="w"> </span>-jar<span class="w"> </span>target/quarkus-app/quarkus-run.jar
 </span></code></pre></div>
-<h2 id="creating-a-native-executable">Creating a Native Executable</h2>
-<p>You can create a native executable using:</p>
-<div class="language-bash highlight"><pre><span></span><code><span id="__span-7-1"><a id="__codelineno-7-1" name="__codelineno-7-1" href="#__codelineno-7-1"></a>mvn<span class="w"> </span>package<span class="w"> </span>-Pnative
-</span></code></pre></div>
-<p>Run the native executable with:</p>
-<div class="language-bash highlight"><pre><span></span><code><span id="__span-8-1"><a id="__codelineno-8-1" name="__codelineno-8-1" href="#__codelineno-8-1"></a>./target/quarkus-1.0.0-SNAPSHOT-runner<span class="w"> </span>-Dquarkus.http.port<span class="o">=</span><span class="m">8081</span>
-</span></code></pre></div>
-<h2 id="building-the-container">Building the Container</h2>
-<p>To build a container for your Quarkus application, follow these steps:</p>
-<h3 id="deploy-external-postgresql-database">Deploy external postgresql database</h3>
-<p>To deploy it, you can simply run the Task <code>099 - Install Postgres with OpenShift</code> from the Task Manager.</p>
-<h3 id="steps">Steps</h3>
-<ol>
-<li><strong>Ensure the Application is Packaged</strong>:
-   Before building the Docker image, make sure your application is packaged. You can do this by running:</li>
-</ol>
-<div class="language-bash highlight"><pre><span></span><code><span id="__span-9-1"><a id="__codelineno-9-1" name="__codelineno-9-1" href="#__codelineno-9-1"></a>mvn<span class="w"> </span>package<span class="w"> </span>-Dquarkus.profile<span class="o">=</span>prod
-</span></code></pre></div>
-<ol>
-<li><strong>Build the Image</strong>:
-   Use the following command to build the image. This command uses the Dockerfile located at <code>src/main/docker/Dockerfile.jvm</code>:</li>
-</ol>
+<h2 id="build-the-image">Build the Image</h2>
+<p>Use the following command to build the image. This command uses the Dockerfile located at <code>src/main/docker/Dockerfile.jvm</code>:</p>
 <div class="language-bash highlight"><pre><span></span><code><span id="__span-10-1"><a id="__codelineno-10-1" name="__codelineno-10-1" href="#__codelineno-10-1"></a>podman<span class="w"> </span>build<span class="w"> </span>-f<span class="w"> </span>src/main/docker/Dockerfile.jvm<span class="w"> </span>-t<span class="w"> </span>quarkus:latest<span class="w"> </span>.
 </span></code></pre></div>
 <ol>
 <li><strong>Run the Docker Container</strong>:
    Once the image is built, you can run the container using:</li>
 </ol>
-<div class="language-bash highlight"><pre><span></span><code><span id="__span-11-1"><a id="__codelineno-11-1" name="__codelineno-11-1" href="#__codelineno-11-1"></a>podman_run<span class="w"> </span>quarkus:latest<span class="w"> </span>-p<span class="w"> </span><span class="m">8080</span>:8080<span class="w"> </span>
+<p>```bash
+   podman run quarkus:latest -p 8080:8080
+   ````</p>
+<h2 id="optional-creating-a-native-executable">(Optional) Creating a Native Executable</h2>
+<blockquote>
+<p><strong>Note:</strong> Building a native executable can be resource-intensive and may require significant CPU and memory resources. Ensure your system has sufficient resources available before proceeding.</p>
+</blockquote>
+<p>You can create a native executable using:</p>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-11-1"><a id="__codelineno-11-1" name="__codelineno-11-1" href="#__codelineno-11-1"></a>mvn<span class="w"> </span>package<span class="w"> </span>-Pnative
+</span></code></pre></div>
+<p>Run the native executable with:</p>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-12-1"><a id="__codelineno-12-1" name="__codelineno-12-1" href="#__codelineno-12-1"></a>./target/quarkus-1.0.0-SNAPSHOT-runner<span class="w"> </span>-Dquarkus.http.port<span class="o">=</span><span class="m">8081</span>
+</span></code></pre></div>
+<h3 id="explore-api-endpoints">Explore API Endpoints</h3>
+<p>Access the API endpoints directly via your browser or API testing tools like Postman or curl.</p>
+<hr />
+<h2 id="testing-the-application">✅ Testing the Application</h2>
+<ol>
+<li><strong>Verify Functionality:</strong></li>
+<li>Check message retrieval and display.</li>
+<li>Test adding new messages.</li>
+<li>Use ping functionality to verify API health.</li>
+</ol>
+<p>Example curl commands:</p>
+<ul>
+<li>
+<p>Health check:
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-13-1"><a id="__codelineno-13-1" name="__codelineno-13-1" href="#__codelineno-13-1"></a>curl<span class="w"> </span>http://localhost:8080/api/ping
+</span></code></pre></div></p>
+</li>
+<li>
+<p>Retrieve messages:
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-14-1"><a id="__codelineno-14-1" name="__codelineno-14-1" href="#__codelineno-14-1"></a>curl<span class="w"> </span>http://localhost:8080/api
+</span></code></pre></div></p>
+</li>
+<li>
+<p>Add a new message:
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-15-1"><a id="__codelineno-15-1" name="__codelineno-15-1" href="#__codelineno-15-1"></a>curl<span class="w"> </span>-X<span class="w"> </span>POST<span class="w"> </span>-H<span class="w"> </span><span class="s2">&quot;Content-Type: application/json&quot;</span><span class="w"> </span>http://localhost:8080/api/add/Hello
+</span></code></pre></div></p>
+</li>
+</ul>
+<hr />
+<p>🎉 <strong>Congratulations!</strong> You've successfully set up and tested your Quarkus REST API with PostgreSQL.</p>
+<hr />
+<h2 id="deploying-backend-on-openshift-using-helm">🚀 Deploying Backend on OpenShift using Helm</h2>
+<h3 id="steps-to-deploy">Steps to Deploy</h3>
+<ol>
+<li><strong>Navigate to the Backend Helm Chart Directory:</strong></li>
+</ol>
+<p>Change to the directory containing the Helm chart for the backend:</p>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-16-1"><a id="__codelineno-16-1" name="__codelineno-16-1" href="#__codelineno-16-1"></a><span class="nb">cd</span><span class="w"> </span>openshift-quickstart-manifest/java/helm
 </span></code></pre></div>
 <ol>
-<li><strong>Deploy with the helm chart</strong>:</li>
+<li><strong>Deploy the Backend using Helm:</strong></li>
 </ol>
-<div class="language-bash highlight"><pre><span></span><code><span id="__span-12-1"><a id="__codelineno-12-1" name="__codelineno-12-1" href="#__codelineno-12-1"></a>podman<span class="w"> </span>tag<span class="w"> </span>quarkus:latest<span class="w"> </span>quay.io/mmascia/stack-java/quarkus:latest
-</span><span id="__span-12-2"><a id="__codelineno-12-2" name="__codelineno-12-2" href="#__codelineno-12-2"></a>podman<span class="w"> </span>push<span class="w"> </span>quay.io/mmascia/stack-java/quarkus:latest
-</span><span id="__span-12-3"><a id="__codelineno-12-3" name="__codelineno-12-3" href="#__codelineno-12-3"></a><span class="nb">cd</span><span class="w"> </span>..
-</span><span id="__span-12-4"><a id="__codelineno-12-4" name="__codelineno-12-4" href="#__codelineno-12-4"></a>helm<span class="w"> </span>upgrade<span class="w"> </span>--install<span class="w"> </span>quarkus<span class="w"> </span>helm/java-app
+<p>Use the following command to deploy the backend application on OpenShift:</p>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-17-1"><a id="__codelineno-17-1" name="__codelineno-17-1" href="#__codelineno-17-1"></a>helm<span class="w"> </span>dependency<span class="w"> </span>build
+</span><span id="__span-17-2"><a id="__codelineno-17-2" name="__codelineno-17-2" href="#__codelineno-17-2"></a>helm<span class="w"> </span>install<span class="w"> </span>quarkus-backend<span class="w"> </span>.
 </span></code></pre></div>
-<p>These steps will help you build and run your Quarkus application in a container, allowing for easy deployment and testing.</p>
-<h2 id="database">Database</h2>
-<p>The Quarkus application supports multiple database configurations. You can run the application with different databases using the following methods:</p>
-<h3 id="prerequisites-for-database-containers">Prerequisites for Database Containers</h3>
-<p>Before running the application with a specific database profile, ensure that the respective database container is up and running. You can use the following commands to start the database containers:</p>
-<ul>
-<li><strong>PostgreSQL</strong>: </li>
-</ul>
-<p>Note: PostgreSQL is already running as a sidecar container in the workspace. If you need to start it manually, execute the following command:</p>
-<ul>
-<li><strong>MySQL</strong>: 
-  To start the MySQL container, execute the following command:</li>
-</ul>
-<div class="language-bash highlight"><pre><span></span><code><span id="__span-13-1"><a id="__codelineno-13-1" name="__codelineno-13-1" href="#__codelineno-13-1"></a>podman<span class="w"> </span>run<span class="w"> </span>--name<span class="w"> </span>mysql<span class="w"> </span>-e<span class="w"> </span><span class="nv">MYSQL_USER</span><span class="o">=</span>user<span class="w"> </span>-e<span class="w"> </span><span class="nv">MYSQL_PASSWORD</span><span class="o">=</span>pass<span class="w"> </span>-e<span class="w"> </span><span class="nv">MYSQL_ROOT_PASSWORD</span><span class="o">=</span>root<span class="w"> </span>-e<span class="w"> </span><span class="nv">MYSQL_DATABASE</span><span class="o">=</span>db<span class="w"> </span>-p<span class="w"> </span><span class="m">3306</span>:3306<span class="w"> </span>registry.redhat.io/rhel8/mysql-80:latest
+<p>This command will deploy the backend application using the Helm chart located in the current directory.</p>
+<ol>
+<li><strong>Verify Deployment:</strong></li>
+</ol>
+<p>Check the status of the deployed pods to ensure everything is running smoothly:</p>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-18-1"><a id="__codelineno-18-1" name="__codelineno-18-1" href="#__codelineno-18-1"></a>oc<span class="w"> </span>get<span class="w"> </span>pods<span class="w"> </span>-lapp.kubernetes.io/instance<span class="o">=</span>quarkus-backend
 </span></code></pre></div>
-<ul>
-<li><strong>MongoDB</strong>: 
-  To start the MongoDB container, execute the following command:</li>
-</ul>
-<div class="language-bash highlight"><pre><span></span><code><span id="__span-14-1"><a id="__codelineno-14-1" name="__codelineno-14-1" href="#__codelineno-14-1"></a>podman<span class="w"> </span>run<span class="w"> </span>--name<span class="w"> </span>mongodb<span class="w"> </span>-v<span class="w"> </span>/tmp/:/bitnami<span class="w"> </span>-e<span class="w"> </span><span class="nv">MONGODB_ROOT_USER</span><span class="o">=</span>user<span class="w"> </span>-e<span class="w"> </span><span class="nv">MONGODB_ROOT_PASSWORD</span><span class="o">=</span>pass<span class="w"> </span>-e<span class="w"> </span><span class="nv">MONGODB_REPLICA_SET_MODE</span><span class="o">=</span>primary<span class="w"> </span>-e<span class="w"> </span><span class="nv">MONGODB_REPLICA_SET_NAME</span><span class="o">=</span>rs0<span class="w"> </span>-e<span class="w"> </span><span class="nv">MONGODB_REPLICA_SET_KEY</span><span class="o">=</span>replicakey123456<span class="w"> </span>-e<span class="w"> </span><span class="nv">MONGODB_DATABASE</span><span class="o">=</span>db<span class="w"> </span>-p<span class="w"> </span><span class="m">27017</span>:27017<span class="w"> </span>docker.io/bitnami/mongodb:latest
+<p>You should see the backend and postgres pods up and running.</p>
+<ol>
+<li><strong>Access the Backend Service:</strong></li>
+</ol>
+<p>Once deployed, you can access the backend service using the route created by OpenShift. Retrieve the route with:</p>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-19-1"><a id="__codelineno-19-1" name="__codelineno-19-1" href="#__codelineno-19-1"></a>oc<span class="w"> </span>get<span class="w"> </span>routes<span class="w"> </span>quarkus-backend
 </span></code></pre></div>
-<p>Ensure that the respective database container is running before starting the application with the desired profile.</p>
-<h3 id="launching-the-application">Launching the Application</h3>
-<p>To launch the Quarkus application with a specific database profile, use the following commands:</p>
-<ul>
-<li><strong>PostgreSQL (Default)</strong>:
-  Run the application with the default PostgreSQL profile:</li>
-</ul>
-<div class="language-bash highlight"><pre><span></span><code><span id="__span-15-1"><a id="__codelineno-15-1" name="__codelineno-15-1" href="#__codelineno-15-1"></a>mvn<span class="w"> </span>quarkus:dev
-</span></code></pre></div>
-<ul>
-<li><strong>MySQL</strong>:
-  To run the application with MySQL, specify the MySQL profile:</li>
-</ul>
-<div class="language-bash highlight"><pre><span></span><code><span id="__span-16-1"><a id="__codelineno-16-1" name="__codelineno-16-1" href="#__codelineno-16-1"></a>mvn<span class="w"> </span>quarkus:dev<span class="w"> </span>-Dquarkus.profile<span class="o">=</span>mysql
-</span></code></pre></div>
-<ul>
-<li><strong>MongoDB</strong>:
-  To run the application with MongoDB, specify the MongoDB profile:</li>
-</ul>
-<div class="language-bash highlight"><pre><span></span><code><span id="__span-17-1"><a id="__codelineno-17-1" name="__codelineno-17-1" href="#__codelineno-17-1"></a>mvn<span class="w"> </span>quarkus:dev<span class="w"> </span>-Dquarkus.profile<span class="o">=</span>mongodb
-</span></code></pre></div>
-<p>These commands will start the Quarkus application in development mode with the specified database configuration.</p>
-<h2 id="additional-resources">Additional Resources</h2>
-<ul>
-<li><a href="https://quarkus.io/documentation/">Quarkus Official Documentation</a></li>
-<li><a href="https://quarkus.io/guides/">Quarkus Guides</a></li>
-</ul>
-<p>This guide should help you get started with building, running, and debugging a Quarkus application using VSCode. If you encounter any issues, refer to the Quarkus documentation or seek help from the community.</p>
+<p>Use the URL provided to interact with your backend API.</p>
+<h2 id="bonus-switch-the-angular-frontend-to-use-the-quarkus-backend">🚀 Bonus: Switch the Angular Frontend to Use the Quarkus Backend</h2>
 
 
 
