@@ -1,5 +1,5 @@
 # Use Red Hat Universal Base Image 9 Minimal as the base image
 FROM registry.redhat.io/ubi9-minimal
 
-# Set the default command to print "Hello World ssf" when container starts
+# Set the default command to print "Hello World" when container starts
 ENTRYPOINT [ "echo", "Hello World!" ] 
