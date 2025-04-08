@@ -778,15 +778,14 @@
 <h2 id="tutorial">Tutorial</h2>
 <blockquote>
 <p>The code examples and instructions in this tutorial are located under <code>openshift-quickstart</code> project in the
-<code>tutorials/networkpolicy</code> directory. 
-Ensure you are in this directory before executing the commands.
+<code>tutorials/networkpolicy</code> directory. </p>
+<p>Ensure you are in this directory before executing the commands.
 </p>
 </blockquote>
 <ol>
 <li>
 <p>Navigate to the Tutorial Directory
-    <div class="language-bash highlight"><pre><span></span><code><span id="__span-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="c1"># Change to the tutorials/simple directory</span>
-</span><span id="__span-0-2"><a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a><span class="nb">cd</span><span class="w"> </span>openshift-quickstart/tutorials/networkpolicy
+    <div class="language-bash highlight"><pre><span></span><code><span id="__span-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="nb">cd</span><span class="w"> </span>openshift-quickstart/tutorials/networkpolicy
 </span></code></pre></div></p>
 </li>
 <li>
@@ -861,8 +860,8 @@ Ensure you are in this directory before executing the commands.
 <div class="language-bash highlight"><pre><span></span><code><span id="__span-3-1"><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a>oc<span class="w"> </span>rsh<span class="w"> </span>python-server-pod
 </span><span id="__span-3-2"><a id="__codelineno-3-2" name="__codelineno-3-2" href="#__codelineno-3-2"></a>curl<span class="w"> </span>-I<span class="w"> </span>http://python-server-second-service:8000
 </span><span id="__span-3-3"><a id="__codelineno-3-3" name="__codelineno-3-3" href="#__codelineno-3-3"></a><span class="nb">exit</span>
-</span></code></pre></div></p>
-<p>Use this command to test connectivity to the <code>python-server-service</code> on port 8000.
+</span></code></pre></div>
+Use this command to test connectivity to the <code>python-server-service</code> on port 8000.
 <div class="language-bash highlight"><pre><span></span><code><span id="__span-4-1"><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a>oc<span class="w"> </span>rsh<span class="w"> </span>python-server-second
 </span><span id="__span-4-2"><a id="__codelineno-4-2" name="__codelineno-4-2" href="#__codelineno-4-2"></a>curl<span class="w"> </span>-I<span class="w"> </span>http://python-server-service:8000
 </span></code></pre></div></p>
@@ -1138,22 +1137,24 @@ Ensure you are in this directory before executing the commands.
 </span></code></pre></div>
 </li>
 <li>
-<p>Tasks:
-   a. Create a network policy that:
-        - Allows frontend to communicate only with the API layer
-        - Allows API layer to communicate only with the database
-        - Denies all other traffic between pods
-        - Allows external traffic only to the frontend
-   b. Test the connectivity between different layers:
-        - Test frontend to API communication
-        - Test frontend to database communication (should fail)
-        - Test API to database communication
-        - Test external access to frontend</p>
+<p>Tasks:</p>
+<p>a. Create a network policy that:</p>
+<ul>
+<li>Allows frontend to communicate only with the API layer</li>
+<li>Allows API layer to communicate only with the database</li>
+<li>Denies all other traffic between pods</li>
+<li>Allows external traffic only to the frontend</li>
+</ul>
+<p>b. Test the connectivity between different layers:</p>
+<ul>
+<li>Test frontend to API communication</li>
+<li>Test frontend to database communication (should fail)</li>
+<li>Test API to database communication</li>
+<li>Test external access to frontend</li>
+</ul>
 </li>
 <li>
 <p>First, let's create a default deny policy to ensure all traffic is blocked by default:</p>
-</li>
-</ol>
 <div class="language-yaml highlight"><pre><span></span><code><span id="__span-18-1"><a id="__codelineno-18-1" name="__codelineno-18-1" href="#__codelineno-18-1"></a><span class="nt">apiVersion</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">networking.k8s.io/v1</span>
 </span><span id="__span-18-2"><a id="__codelineno-18-2" name="__codelineno-18-2" href="#__codelineno-18-2"></a><span class="nt">kind</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">NetworkPolicy</span>
 </span><span id="__span-18-3"><a id="__codelineno-18-3" name="__codelineno-18-3" href="#__codelineno-18-3"></a><span class="nt">metadata</span><span class="p">:</span>
@@ -1166,9 +1167,9 @@ Ensure you are in this directory before executing the commands.
 </span><span id="__span-18-10"><a id="__codelineno-18-10" name="__codelineno-18-10" href="#__codelineno-18-10"></a><span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Ingress</span>
 </span><span id="__span-18-11"><a id="__codelineno-18-11" name="__codelineno-18-11" href="#__codelineno-18-11"></a><span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Egress</span>
 </span></code></pre></div>
-<ol>
-<li>Frontend Network Policy (allows incoming external traffic and outgoing to API):</li>
-</ol>
+</li>
+<li>
+<p>Frontend Network Policy (allows incoming external traffic and outgoing to API):</p>
 <div class="language-yaml highlight"><pre><span></span><code><span id="__span-19-1"><a id="__codelineno-19-1" name="__codelineno-19-1" href="#__codelineno-19-1"></a><span class="nt">apiVersion</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">networking.k8s.io/v1</span>
 </span><span id="__span-19-2"><a id="__codelineno-19-2" name="__codelineno-19-2" href="#__codelineno-19-2"></a><span class="nt">kind</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">NetworkPolicy</span>
 </span><span id="__span-19-3"><a id="__codelineno-19-3" name="__codelineno-19-3" href="#__codelineno-19-3"></a><span class="nt">metadata</span><span class="p">:</span>
@@ -1185,9 +1186,9 @@ Ensure you are in this directory before executing the commands.
 </span><span id="__span-19-14"><a id="__codelineno-19-14" name="__codelineno-19-14" href="#__codelineno-19-14"></a><span class="w">  </span><span class="nt">egress</span><span class="p">:</span>
 </span><span id="__span-19-15"><a id="__codelineno-19-15" name="__codelineno-19-15" href="#__codelineno-19-15"></a><span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="p p-Indicator">{}</span>
 </span></code></pre></div>
-<ol>
-<li>API Layer Network Policy (allows frontend traffic and connection to database):</li>
-</ol>
+</li>
+<li>
+<p>API Layer Network Policy (allows frontend traffic and connection to database):</p>
 <div class="language-yaml highlight"><pre><span></span><code><span id="__span-20-1"><a id="__codelineno-20-1" name="__codelineno-20-1" href="#__codelineno-20-1"></a><span class="nt">apiVersion</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">networking.k8s.io/v1</span>
 </span><span id="__span-20-2"><a id="__codelineno-20-2" name="__codelineno-20-2" href="#__codelineno-20-2"></a><span class="nt">kind</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">NetworkPolicy</span>
 </span><span id="__span-20-3"><a id="__codelineno-20-3" name="__codelineno-20-3" href="#__codelineno-20-3"></a><span class="nt">metadata</span><span class="p">:</span>
@@ -1210,9 +1211,9 @@ Ensure you are in this directory before executing the commands.
 </span><span id="__span-20-20"><a id="__codelineno-20-20" name="__codelineno-20-20" href="#__codelineno-20-20"></a><span class="w">  </span><span class="nt">egress</span><span class="p">:</span><span class="w"> </span>
 </span><span id="__span-20-21"><a id="__codelineno-20-21" name="__codelineno-20-21" href="#__codelineno-20-21"></a><span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="p p-Indicator">{}</span>
 </span></code></pre></div>
-<ol>
-<li>Database Network Policy (only allows API layer access):</li>
-</ol>
+</li>
+<li>
+<p>Database Network Policy (only allows API layer access):</p>
 <div class="language-yaml highlight"><pre><span></span><code><span id="__span-21-1"><a id="__codelineno-21-1" name="__codelineno-21-1" href="#__codelineno-21-1"></a><span class="nt">apiVersion</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">networking.k8s.io/v1</span>
 </span><span id="__span-21-2"><a id="__codelineno-21-2" name="__codelineno-21-2" href="#__codelineno-21-2"></a><span class="nt">kind</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">NetworkPolicy</span>
 </span><span id="__span-21-3"><a id="__codelineno-21-3" name="__codelineno-21-3" href="#__codelineno-21-3"></a><span class="nt">metadata</span><span class="p">:</span>
@@ -1232,8 +1233,10 @@ Ensure you are in this directory before executing the commands.
 </span><span id="__span-21-17"><a id="__codelineno-21-17" name="__codelineno-21-17" href="#__codelineno-21-17"></a><span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">protocol</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">TCP</span>
 </span><span id="__span-21-18"><a id="__codelineno-21-18" name="__codelineno-21-18" href="#__codelineno-21-18"></a><span class="w">      </span><span class="nt">port</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">5432</span>
 </span></code></pre></div>
-<ol>
-<li>Testing Commands:</li>
+</li>
+<li>
+<p>Testing Commands:</p>
+</li>
 </ol>
 <div class="language-bash highlight"><pre><span></span><code><span id="__span-22-1"><a id="__codelineno-22-1" name="__codelineno-22-1" href="#__codelineno-22-1"></a><span class="c1"># Test frontend to API communication (should succeed)</span>
 </span><span id="__span-22-2"><a id="__codelineno-22-2" name="__codelineno-22-2" href="#__codelineno-22-2"></a>oc<span class="w"> </span>rsh<span class="w"> </span>frontend-pod
@@ -1253,14 +1256,14 @@ Ensure you are in this directory before executing the commands.
 <ol>
 <li>
 <p>Expected Results:</p>
-</li>
-<li>
-<p>Frontend pod should only be able to communicate with the API service</p>
-</li>
+<ul>
+<li>Frontend pod should only be able to communicate with the API service</li>
 <li>API pod should only be able to communicate with the database service</li>
 <li>Database pod should only accept connections from the API service</li>
 <li>Monitoring pod should be able to access all services</li>
 <li>Any other communication attempts should fail</li>
+</ul>
+</li>
 </ol>
 
 

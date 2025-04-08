@@ -868,15 +868,14 @@
 <h2 id="tutorial">Tutorial</h2>
 <blockquote>
 <p>The code examples and instructions in this tutorial are located under <code>openshift-quickstart</code> project in the
-<code>tutorials/python</code> directory. 
-Ensure you are in this directory before executing the commands.
+<code>tutorials/python</code> directory. </p>
+<p>Ensure you are in this directory before executing the commands.
 </p>
 </blockquote>
 <ol>
 <li>
 <p>Navigate to the Tutorial Directory
-    <div class="language-bash highlight"><pre><span></span><code><span id="__span-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="c1"># Change to the tutorials/simple directory</span>
-</span><span id="__span-0-2"><a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a><span class="nb">cd</span><span class="w"> </span>openshift-quickstart/tutorials/python
+    <div class="language-bash highlight"><pre><span></span><code><span id="__span-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="nb">cd</span><span class="w"> </span>openshift-quickstart/tutorials/python
 </span></code></pre></div></p>
 </li>
 <li>
@@ -956,38 +955,35 @@ Ensure you are in this directory before executing the commands.
 <h3 id="deploying-to-openshift">Deploying to OpenShift</h3>
 <ol>
 <li>
-<p><strong>Create Resources in OpenShift:</strong>
-    Switch to the desired project and create resources:
-    <div class="language-bash highlight"><pre><span></span><code><span id="__span-10-1"><a id="__codelineno-10-1" name="__codelineno-10-1" href="#__codelineno-10-1"></a><span class="c1"># Note: If you are using DevSpaces, you are already logged in your namespace due to token injection</span>
-</span><span id="__span-10-2"><a id="__codelineno-10-2" name="__codelineno-10-2" href="#__codelineno-10-2"></a><span class="c1"># For non-DevSpaces users:</span>
-</span><span id="__span-10-3"><a id="__codelineno-10-3" name="__codelineno-10-3" href="#__codelineno-10-3"></a><span class="c1"># oc login --token=&lt;your-token&gt; --server=&lt;your-server-url&gt;</span>
-</span><span id="__span-10-4"><a id="__codelineno-10-4" name="__codelineno-10-4" href="#__codelineno-10-4"></a><span class="c1"># oc project devspaces-userX</span>
-</span><span id="__span-10-5"><a id="__codelineno-10-5" name="__codelineno-10-5" href="#__codelineno-10-5"></a>
-</span><span id="__span-10-6"><a id="__codelineno-10-6" name="__codelineno-10-6" href="#__codelineno-10-6"></a>oc<span class="w"> </span>create<span class="w"> </span>-f<span class="w"> </span>pod.yaml
-</span></code></pre></div></p>
-</li>
-<li>
-<p><strong>Add Service and Route:</strong>
-    Expose the application by creating a service and route:
-    <div class="language-bash highlight"><pre><span></span><code><span id="__span-11-1"><a id="__codelineno-11-1" name="__codelineno-11-1" href="#__codelineno-11-1"></a>oc<span class="w"> </span>create<span class="w"> </span>-f<span class="w"> </span>service.yaml
-</span><span id="__span-11-2"><a id="__codelineno-11-2" name="__codelineno-11-2" href="#__codelineno-11-2"></a>oc<span class="w"> </span>create<span class="w"> </span>-f<span class="w"> </span>route.yaml
-</span></code></pre></div></p>
-</li>
-<li>
-<p><strong>Access the Application:</strong>
-    Get the route URL and access your application:
-    <div class="language-bash highlight"><pre><span></span><code><span id="__span-12-1"><a id="__codelineno-12-1" name="__codelineno-12-1" href="#__codelineno-12-1"></a><span class="c1"># Get the route URL</span>
-</span><span id="__span-12-2"><a id="__codelineno-12-2" name="__codelineno-12-2" href="#__codelineno-12-2"></a>oc<span class="w"> </span>get<span class="w"> </span>route<span class="w"> </span>python-server-route<span class="w"> </span>-o<span class="w"> </span><span class="nv">jsonpath</span><span class="o">=</span><span class="s1">&#39;{.spec.host}&#39;</span>
-</span><span id="__span-12-3"><a id="__codelineno-12-3" name="__codelineno-12-3" href="#__codelineno-12-3"></a>
-</span><span id="__span-12-4"><a id="__codelineno-12-4" name="__codelineno-12-4" href="#__codelineno-12-4"></a><span class="c1"># Access the application using the route URL</span>
-</span><span id="__span-12-5"><a id="__codelineno-12-5" name="__codelineno-12-5" href="#__codelineno-12-5"></a>curl<span class="w"> </span>http://<span class="k">$(</span>oc<span class="w"> </span>get<span class="w"> </span>route<span class="w"> </span>python-server-route<span class="w"> </span>-o<span class="w"> </span><span class="nv">jsonpath</span><span class="o">=</span><span class="s1">&#39;{.spec.host}&#39;</span><span class="k">)</span>
+<p><strong>Create Resources in OpenShift:</strong></p>
+<p>Switch to the desired project and create resources:</p>
+<blockquote>
+<p>If you are using DevSpaces, you are already logged in your namespace due to token injection
+For non-DevSpaces users:
+oc login --token=<your-token> --server=<your-server-url>
+oc project devspaces-userX</p>
+</blockquote>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-10-1"><a id="__codelineno-10-1" name="__codelineno-10-1" href="#__codelineno-10-1"></a>oc<span class="w"> </span>create<span class="w"> </span>-f<span class="w"> </span>pod.yaml
 </span></code></pre></div>
-    You can also open the route URL in your web browser to view the application.
-    You can find the route URL under "Networking" → "Routes" and click it to access your application.</p>
 </li>
 <li>
-<p><strong>Note on Pod Deletion:</strong>
-    Be aware that deleting the pod will result in the loss of the running instance.</p>
+<p><strong>Add Service and Route:</strong></p>
+<p>Expose the application by creating a service and route:
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-11-1"><a id="__codelineno-11-1" name="__codelineno-11-1" href="#__codelineno-11-1"></a>oc<span class="w"> </span>create<span class="w"> </span>-f<span class="w"> </span>service.yaml
+</span><span id="__span-11-2"><a id="__codelineno-11-2" name="__codelineno-11-2" href="#__codelineno-11-2"></a>oc<span class="w"> </span>create<span class="w"> </span>-f<span class="w"> </span>route.yaml
+</span></code></pre></div>
+3. <strong>Access the Application:</strong></p>
+<p>Get the route URL and access your application:
+<div class="language-text highlight"><pre><span></span><code><span id="__span-12-1"><a id="__codelineno-12-1" name="__codelineno-12-1" href="#__codelineno-12-1"></a>oc get route python-server-route -o jsonpath=&#39;{.spec.host}&#39;
+</span><span id="__span-12-2"><a id="__codelineno-12-2" name="__codelineno-12-2" href="#__codelineno-12-2"></a>
+</span><span id="__span-12-3"><a id="__codelineno-12-3" name="__codelineno-12-3" href="#__codelineno-12-3"></a>curl http://$(oc get route python-server-route -o jsonpath=&#39;{.spec.host}&#39;)
+</span></code></pre></div>
+You can also open the route URL in your web browser to view the application.</p>
+<p>You can find the route URL under "Networking" → "Routes" and click it to access your application.</p>
+</li>
+<li>
+<p><strong>Note on Pod Deletion:</strong></p>
+<p>Be aware that deleting the pod will result in the loss of the running instance.</p>
 </li>
 </ol>
 <hr />
@@ -996,23 +992,26 @@ Ensure you are in this directory before executing the commands.
 <p><strong>Objective:</strong> Learn how to create a deployment in OpenShift to manage your application.</p>
 <ol>
 <li>
-<p><strong>Create a Deployment:</strong>
-   Use the following command to create a deployment for your application:
-   <div class="language-bash highlight"><pre><span></span><code><span id="__span-13-1"><a id="__codelineno-13-1" name="__codelineno-13-1" href="#__codelineno-13-1"></a>oc<span class="w"> </span>create<span class="w"> </span>deployment<span class="w"> </span>python-server<span class="w"> </span>--image<span class="o">=</span>registry.redhat.io/ubi9/python-312<span class="w"> </span>--<span class="w"> </span>python3<span class="w"> </span>-m<span class="w"> </span>http.server
+<p><strong>Create a Deployment:</strong></p>
+<p>Use the following command to create a deployment for your application:
+  <div class="language-bash highlight"><pre><span></span><code><span id="__span-13-1"><a id="__codelineno-13-1" name="__codelineno-13-1" href="#__codelineno-13-1"></a>oc<span class="w"> </span>create<span class="w"> </span>deployment<span class="w"> </span>python-server<span class="w"> </span>--image<span class="o">=</span>registry.redhat.io/ubi9/python-312<span class="w"> </span>--<span class="w"> </span>python3<span class="w"> </span>-m<span class="w"> </span>http.server
 </span></code></pre></div></p>
 </li>
 <li>
-<p><strong>Verify the Deployment:</strong>
-   Check the status of the deployment to ensure it was created successfully:
-   <div class="language-bash highlight"><pre><span></span><code><span id="__span-14-1"><a id="__codelineno-14-1" name="__codelineno-14-1" href="#__codelineno-14-1"></a>oc<span class="w"> </span>get<span class="w"> </span>deployments
+<p><strong>Verify the Deployment:</strong></p>
+<p>Check the status of the deployment to ensure it was created successfully:
+  <div class="language-bash highlight"><pre><span></span><code><span id="__span-14-1"><a id="__codelineno-14-1" name="__codelineno-14-1" href="#__codelineno-14-1"></a>oc<span class="w"> </span>get<span class="w"> </span>deployments
 </span></code></pre></div></p>
 </li>
 <li>
-<p><strong>Check the Pods:</strong>
-   Verify that pods are running as part of the deployment:
-   <div class="language-bash highlight"><pre><span></span><code><span id="__span-15-1"><a id="__codelineno-15-1" name="__codelineno-15-1" href="#__codelineno-15-1"></a><span class="c1"># Note: The pod name will have a random suffix appended to it, like: python-server-5b7f8d9c7b-xyz12</span>
-</span><span id="__span-15-2"><a id="__codelineno-15-2" name="__codelineno-15-2" href="#__codelineno-15-2"></a>oc<span class="w"> </span>get<span class="w"> </span>pods
-</span></code></pre></div></p>
+<p><strong>Check the Pods:</strong></p>
+<p>Verify that pods are running as part of the deployment:</p>
+<blockquote>
+<p>The pod name will have a random suffix appended to it, like: python-server-5b7f8d9c7b-xyz12
+</p>
+</blockquote>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-15-1"><a id="__codelineno-15-1" name="__codelineno-15-1" href="#__codelineno-15-1"></a>oc<span class="w"> </span>get<span class="w"> </span>pods
+</span></code></pre></div>
 </li>
 </ol>
 <hr />
@@ -1020,21 +1019,21 @@ Ensure you are in this directory before executing the commands.
 <p><strong>Objective:</strong> Understand how to scale a deployment to handle more traffic.</p>
 <ol>
 <li>
-<p><strong>Scale the Deployment:</strong>
-   Increase the number of replicas to handle more traffic:
-   <div class="language-bash highlight"><pre><span></span><code><span id="__span-16-1"><a id="__codelineno-16-1" name="__codelineno-16-1" href="#__codelineno-16-1"></a>oc<span class="w"> </span>scale<span class="w"> </span>--replicas<span class="o">=</span><span class="m">3</span><span class="w"> </span>deploy/python-server
+<p><strong>Scale the Deployment:</strong></p>
+<p>Increase the number of replicas to handle more traffic:
+  <div class="language-bash highlight"><pre><span></span><code><span id="__span-16-1"><a id="__codelineno-16-1" name="__codelineno-16-1" href="#__codelineno-16-1"></a>oc<span class="w"> </span>scale<span class="w"> </span>--replicas<span class="o">=</span><span class="m">3</span><span class="w"> </span>deploy/python-server
 </span></code></pre></div></p>
 </li>
 <li>
-<p><strong>Verify Scaling:</strong>
-   Check the status of the pods to ensure scaling was successful:
-   <div class="language-bash highlight"><pre><span></span><code><span id="__span-17-1"><a id="__codelineno-17-1" name="__codelineno-17-1" href="#__codelineno-17-1"></a>oc<span class="w"> </span>get<span class="w"> </span>pods
+<p><strong>Verify Scaling:</strong></p>
+<p>Check the status of the pods to ensure scaling was successful:
+  <div class="language-bash highlight"><pre><span></span><code><span id="__span-17-1"><a id="__codelineno-17-1" name="__codelineno-17-1" href="#__codelineno-17-1"></a>oc<span class="w"> </span>get<span class="w"> </span>pods
 </span></code></pre></div></p>
 </li>
 <li>
-<p><strong>Test the Application:</strong>
-   Ensure the application is still accessible and functioning correctly:
-   <div class="language-bash highlight"><pre><span></span><code><span id="__span-18-1"><a id="__codelineno-18-1" name="__codelineno-18-1" href="#__codelineno-18-1"></a>curl<span class="w"> </span>http://<span class="k">$(</span>oc<span class="w"> </span>get<span class="w"> </span>route<span class="w"> </span>python-server-route<span class="w"> </span>-o<span class="w"> </span><span class="nv">jsonpath</span><span class="o">=</span><span class="s1">&#39;{.spec.host}&#39;</span><span class="k">)</span>
+<p><strong>Test the Application:</strong></p>
+<p>Ensure the application is still accessible and functioning correctly:
+  <div class="language-bash highlight"><pre><span></span><code><span id="__span-18-1"><a id="__codelineno-18-1" name="__codelineno-18-1" href="#__codelineno-18-1"></a>curl<span class="w"> </span>http://<span class="k">$(</span>oc<span class="w"> </span>get<span class="w"> </span>route<span class="w"> </span>python-server-route<span class="w"> </span>-o<span class="w"> </span><span class="nv">jsonpath</span><span class="o">=</span><span class="s1">&#39;{.spec.host}&#39;</span><span class="k">)</span>
 </span></code></pre></div></p>
 </li>
 </ol>
@@ -1043,46 +1042,53 @@ Ensure you are in this directory before executing the commands.
 <p><strong>Objective:</strong> Learn how to update a deployment with a new version of your application.</p>
 <ol>
 <li>
-<p><strong>Build a New Image:</strong>
-   Make changes to your application and build a new image:
-   <div class="language-bash highlight"><pre><span></span><code><span id="__span-19-1"><a id="__codelineno-19-1" name="__codelineno-19-1" href="#__codelineno-19-1"></a>podman<span class="w"> </span>build<span class="w"> </span>-t<span class="w"> </span>python-server:v2<span class="w"> </span>.
+<p><strong>Build a New Image:</strong></p>
+<p>Make changes to your application and build a new image:
+  <div class="language-bash highlight"><pre><span></span><code><span id="__span-19-1"><a id="__codelineno-19-1" name="__codelineno-19-1" href="#__codelineno-19-1"></a>podman<span class="w"> </span>build<span class="w"> </span>-t<span class="w"> </span>python-server:v2<span class="w"> </span>.
 </span></code></pre></div></p>
 </li>
 <li>
 <p><strong>Import the Local Image to OpenShift:</strong></p>
-</li>
-</ol>
 <p><strong>For Laptop Users:</strong></p>
 <blockquote>
 <p>Note: The OpenShift internal registry has been exposed just for the workshop.
 </p>
 </blockquote>
 <p>Use the following command to log in to the OpenShift internal registry:
-   <div class="language-bash highlight"><pre><span></span><code><span id="__span-20-1"><a id="__codelineno-20-1" name="__codelineno-20-1" href="#__codelineno-20-1"></a>podman<span class="w"> </span>login<span class="w"> </span>-u<span class="w"> </span><span class="k">$(</span>oc<span class="w"> </span>whoami<span class="k">)</span><span class="w"> </span>-p<span class="w"> </span><span class="k">$(</span>oc<span class="w"> </span>whoami<span class="w"> </span>-t<span class="k">)</span><span class="w"> </span>https://default-route-openshift-image-registry.apps.cluster-2jp75.2jp75.sandbox2851.opentlc.com
+  <div class="language-bash highlight"><pre><span></span><code><span id="__span-20-1"><a id="__codelineno-20-1" name="__codelineno-20-1" href="#__codelineno-20-1"></a>podman<span class="w"> </span>login<span class="w"> </span>-u<span class="w"> </span><span class="k">$(</span>oc<span class="w"> </span>whoami<span class="k">)</span><span class="w"> </span>-p<span class="w"> </span><span class="k">$(</span>oc<span class="w"> </span>whoami<span class="w"> </span>-t<span class="k">)</span><span class="w"> </span>https://default-route-openshift-image-registry.apps.cluster-2jp75.2jp75.sandbox2851.opentlc.com
 </span></code></pre></div>
-   Tag your local image with the OpenShift registry namespace:
-   <div class="language-bash highlight"><pre><span></span><code><span id="__span-21-1"><a id="__codelineno-21-1" name="__codelineno-21-1" href="#__codelineno-21-1"></a>podman<span class="w"> </span>tag<span class="w"> </span>python-server:v2<span class="w"> </span>default-route-openshift-image-registry.apps.cluster-2jp75.2jp75.sandbox2851.opentlc.com/devspaces-user1/python-server:v2
+  Tag your local image with the OpenShift registry namespace:
+  <div class="language-bash highlight"><pre><span></span><code><span id="__span-21-1"><a id="__codelineno-21-1" name="__codelineno-21-1" href="#__codelineno-21-1"></a>podman<span class="w"> </span>tag<span class="w"> </span>python-server:v2<span class="w"> </span>default-route-openshift-image-registry.apps.cluster-2jp75.2jp75.sandbox2851.opentlc.com/devspaces-user1/python-server:v2
 </span></code></pre></div>
-   Push the tagged image to the OpenShift internal registry:
-   <div class="language-bash highlight"><pre><span></span><code><span id="__span-22-1"><a id="__codelineno-22-1" name="__codelineno-22-1" href="#__codelineno-22-1"></a>podman<span class="w"> </span>push<span class="w"> </span>default-route-openshift-image-registry.apps.cluster-2jp75.2jp75.sandbox2851.opentlc.com/devspaces-user1/python-server:v2
+  Push the tagged image to the OpenShift internal registry:
+  <div class="language-bash highlight"><pre><span></span><code><span id="__span-22-1"><a id="__codelineno-22-1" name="__codelineno-22-1" href="#__codelineno-22-1"></a>podman<span class="w"> </span>push<span class="w"> </span>default-route-openshift-image-registry.apps.cluster-2jp75.2jp75.sandbox2851.opentlc.com/devspaces-user1/python-server:v2
 </span></code></pre></div></p>
+</li>
+</ol>
 <p><strong>For DevSpaces Users:</strong></p>
-<p>Use the following command to log in to the OpenShift internal registry:
-   <div class="language-bash highlight"><pre><span></span><code><span id="__span-23-1"><a id="__codelineno-23-1" name="__codelineno-23-1" href="#__codelineno-23-1"></a>podman<span class="w"> </span>login<span class="w"> </span>-u<span class="w"> </span><span class="k">$(</span>oc<span class="w"> </span>whoami<span class="k">)</span><span class="w"> </span>-p<span class="w"> </span><span class="k">$(</span>oc<span class="w"> </span>whoami<span class="w"> </span>-t<span class="k">)</span><span class="w"> </span>image-registry.openshift-image-registry.svc:5000
-</span></code></pre></div>
-   Tag your local image with the OpenShift registry namespace:
-   <div class="language-bash highlight"><pre><span></span><code><span id="__span-24-1"><a id="__codelineno-24-1" name="__codelineno-24-1" href="#__codelineno-24-1"></a>podman<span class="w"> </span>tag<span class="w"> </span>python-server:v2<span class="w"> </span>image-registry.openshift-image-registry.svc:5000/devspaces-user1/python-server:v2
-</span></code></pre></div>
-   Push the tagged image to the OpenShift internal registry:
-   <div class="language-bash highlight"><pre><span></span><code><span id="__span-25-1"><a id="__codelineno-25-1" name="__codelineno-25-1" href="#__codelineno-25-1"></a>podman<span class="w"> </span>push<span class="w"> </span>image-registry.openshift-image-registry.svc:5000/devspaces-user1/python-server:v2
-</span></code></pre></div></p>
+<div class="language-text highlight"><pre><span></span><code>  Use the following command to log in to the OpenShift internal registry:
+  ```bash
+  podman login -u $(oc whoami) -p $(oc whoami -t) image-registry.openshift-image-registry.svc:5000
+  ```
+  Tag your local image with the OpenShift registry namespace:
+  ```bash
+  podman tag python-server:v2 image-registry.openshift-image-registry.svc:5000/devspaces-user1/python-server:v2
+  ```
+  Push the tagged image to the OpenShift internal registry:
+  ```bash
+  podman push image-registry.openshift-image-registry.svc:5000/devspaces-user1/python-server:v2
+  ```
+</code></pre></div>
 <ol>
-<li><strong>Update the Deployment:</strong></li>
 <li>
+<p><strong>Update the Deployment:</strong></p>
 <p>Update the deployment to use the new image:
-     <div class="language-bash highlight"><pre><span></span><code><span id="__span-26-1"><a id="__codelineno-26-1" name="__codelineno-26-1" href="#__codelineno-26-1"></a>oc<span class="w"> </span><span class="nb">set</span><span class="w"> </span>image<span class="w"> </span>deployment/python-server<span class="w"> </span>python-312<span class="o">=</span>python-server:v2<span class="w"> </span>--source<span class="o">=</span>imagestreamtag
-</span></code></pre></div>
-     &gt; Note: An imagestream tag in OpenShift is a reference to a specific version of an image within an imagestream. It allows you to manage and track different versions of container images, facilitating seamless updates and rollbacks.</p>
+  <div class="language-bash highlight"><pre><span></span><code><span id="__span-26-1"><a id="__codelineno-26-1" name="__codelineno-26-1" href="#__codelineno-26-1"></a>oc<span class="w"> </span><span class="nb">set</span><span class="w"> </span>image<span class="w"> </span>deployment/python-server<span class="w"> </span>python-312<span class="o">=</span>python-server:v2<span class="w"> </span>--source<span class="o">=</span>imagestreamtag
+</span></code></pre></div></p>
+<blockquote>
+<p>An imagestream tag in OpenShift is a reference to a specific version of an image within an imagestream.</p>
+<p>It allows you to manage and track different versions of container images, facilitating seamless updates and rollbacks.</p>
+</blockquote>
 </li>
 <li>
 <p><strong>Verify the Update:</strong></p>
