@@ -18,3 +18,5 @@ spec:
   port:
     targetPort: 8000
   wildcardPolicy: None
+  tls:
+    termination: Edge
