@@ -28,26 +28,91 @@ Deploy a simple application using Helm.
    ```bash
    helm create myapp
    ```
+> **Security Note**: The default Helm chart uses nginx which has some security considerations:
+> - Runs as root by default
+> - Binds to privileged port 80
+> - Requires specific filesystem permissions
+>
+> OpenShift enforces security by running containers with random UIDs. To make the nginx image work properly in OpenShift, you'll need to:
+> - Configure the container to use non-root user
+> - Use non-privileged ports (>1024)
+> - Ensure proper filesystem permissions
+>
+
+2. Create a ConfigMap for nginx configuration:
+   ```yaml
+   # Create nginx.conf in the chart directory
+   cat > myapp/nginx.conf << 'EOF'
+   worker_processes  auto;
+   
+   error_log  /var/log/nginx/error.log warn;
+   pid        /var/run/nginx.pid;
+   
+   events {
+       worker_connections  1024;
+   }
+   
+   http {
+       include       /etc/nginx/mime.types;
+       default_type  application/octet-stream;
+       
+       log_format  main  '$remote_addr - $remote_user [$time_local] "$request" '
+                        '$status $body_bytes_sent "$http_referer" '
+                        '"$http_user_agent" "$http_x_forwarded_for"';
+       
+       access_log  /var/log/nginx/access.log  main;
+       
+       sendfile        on;
+       keepalive_timeout  65;
+       
+       server {
+          listen       8080 default_server;
+          listen       [::]:8080 default_server;
+          server_name  _;
+           
+           location / {
+               root   /usr/share/nginx/html;
+               index  index.html index.htm;
+           }
+       }
+   }
+   EOF
+
+   # Create ConfigMap template
+   cat > myapp/templates/configmap.yaml << 'EOF'
+   apiVersion: v1
+   kind: ConfigMap
+   metadata:
+     name: {% raw %}{{ include "myapp.fullname" . }}{% endraw %}-nginx-config
+     labels:
+       {% raw %}{{- include "myapp.labels" . | nindent 4 }}{% endraw %}
+   data:
+     nginx.conf: |
+   {% raw %}{{ .Files.Get "nginx.conf" | indent 4 }}{% endraw %}
+   EOF
+   ```
+
 2. Edit/Update `values.yaml` to customize your deployment:
      ```yaml
-      image:
-        repository: registry.redhat.io/ubi9/python-312
-        tag: latest
+      volumes:
+      - name: cache
+        emptyDir: {}
+      - name: pid
+        emptyDir: {}      
+      - name: nginx-config
+        configMap:
+          # The name will contain the release name, e.g. myapp-release-nginx-config
+          name: myapp-release-nginx-config
 
-      service:
-        type: ClusterIP
-        port: 8000
+      volumeMounts:
+      - name: cache
+        mountPath: "/var/cache/nginx"
+      - name: pid
+        mountPath: "/var/run"  
+      - name: nginx-config
+        mountPath: "/etc/nginx/nginx.conf"
+        subPath: nginx.conf
      ```
-3. Edit `templates/deployment.yaml` to add the python3 startup command:
-   ```yaml
-   spec:
-     template:
-       spec:
-         containers:
-         - name: {% raw %}{{ Chart.Name }}{% endraw %}
-           command: ["python3"]
-           args: ["-m", "http.server"]
-   ```
 
 3. Deploy the Chart
    ```bash
@@ -56,6 +121,41 @@ Deploy a simple application using Helm.
 4. Verify Deployment
    ```bash
    oc get pods
+   ```
+
+
+Alternatively, you can customize the nginx image to run as non-root by creating your own Containerfile:
+
+1. Create a Containerfile:
+   ```Dockerfile
+   FROM nginx:1.16.0
+   
+   # Create required directories and set permissions
+   RUN mkdir -p /var/cache/nginx /var/run && \
+       chown 0:0 /var/cache/nginx /var/run && \
+       chmod -R g=u /var/cache/nginx /var/run
+   
+   # Copy nginx.conf
+   COPY --chown=0:0 nginx.conf /etc/nginx/nginx.conf
+
+   # Use arbitrary user ID as per OpenShift guidelines
+   USER 1001
+   ```
+
+2. Build and push the custom image:
+   ```bash
+   podman build -t custom-nginx .
+   podman push custom-nginx quay.io/quickstart/nginx:1.16.0
+   ```
+
+3. Update the image and the port values.yaml:
+   ```yaml
+   image:
+     repository: quay.io/quickstart/nginx:1.16.0
+     tag: latest
+   
+   service:
+     port: 8080
    ```
 
 ---

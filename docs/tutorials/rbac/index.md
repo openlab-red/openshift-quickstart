@@ -85,17 +85,17 @@ This demonstrates how to set up and test role-based access control in OpenShift.
 
 4. Verify that you user friend can now list services in addition to viewing pods:
     ```bash
-    oc get services
-    oc get pods
+    oc get services -n namespaceX
+    oc get pods -n namespaceX
     ```
    Ensure that you cannot modify any resources:
    ```bash
    # Attempting to delete a pod should fail
-   oc delete pod <pod-name>
+   oc delete pod <pod-name> -n namespaceX
    ```
    Confirm that you still cannot access other resources like secrets:
    ```bash
-   oc get secrets
+   oc get secrets -n namespaceX
    ```
 
 ---
@@ -151,3 +151,21 @@ This demonstrates how to set up and test role-based access control in OpenShift.
      # Attempting to delete a pod should fail
      oc auth can-i delete pod --as=system:serviceaccount:namespaceX:pod-viewer -n namespaceX
      ```
+
+6. Get token from service account
+
+    ```yaml
+    apiVersion: v1
+    kind: Secret
+    metadata:
+      name: pod-viewer
+      annotations:
+        kubernetes.io/service-account.name: pod-viewer
+    type: kubernetes.io/service-account-token
+    ```
+
+    By command line
+    
+    ```bash
+    oc create token pod-viewer --bound-object-kind=Secret --bound-object-name=pod-viewer -n namespaceX
+    ```
