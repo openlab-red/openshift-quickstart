@@ -4,12 +4,12 @@
 
 > The code examples and instructions in this tutorial are located under `openshift-quickstart` project in the
 > `tutorials/networkpolicy` directory. 
+>
 > Ensure you are in this directory before executing the commands.
 >
 
 1. Navigate to the Tutorial Directory
     ```bash
-    # Change to the tutorials/simple directory
     cd openshift-quickstart/tutorials/networkpolicy
     ```
 
@@ -80,7 +80,7 @@
           targetPort: 8000
     ```
 
-1. Verify that all communication is allowed within the namespace.
+3. Verify that all communication is allowed within the namespace.
 
     Execute the following command to test connectivity to the `python-server-second-service` service.
     ```bash
@@ -88,29 +88,28 @@
     curl -I http://python-server-second-service:8000
     exit
     ```
-
     Use this command to test connectivity to the `python-server-service` on port 8000.
     ```bash
     oc rsh python-server-second
     curl -I http://python-server-service:8000
     ```
 
-2.  Restrict the traffic to your `python-server-service` service by applying a deny policy.
+4.  Restrict the traffic to your `python-server-service` service by applying a deny policy.
     ```bash
     oc create -f deny.yaml
     ```
 
-3. Check the connectivity from the second Python pod to ensure the deny policy is in effect.
+5. Check the connectivity from the second Python pod to ensure the deny policy is in effect.
     ```bash
     curl -I http://python-server-service:8000 -v
     ```
 
-4. Re-enable specific traffic to the `devspaces-userX` namespace by applying an allow policy.
+6. Re-enable specific traffic to the `devspaces-userX` namespace by applying an allow policy.
     ```bash
     oc create -f allow.yaml
     ```
 
-5. Verify that the allow policy is functioning correctly by testing connectivity again.
+7. Verify that the allow policy is functioning correctly by testing connectivity again.
 
     Execute:
     ```bash
@@ -172,7 +171,7 @@
     exit
     ```
 
-8. Allow communication to the `python-server-third` pod by applying a new allow policy.
+3. Allow communication to the `python-server-third` pod by applying a new allow policy.
 
     Use the following YAML configuration:
     ```yaml
@@ -378,13 +377,15 @@
 
 3. Tasks:
 
-   a. Create a network policy that:
+    a. Create a network policy that:
+
       - Allows frontend to communicate only with the API layer
       - Allows API layer to communicate only with the database
       - Denies all other traffic between pods
       - Allows external traffic only to the frontend
 
-   b. Test the connectivity between different layers:
+    b. Test the connectivity between different layers:
+
       - Test frontend to API communication
       - Test frontend to database communication (should fail)
       - Test API to database communication
@@ -392,93 +393,88 @@
 
 4. First, let's create a default deny policy to ensure all traffic is blocked by default:
 
-```yaml
-apiVersion: networking.k8s.io/v1
-kind: NetworkPolicy
-metadata:
-  name: default-deny-all
-spec:
-  podSelector:
-    matchLabels:
-      app: multi-tier-app
-  policyTypes:
-  - Ingress
-  - Egress
-```
+    ```yaml
+    apiVersion: networking.k8s.io/v1
+    kind: NetworkPolicy
+    metadata:
+      name: default-deny-all
+    spec:
+      podSelector:
+        matchLabels:
+          app: multi-tier-app
+      policyTypes:
+      - Ingress
+      - Egress
+    ```
 
 5. Frontend Network Policy (allows incoming external traffic and outgoing to API):
 
-```yaml
-apiVersion: networking.k8s.io/v1
-kind: NetworkPolicy
-metadata:
-  name: frontend-policy
-spec:
-  podSelector:
-    matchLabels:
-      tier: frontend
-  policyTypes:
-  - Ingress
-  - Egress
-  ingress:
-  - {}  # Allows all incoming traffic
-  egress:
-    - to:
-        - podSelector:
-            matchLabels:
-              tier: api
-      ports:
-        - port: 5000
-```
+      ```yaml
+      apiVersion: networking.k8s.io/v1
+      kind: NetworkPolicy
+      metadata:
+        name: frontend-policy
+      spec:
+        podSelector:
+          matchLabels:
+            tier: frontend
+        policyTypes:
+        - Ingress
+        - Egress
+        ingress:
+        - {}  # Allows all incoming traffic
+        egress:
+        - {}
+      ```
 
 6. API Layer Network Policy (allows frontend traffic and connection to database):
 
-```yaml
-apiVersion: networking.k8s.io/v1
-kind: NetworkPolicy
-metadata:
-  name: api-policy
-spec:
-  podSelector:
-    matchLabels:
-      tier: api
-  policyTypes:
-  - Ingress
-  - Egress
-  ingress:
-  - from:
-    - podSelector:
+    ```yaml
+    apiVersion: networking.k8s.io/v1
+    kind: NetworkPolicy
+    metadata:
+      name: api-policy
+    spec:
+      podSelector:
         matchLabels:
-          tier: frontend
-    ports:
-    - protocol: TCP
-      port: 5000
-  egress: 
-  - {}
-```
+          tier: api
+      policyTypes:
+      - Ingress
+      - Egress
+      ingress:
+      - from:
+        - podSelector:
+            matchLabels:
+              tier: frontend
+        ports:
+        - protocol: TCP
+          port: 5000
+      egress: 
+      - {}
+    ```
 
 7. Database Network Policy (only allows API layer access):
 
-```yaml
-apiVersion: networking.k8s.io/v1
-kind: NetworkPolicy
-metadata:
-  name: database-policy
-spec:
-  podSelector:
-    matchLabels:
-      tier: database
-  policyTypes:
-  - Ingress
-  ingress:
-  - from:
-    - podSelector:
+    ```yaml
+    apiVersion: networking.k8s.io/v1
+    kind: NetworkPolicy
+    metadata:
+      name: database-policy
+    spec:
+      podSelector:
         matchLabels:
-          tier: api
-    ports:
-    - protocol: TCP
-      port: 5432
-```
+          tier: database
+      policyTypes:
+      - Ingress
+      ingress:
+      - from:
+        - podSelector:
+            matchLabels:
+              tier: api
+        ports:
+        - protocol: TCP
+          port: 5432
+    ```
 
 8. Testing Commands:
 
@@ -502,8 +498,8 @@ exit
 
 9. Expected Results:
 
-- Frontend pod should only be able to communicate with the API service
-- API pod should only be able to communicate with the database service
-- Database pod should only accept connections from the API service
-- Monitoring pod should be able to access all services
-- Any other communication attempts should fail
+    - Frontend pod should only be able to communicate with the API service
+    - API pod should only be able to communicate with the database service
+    - Database pod should only accept connections from the API service
+    - Monitoring pod should be able to access all services
+    - Any other communication attempts should fail

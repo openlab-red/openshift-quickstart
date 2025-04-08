@@ -77,12 +77,12 @@ To effectively work with OpenShift and the associated projects, ensure you have 
 ### OpenShift Client (oc)
 The OpenShift CLI (`oc`) is a command-line tool that helps you manage OpenShift applications and the OpenShift container platform itself.
 
-- **Installation**: You can download the `oc` client directly from the OpenShift Console UI. Navigate to the question mark icon and select "Command Line Tools" to find the appropriate version for your operating system.
+- **Installation**: You can download the `oc` client directly from the [OpenShift Console](https://console-openshift-console.{{ config.extra.base_url }}/). Navigate to the question mark icon and select "Command Line Tools" to find the appropriate version for your operating system.
 
 ### Helm Client
 Helm is a package manager for Kubernetes that allows you to define, install, and upgrade even the most complex Kubernetes applications.
 
-- **Installation**: Similar to the `oc` client, Helm can also be downloaded from the OpenShift Console UI. Go to the question mark icon and choose "Command Line Tools" to access the Helm download options.
+- **Installation**: Similar to the `oc` client, Helm can also be downloaded from the [OpenShift Console](https://console-openshift-console.{{ config.extra.base_url }}/). Go to the question mark icon and choose "Command Line Tools" to access the Helm download options.
 
 ### Kustomize
 Kustomize is a tool for customizing Kubernetes configurations.

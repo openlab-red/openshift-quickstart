@@ -5,12 +5,12 @@ You'll learn the basics of each tool through practical exercises and see how com
 
 > The code examples and instructions in this tutorial are located under `openshift-quickstart` project in the
 > `tutorials/helm+kustomize` directory. 
+>
 > Ensure you are in this directory before executing the commands.
 >
 
 1. Navigate to the Tutorial Directory
     ```bash
-    # Change to the tutorials/simple directory
     cd openshift-quickstart/tutorials/helm+kustomize
     ```
 
@@ -31,7 +31,7 @@ Deploy a simple application using Helm.
 2. Edit/Update `values.yaml` to customize your deployment:
      ```yaml
       image:
-        repository: registry.redhat.io/ubi9/nginx-122
+        repository: registry.redhat.io/ubi9/python-312
         tag: latest
 
       service:

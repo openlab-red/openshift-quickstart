@@ -6,6 +6,7 @@ This demonstrates how to set up and test role-based access control in OpenShift.
 
 > The code examples and instructions in this tutorial are located under `openshift-quickstart` project in the
 > `tutorials/rbac` directory. 
+>
 > Ensure you are in this directory before executing the commands.
 >
 
@@ -108,7 +109,7 @@ This demonstrates how to set up and test role-based access control in OpenShift.
 
 1. Use the following command to create a service account named `pod-viewer` in your namespace:
     ```bash
-    oc create serviceaccount pod-viewer -n pod-play
+    oc create serviceaccount pod-viewer -n namespaceX
     ```
 
 2. Create a YAML file named `sa-rolebinding.yaml` to bind the `view` role to the `pod-viewer` service account:

@@ -6,6 +6,7 @@ This guide walks through basic container operations using Podman.
 
 > The code examples and instructions in this tutorial are located under `openshift-quickstart` project in the
 > `tutorials/simple` directory. 
+>
 > Ensure you are in this directory before executing the commands.
 >
 
@@ -13,34 +14,29 @@ This guide walks through basic container operations using Podman.
 
 1. Navigate to the Tutorial Directory
     ```bash
-    # Change to the tutorials/simple directory
     cd openshift-quickstart/tutorials/simple
     ```
 
 2. Or open a New Terminal
   ![Terminal](../../assets/images/tutorials/simple/terminal.png)
 
-3. Build the Container Image
+3. Build an image tagged as 'simple:latest' from the Dockerfile in current directory
     ```bash
-    # Build an image tagged as 'simple:latest' from the Dockerfile in current directory
     podman build -t simple:latest .
     ```
 
-2. Run the Container
+2. Run the container in detached mode
     ```bash
-    # Run the container in detached mode
     podman run -d simple:latest
     ```
 
-3. View Running Containers
+3. List all running containers
     ```bash
-    # List all running containers
     podman ps -a
     ```
 
-4. Interactive Shell Access
+4. Start a new container with an interactive bash shell
     ```bash
-    # Start a new container with an interactive bash shell
     podman run -it --entrypoint /bin/bash simple:latest
     ```
 
@@ -55,7 +51,9 @@ This guide walks through basic container operations using Podman.
     
     ![Terminal](../../assets/images/tutorials/simple/split.png)
     >
-    > Note: Replace `<containerID>` with the actual container ID from `podman ps` output or `$(podman ps -q)`.
+    > Replace `<containerID>` with the actual container ID 
+    > 
+    > from `podman ps` output or `$(podman ps -q)`.
     >
 
 ---
@@ -88,7 +86,9 @@ This guide walks through basic container operations using Podman.
     ```bash
     podman run --rm --entrypoint printenv simple:latest MY_VAR
     ```
-    > Note: The `--entrypoint` flag overrides the default `echo` command defined in the Containerfile, allowing us to run the `printenv` command instead to verify our environment variable.
+    > The `--entrypoint` flag overrides the default `echo` command defined in the Containerfile, 
+    > 
+    > allowing us to run the `printenv` command instead to verify our environment variable.
 
 ---
 
@@ -109,7 +109,9 @@ This guide walks through basic container operations using Podman.
     ```bash
     podman run -it -d -v mydata:/data --entrypoint cat simple:latest
     ```
-    > Note: The `-it` flags enable an interactive terminal session. We use `cat` as the entrypoint to keep the container running in detached mode (`-d`), since `cat` will wait for input indefinitely.
+    > The `-it` flags enable an interactive terminal session. 
+    > 
+    > We use `cat` as the entrypoint to keep the container running in detached mode (`-d`), since `cat` will wait for input indefinitely.
 
 3. **Verify the Volume:**
 
