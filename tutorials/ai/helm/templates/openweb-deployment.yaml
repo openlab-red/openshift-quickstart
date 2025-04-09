@@ -1,0 +1,91 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ include "ai.fullname" . }}-openweb
+  labels:
+    {{- include "ai.labels" . | nindent 4 }}
+spec:
+  {{- if not .Values.openweb.autoscaling.enabled }}
+  replicas: {{ .Values.openweb.replicaCount }}
+  {{- end }}
+  selector:
+    matchLabels:
+      {{- include "ai.selectorLabels" . | nindent 6 }}
+  template:
+    metadata:
+      {{- with .Values.openweb.podAnnotations }}
+      annotations:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+      labels:
+        {{- include "ai.labels" . | nindent 8 }}
+        {{- with .Values.openweb.podLabels }}
+        {{- toYaml . | nindent 8 }}
+        {{- end }}
+    spec:
+      {{- with .Values.openweb.imagePullSecrets }}
+      imagePullSecrets:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+      serviceAccountName: {{ include "ai.serviceAccountName" . }}-openweb
+      {{- with .Values.openweb.podSecurityContext }}
+      securityContext:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+      containers:
+        - name: {{ .Chart.Name }}
+          {{- with .Values.openweb.securityContext }}
+          securityContext:
+            {{- toYaml . | nindent 12 }}
+          {{- end }}
+          image: "{{ .Values.openweb.image.repository }}:{{ .Values.openweb.image.tag | default .Chart.AppVersion }}"
+          imagePullPolicy: {{ .Values.openweb.image.pullPolicy }}
+          ports:
+            - name: http
+              containerPort: {{ .Values.openweb.service.port }}
+              protocol: TCP
+          envFrom:
+            - secretRef:
+                name: {{ include "ai.fullname" . }}-openweb
+          {{- with .Values.openweb.livenessProbe }}
+          livenessProbe:
+            {{- toYaml . | nindent 12 }}
+          {{- end }}
+          {{- with .Values.openweb.readinessProbe }}
+          readinessProbe:
+            {{- toYaml . | nindent 12 }}
+          {{- end }}
+          {{- with .Values.openweb.resources }}
+          resources:
+            {{- toYaml . | nindent 12 }}
+          {{- end }}
+          volumeMounts:
+          {{- with .Values.openweb.volumeMounts }}
+            {{- toYaml . | nindent 12 }}
+          {{- end }}
+            - name: webui-data
+              mountPath: /app/backend/data
+            - name: webui-static
+              mountPath: /app/backend/open_webui/static
+      volumes:
+      {{- with .Values.openweb.volumes }}
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+        - name: webui-data
+          persistentVolumeClaim:
+            claimName: {{ include "ai.fullname" . }}-data
+        - name: webui-static
+          persistentVolumeClaim:
+            claimName: {{ include "ai.fullname" . }}-static
+      {{- with .Values.openweb.nodeSelector }}
+      nodeSelector:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+      {{- with .Values.openweb.affinity }}
+      affinity:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+      {{- with .Values.openweb.tolerations }}
+      tolerations:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}

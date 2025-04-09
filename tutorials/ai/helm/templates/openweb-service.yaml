@@ -1,0 +1,15 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: {{ include "ai.fullname" . }}-openweb
+  labels:
+    {{- include "ai.labels" . | nindent 4 }}
+spec:
+  type: {{ .Values.openweb.service.type }}
+  ports:
+    - port: {{ .Values.openweb.service.port }}
+      targetPort: http
+      protocol: TCP
+      name: http
+  selector:
+    {{- include "ai.selectorLabels" . | nindent 4 }}
