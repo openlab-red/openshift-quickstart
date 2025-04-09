@@ -94,9 +94,11 @@ openweb:
     requests:
       cpu: "1"
       memory: "1Gi"
+      #nvidia.com/gpu: 1
     limits:
       cpu: "2" 
       memory: "4Gi"
+      #nvidia.com/gpu: 1
 
   livenessProbe:
     httpGet:
