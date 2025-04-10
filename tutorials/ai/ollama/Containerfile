@@ -1,0 +1,9 @@
+FROM docker.io/ollama/ollama:latest
+
+USER root
+# Update system-wide CA certificate trust store
+COPY certs/ /usr/local/share/ca-certificates/
+
+RUN update-ca-certificates
+
+USER 1001

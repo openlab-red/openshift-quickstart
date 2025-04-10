@@ -31,9 +31,13 @@ resources:
   requests:
     cpu: "2"
     memory: "2Gi"
+    #nvidia.com/gpu: 1
+
   limits:
     cpu: "8" 
     memory: "12Gi"
+    #nvidia.com/gpu: 1
+
 
 livenessProbe:
   tcpSocket:
@@ -94,10 +98,73 @@ openweb:
     requests:
       cpu: "1"
       memory: "1Gi"
-      #nvidia.com/gpu: 1
     limits:
       cpu: "2" 
       memory: "4Gi"
+
+  livenessProbe:
+    httpGet:
+      path: /
+      port: http
+  readinessProbe:
+    httpGet:
+      path: /
+      port: http
+
+  autoscaling:
+    enabled: false
+    minReplicas: 1
+    maxReplicas: 100
+    targetCPUUtilizationPercentage: 80
+
+  volumes: []
+
+  volumeMounts: []
+
+  nodeSelector: {}
+
+  tolerations: []
+
+  affinity: {}
+
+vllm:
+  replicaCount: 1
+
+  image:
+    repository: vllm/vllm-openai
+    pullPolicy: IfNotPresent
+    tag: latest
+
+  imagePullSecrets: []
+  nameOverride: ""
+  fullnameOverride: ""
+
+  serviceAccount:
+    create: true
+    automount: true
+    annotations: {}
+    name: ""
+
+  podAnnotations: {}
+  podLabels: {}
+
+  podSecurityContext: {}
+
+  securityContext: {}
+
+  service:
+    type: ClusterIP
+    port: 8080
+
+  resources:
+    requests:
+      cpu: "2"
+      memory: "2Gi"
+      #nvidia.com/gpu: 1
+
+    limits:
+      cpu: "8" 
+      memory: "12Gi"
       #nvidia.com/gpu: 1
 
   livenessProbe:
@@ -124,3 +191,6 @@ openweb:
   tolerations: []
 
   affinity: {}
+
+  storage:
+    size: 40Gi

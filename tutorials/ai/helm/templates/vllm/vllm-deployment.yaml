@@ -1,0 +1,97 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ include "ai.fullname" . }}-vllm
+  labels:
+    {{- include "ai.labels" . | nindent 4 }}
+    app.kubernetes.io/component: vllm
+spec:
+  {{- if not .Values.vllm.autoscaling.enabled }}
+  replicas: {{ .Values.vllm.replicaCount }}
+  {{- end }}
+  selector:
+    matchLabels:
+      {{- include "ai.selectorLabels" . | nindent 6 }}
+  template:
+    metadata:
+      {{- with .Values.vllm.podAnnotations }}
+      annotations:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+      labels:
+        {{- include "ai.labels" . | nindent 8 }}
+        {{- with .Values.vllm.podLabels }}
+        {{- toYaml . | nindent 8 }}
+        {{- end }}
+    spec:
+      {{- with .Values.vllm.imagePullSecrets }}
+      imagePullSecrets:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+      serviceAccountName: {{ include "ai.serviceAccountName" . }}-vllm
+      {{- with .Values.vllm.podSecurityContext }}
+      securityContext:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+      containers:
+        - name: {{ .Chart.Name }}
+          {{- with .Values.vllm.securityContext }}
+          securityContext:
+            {{- toYaml . | nindent 12 }}
+          {{- end }}
+          image: "{{ .Values.vllm.image.repository }}:{{ .Values.vllm.image.tag | default .Chart.AppVersion }}"
+          imagePullPolicy: {{ .Values.vllm.image.pullPolicy }}
+          command: ["/bin/sh", "-c"]
+          args: [
+          "vllm serve mistralai/Mistral-7B-v0.3 --port 8000 --trust-remote-code --enable-chunked-prefill --max_num_batched_tokens 1024"
+          ]
+          ports:
+            - name: http
+              containerPort: {{ .Values.vllm.service.port }}
+              protocol: TCP
+          envFrom:
+            - secretRef:
+                name: {{ include "ai.fullname" . }}-vllm
+          {{- with .Values.vllm.livenessProbe }}
+          livenessProbe:
+            {{- toYaml . | nindent 12 }}
+          {{- end }}
+          {{- with .Values.vllm.readinessProbe }}
+          readinessProbe:
+            {{- toYaml . | nindent 12 }}
+          {{- end }}
+          {{- with .Values.vllm.resources }}
+          resources:
+            {{- toYaml . | nindent 12 }}
+          {{- end }}
+          volumeMounts:
+          {{- with .Values.vllm.volumeMounts }}
+            {{- toYaml . | nindent 12 }}
+          {{- end }}
+            - name: cache-volume
+              mountPath: /root/.cache/huggingface
+            - name: shm
+              mountPath: /dev/shm
+      volumes:
+      {{- with .Values.vllm.volumes }}
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+        - name: cache-volume
+          persistentVolumeClaim:
+            claimName: {{ include "ai.fullname" . }}-vllm-data
+        - name: shm
+          emptyDir:
+            medium: Memory
+            sizeLimit: "8Gi"
+      {{- with .Values.vllm.nodeSelector }}
+      nodeSelector:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+      {{- with .Values.vllm.affinity }}
+      affinity:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+      {{- with .Values.vllm.tolerations }}
+      tolerations:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
