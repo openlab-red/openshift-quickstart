@@ -305,18 +305,32 @@ Leverage Kustomize's built-in Helm integration to directly manage Helm charts wi
       chartHome: ./charts
     helmCharts:
       - name: myapp
-        releaseName: myapp-prod
+        releaseName: prod
         namespace: prod
         valuesInline:
           replicaCount: 2
+
+    patches:
+      - path: deployment-patch.yaml
    ```
 
-3. Build Using Kustomize with Helm Enabled and check the replicas
+   Create `deployment-patch.yaml`:
+    ```yaml
+    apiVersion: apps/v1
+    kind: Deployment
+    metadata:
+      name: prod-myapp
+      label:
+        app: my-overlays
+    ```
+
+3. Build Using Kustomize with Helm Enabled and check the replicas and the label
    ```bash
    kustomize build --enable-helm helm-k/overlays/prod |grep replicas
+   kustomize build --enable-helm helm-k/overlays/prod |grep my-overlays
    ```
 
-### Explanation
+#### Explanation
 
 - The `--enable-helm` flag allows Kustomize to directly process Helm charts, simplifying the workflow by eliminating the need to manually run `helm template`.
 - Inline values (`valuesInline`) provide a convenient way to customize Helm chart parameters directly within the Kustomize configuration.

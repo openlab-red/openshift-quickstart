@@ -5,7 +5,10 @@ helmGlobals:
   chartHome: ./charts
 helmCharts:
   - name: myapp
-    releaseName: myapp-prod
+    releaseName: prod
     namespace: prod
     valuesInline:
       replicaCount: 2
+
+patches:
+  - path: deployment-patch.yaml
