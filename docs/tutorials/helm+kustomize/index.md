@@ -27,6 +27,7 @@ Deploy a simple application using Helm.
 1. Create a Helm Chart
    ```bash
    helm create myapp
+   cd myapp/
    helm install myapp-release .
    ```
 > **Security Note**: The default Helm chart uses nginx which has some security considerations:

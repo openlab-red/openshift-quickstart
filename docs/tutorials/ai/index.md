@@ -73,7 +73,7 @@ podman exec -it $(podman ps -q -f ancestor=ollama/ollama) /bin/bash -c '
 # Pull the models
 ollama pull starcoder2:15b
 ollama pull granite-code:20b
-ollama pull llama2:latest
+ollama pull llama3.1:8b
 
 ollama list'
 ```
@@ -152,7 +152,7 @@ ollama list'
    
    ollama pull starcoder2:15b
    ollama pull granite-code:20b
-   ollama pull llama2:latest
+   ollama pull llama3.1:8b
    ```
 
    Wait for the model download to complete. This may take several minutes depending on your connection speed and the model size.
