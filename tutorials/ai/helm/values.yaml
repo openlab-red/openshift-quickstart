@@ -65,6 +65,12 @@ affinity: {}
 storage:
   size: 40Gi
 
+proxy:
+  enabled: False
+  http: ""
+  https: ""
+  noProxy: ""
+
 openweb:
   replicaCount: 1
 

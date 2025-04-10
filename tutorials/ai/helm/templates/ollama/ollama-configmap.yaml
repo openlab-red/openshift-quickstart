@@ -1,0 +1,16 @@
+{{- if .Values.proxy.enabled }}
+---
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: {{ include "ai.fullname" . }}-ollama-proxy
+  labels:
+    {{- include "ai.labels" . | nindent 4 }}
+data:
+  HTTP_PROXY: {{ .Values.proxy.http | default "" | quote }}
+  HTTPS_PROXY: {{ .Values.proxy.https | default "" | quote }}
+  http_proxy: {{ .Values.proxy.http | default "" | quote }}
+  https_proxy: {{ .Values.proxy.https | default "" | quote }}
+  NO_PROXY: {{ .Values.proxy.noProxy | default "" | quote }}
+  no_proxy: {{ .Values.proxy.noProxy | default "" | quote }}
+{{- end }}
