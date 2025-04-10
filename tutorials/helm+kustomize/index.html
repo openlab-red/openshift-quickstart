@@ -811,6 +811,7 @@ You'll learn the basics of each tool through practical exercises and see how com
 <li>
 <p>Create a Helm Chart
    <div class="language-bash highlight"><pre><span></span><code><span id="__span-1-1"><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a>helm<span class="w"> </span>create<span class="w"> </span>myapp
+</span><span id="__span-1-2"><a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a>helm<span class="w"> </span>install<span class="w"> </span>myapp-release<span class="w"> </span>.
 </span></code></pre></div></p>
 <blockquote>
 <p><strong>Security Note</strong>: The default Helm chart uses nginx which has some security considerations:
@@ -904,7 +905,7 @@ You'll learn the basics of each tool through practical exercises and see how com
 </li>
 <li>
 <p>Deploy the Chart
-   <div class="language-bash highlight"><pre><span></span><code><span id="__span-4-1"><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a>helm<span class="w"> </span>install<span class="w"> </span>myapp-release<span class="w"> </span>./myapp
+   <div class="language-bash highlight"><pre><span></span><code><span id="__span-4-1"><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a>helm<span class="w"> </span>upgrade<span class="w"> </span>--install<span class="w"> </span>myapp-release<span class="w"> </span>./myapp
 </span></code></pre></div></p>
 </li>
 <li>Verify Deployment
