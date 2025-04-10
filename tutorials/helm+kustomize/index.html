@@ -396,7 +396,8 @@
     </span>
   </a>
   
-</li>
+    <nav class="md-nav" aria-label="Exercise 3: Using Kustomize with Helm Charts (--enable-helm)">
+      <ul class="md-nav__list">
         
           <li class="md-nav__item">
   <a href="#explanation" class="md-nav__link">
@@ -404,6 +405,11 @@
       Explanation
     </span>
   </a>
+  
+</li>
+        
+      </ul>
+    </nav>
   
 </li>
         
@@ -752,7 +758,8 @@
     </span>
   </a>
   
-</li>
+    <nav class="md-nav" aria-label="Exercise 3: Using Kustomize with Helm Charts (--enable-helm)">
+      <ul class="md-nav__list">
         
           <li class="md-nav__item">
   <a href="#explanation" class="md-nav__link">
@@ -760,6 +767,11 @@
       Explanation
     </span>
   </a>
+  
+</li>
+        
+      </ul>
+    </nav>
   
 </li>
         
@@ -811,7 +823,8 @@ You'll learn the basics of each tool through practical exercises and see how com
 <li>
 <p>Create a Helm Chart
    <div class="language-bash highlight"><pre><span></span><code><span id="__span-1-1"><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a>helm<span class="w"> </span>create<span class="w"> </span>myapp
-</span><span id="__span-1-2"><a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a>helm<span class="w"> </span>install<span class="w"> </span>myapp-release<span class="w"> </span>.
+</span><span id="__span-1-2"><a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a><span class="nb">cd</span><span class="w"> </span>myapp/
+</span><span id="__span-1-3"><a id="__codelineno-1-3" name="__codelineno-1-3" href="#__codelineno-1-3"></a>helm<span class="w"> </span>install<span class="w"> </span>myapp-release<span class="w"> </span>.
 </span></code></pre></div></p>
 <blockquote>
 <p><strong>Security Note</strong>: The default Helm chart uses nginx which has some security considerations:
@@ -1075,8 +1088,7 @@ You'll learn the basics of each tool through practical exercises and see how com
 </ol>
 <p>This will create a basic Helm chart structure with default templates and values.</p>
 <ol>
-<li>
-<p>Define Kustomization with Helm Chart
+<li>Define Kustomization with Helm Chart
    Create a <code>kustomization.yaml</code> file in <code>helm-k/overlays/prod</code>:
    <div class="language-yaml highlight"><pre><span></span><code><span id="__span-19-1"><a id="__codelineno-19-1" name="__codelineno-19-1" href="#__codelineno-19-1"></a><span class="w"> </span><span class="nt">apiVersion</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">kustomize.config.k8s.io/v1beta1</span>
 </span><span id="__span-19-2"><a id="__codelineno-19-2" name="__codelineno-19-2" href="#__codelineno-19-2"></a><span class="w"> </span><span class="nt">kind</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Kustomization</span>
@@ -1085,19 +1097,30 @@ You'll learn the basics of each tool through practical exercises and see how com
 </span><span id="__span-19-5"><a id="__codelineno-19-5" name="__codelineno-19-5" href="#__codelineno-19-5"></a><span class="w">   </span><span class="nt">chartHome</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">./charts</span>
 </span><span id="__span-19-6"><a id="__codelineno-19-6" name="__codelineno-19-6" href="#__codelineno-19-6"></a><span class="w"> </span><span class="nt">helmCharts</span><span class="p">:</span>
 </span><span id="__span-19-7"><a id="__codelineno-19-7" name="__codelineno-19-7" href="#__codelineno-19-7"></a><span class="w">   </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">myapp</span>
-</span><span id="__span-19-8"><a id="__codelineno-19-8" name="__codelineno-19-8" href="#__codelineno-19-8"></a><span class="w">     </span><span class="nt">releaseName</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">myapp-prod</span>
+</span><span id="__span-19-8"><a id="__codelineno-19-8" name="__codelineno-19-8" href="#__codelineno-19-8"></a><span class="w">     </span><span class="nt">releaseName</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">prod</span>
 </span><span id="__span-19-9"><a id="__codelineno-19-9" name="__codelineno-19-9" href="#__codelineno-19-9"></a><span class="w">     </span><span class="nt">namespace</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">prod</span>
 </span><span id="__span-19-10"><a id="__codelineno-19-10" name="__codelineno-19-10" href="#__codelineno-19-10"></a><span class="w">     </span><span class="nt">valuesInline</span><span class="p">:</span>
 </span><span id="__span-19-11"><a id="__codelineno-19-11" name="__codelineno-19-11" href="#__codelineno-19-11"></a><span class="w">       </span><span class="nt">replicaCount</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">2</span>
-</span></code></pre></div></p>
-</li>
-<li>
-<p>Build Using Kustomize with Helm Enabled and check the replicas
-   <div class="language-bash highlight"><pre><span></span><code><span id="__span-20-1"><a id="__codelineno-20-1" name="__codelineno-20-1" href="#__codelineno-20-1"></a>kustomize<span class="w"> </span>build<span class="w"> </span>--enable-helm<span class="w"> </span>helm-k/overlays/prod<span class="w"> </span><span class="p">|</span>grep<span class="w"> </span>replicas
-</span></code></pre></div></p>
-</li>
+</span><span id="__span-19-12"><a id="__codelineno-19-12" name="__codelineno-19-12" href="#__codelineno-19-12"></a>
+</span><span id="__span-19-13"><a id="__codelineno-19-13" name="__codelineno-19-13" href="#__codelineno-19-13"></a><span class="w"> </span><span class="nt">patches</span><span class="p">:</span>
+</span><span id="__span-19-14"><a id="__codelineno-19-14" name="__codelineno-19-14" href="#__codelineno-19-14"></a><span class="w">   </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">path</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">deployment-patch.yaml</span>
+</span></code></pre></div></li>
 </ol>
-<h3 id="explanation">Explanation</h3>
+<p>Create <code>deployment-patch.yaml</code>:
+    <div class="language-yaml highlight"><pre><span></span><code><span id="__span-20-1"><a id="__codelineno-20-1" name="__codelineno-20-1" href="#__codelineno-20-1"></a><span class="nt">apiVersion</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">apps/v1</span>
+</span><span id="__span-20-2"><a id="__codelineno-20-2" name="__codelineno-20-2" href="#__codelineno-20-2"></a><span class="nt">kind</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Deployment</span>
+</span><span id="__span-20-3"><a id="__codelineno-20-3" name="__codelineno-20-3" href="#__codelineno-20-3"></a><span class="nt">metadata</span><span class="p">:</span>
+</span><span id="__span-20-4"><a id="__codelineno-20-4" name="__codelineno-20-4" href="#__codelineno-20-4"></a><span class="w">  </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">prod-myapp</span>
+</span><span id="__span-20-5"><a id="__codelineno-20-5" name="__codelineno-20-5" href="#__codelineno-20-5"></a><span class="w">  </span><span class="nt">label</span><span class="p">:</span>
+</span><span id="__span-20-6"><a id="__codelineno-20-6" name="__codelineno-20-6" href="#__codelineno-20-6"></a><span class="w">    </span><span class="nt">app</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">my-overlays</span>
+</span></code></pre></div></p>
+<ol>
+<li>Build Using Kustomize with Helm Enabled and check the replicas and the label
+   <div class="language-bash highlight"><pre><span></span><code><span id="__span-21-1"><a id="__codelineno-21-1" name="__codelineno-21-1" href="#__codelineno-21-1"></a>kustomize<span class="w"> </span>build<span class="w"> </span>--enable-helm<span class="w"> </span>helm-k/overlays/prod<span class="w"> </span><span class="p">|</span>grep<span class="w"> </span>replicas
+</span><span id="__span-21-2"><a id="__codelineno-21-2" name="__codelineno-21-2" href="#__codelineno-21-2"></a>kustomize<span class="w"> </span>build<span class="w"> </span>--enable-helm<span class="w"> </span>helm-k/overlays/prod<span class="w"> </span><span class="p">|</span>grep<span class="w"> </span>my-overlays
+</span></code></pre></div></li>
+</ol>
+<h4 id="explanation">Explanation</h4>
 <ul>
 <li>The <code>--enable-helm</code> flag allows Kustomize to directly process Helm charts, simplifying the workflow by eliminating the need to manually run <code>helm template</code>.</li>
 <li>Inline values (<code>valuesInline</code>) provide a convenient way to customize Helm chart parameters directly within the Kustomize configuration.</li>
