@@ -27,6 +27,7 @@ Deploy a simple application using Helm.
 1. Create a Helm Chart
    ```bash
    helm create myapp
+   helm install myapp-release .
    ```
 > **Security Note**: The default Helm chart uses nginx which has some security considerations:
 > - Runs as root by default
@@ -93,30 +94,33 @@ Deploy a simple application using Helm.
    ```
 
 2. Edit/Update `values.yaml` to customize your deployment:
-     ```yaml
-      volumes:
-      - name: cache
-        emptyDir: {}
-      - name: pid
-        emptyDir: {}      
-      - name: nginx-config
-        configMap:
-          # The name will contain the release name, e.g. myapp-release-nginx-config
-          name: myapp-release-nginx-config
+    ```yaml
+    volumes:
+    - name: cache
+      emptyDir: {}
+    - name: pid
+      emptyDir: {}      
+    - name: nginx-config
+      configMap:
+        # The name will contain the release name, e.g. myapp-release-nginx-config
+        name: myapp-release-nginx-config
 
-      volumeMounts:
-      - name: cache
-        mountPath: "/var/cache/nginx"
-      - name: pid
-        mountPath: "/var/run"  
-      - name: nginx-config
-        mountPath: "/etc/nginx/nginx.conf"
-        subPath: nginx.conf
-     ```
+    volumeMounts:
+    - name: cache
+      mountPath: "/var/cache/nginx"
+    - name: pid
+      mountPath: "/var/run"  
+    - name: nginx-config
+      mountPath: "/etc/nginx/nginx.conf"
+      subPath: nginx.conf
+
+    service:
+      port: 8080
+    ```
 
 3. Deploy the Chart
    ```bash
-   helm install myapp-release ./myapp
+   helm upgrade --install myapp-release ./myapp
    ```
 4. Verify Deployment
    ```bash
@@ -151,7 +155,7 @@ Alternatively, you can customize the nginx image to run as non-root by creating 
 3. Update the image and the port values.yaml:
    ```yaml
    image:
-     repository: quay.io/quickstart/nginx:1.16.0
+     repository: quay.io/quickstart/nginx
      tag: latest
    
    service:
@@ -222,6 +226,16 @@ Deploy the same application using Kustomize.
          targetPort: 8080
        type: ClusterIP
      ```
+    
+   - Create `kustomization.yaml`
+    ```yaml
+    apiVersion: kustomize.config.k8s.io/v1beta1
+    kind: Kustomization
+    resources:
+      - deployment.yaml
+      - service.yaml
+    ```
+
 
 3. In `overlays/dev/kustomization.yaml`, reference the base and apply customizations:
      ```yaml

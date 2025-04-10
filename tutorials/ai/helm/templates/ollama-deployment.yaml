@@ -4,7 +4,7 @@ metadata:
   name: {{ include "ai.fullname" . }}-ollama
   labels:
     {{- include "ai.labels" . | nindent 4 }}
-    app.kubernetes.io/component=ollama
+    app.kubernetes.io/component: ollama
 spec:
   {{- if not .Values.autoscaling.enabled }}
   replicas: {{ .Values.replicaCount }}
