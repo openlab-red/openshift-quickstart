@@ -1,4 +1,5 @@
 ---
+{{- if eq .Values.aiType "ollama" }}
 apiVersion: apps/v1
 kind: Deployment
 metadata:
@@ -7,32 +8,36 @@ metadata:
     {{- include "ai.labels" . | nindent 4 }}
     app.kubernetes.io/component: ollama
 spec:
-  {{- if not .Values.autoscaling.enabled }}
-  replicas: {{ .Values.replicaCount }}
+  {{- if not .Values.ollama.autoscaling.enabled }}
+  replicas: {{ .Values.ollama.replicaCount }}
   {{- end }}
   selector:
     matchLabels:
       {{- include "ai.selectorLabels" . | nindent 6 }}
+      app.kubernetes.io/component: ollama
   strategy:
     type: Recreate
   template:
     metadata:
-      {{- with .Values.podAnnotations }}
+      {{- with .Values.ollama.podAnnotations }}
       annotations:
         {{- toYaml . | nindent 8 }}
       {{- end }}
       labels:
         {{- include "ai.labels" . | nindent 8 }}
-        {{- with .Values.podLabels }}
+        {{- with .Values.ollama.podLabels }}
         {{- toYaml . | nindent 8 }}
         {{- end }}
+        app.kubernetes.io/component: ollama
     spec:
-      {{- with .Values.imagePullSecrets }}
+      {{- with .Values.ollama.imagePullSecrets }}
       imagePullSecrets:
         {{- toYaml . | nindent 8 }}
       {{- end }}
+      {{- if .Values.ollama.serviceAccount.create }}
       serviceAccountName: {{ include "ai.serviceAccountName" . }}-ollama
-      {{- with .Values.podSecurityContext }}
+      {{- end }}
+      {{- with .Values.ollama.podSecurityContext }}
       securityContext:
         {{- toYaml . | nindent 8 }}
       {{- end }}
@@ -41,55 +46,56 @@ spec:
           command:
           - ollama
           - serve
-          {{- with .Values.securityContext }}
+          {{- with .Values.ollama.securityContext }}
           securityContext:
             {{- toYaml . | nindent 12 }}
           {{- end }}
-          image: "{{ .Values.image.repository }}:{{ .Values.image.tag | default .Chart.AppVersion }}"
-          imagePullPolicy: {{ .Values.image.pullPolicy }}
+          image: "{{ .Values.ollama.image.repository }}:{{ .Values.ollama.image.tag | default .Chart.AppVersion }}"
+          imagePullPolicy: {{ .Values.ollama.image.pullPolicy }}
           {{- if .Values.proxy.enabled }}
           envFrom:
             - configMapRef:
-                name: {{ include "ai.fullname" . }}-ollama-proxy
+                name: {{ include "ai.fullname" . }}-proxy
           {{- end }}
           ports:
             - name: ollama
-              containerPort: {{ .Values.service.port }}
+              containerPort: {{ .Values.ollama.service.port }}
               protocol: TCP
-          {{- with .Values.livenessProbe }}
+          {{- with .Values.ollama.livenessProbe }}
           livenessProbe:
             {{- toYaml . | nindent 12 }}
           {{- end }}
-          {{- with .Values.readinessProbe }}
+          {{- with .Values.ollama.readinessProbe }}
           readinessProbe:
             {{- toYaml . | nindent 12 }}
           {{- end }}
-          {{- with .Values.resources }}
+          {{- with .Values.ollama.resources }}
           resources:
             {{- toYaml . | nindent 12 }}
           {{- end }}
           volumeMounts:
-          {{- with .Values.volumeMounts }}
+          {{- with .Values.ollama.volumeMounts }}
             {{- toYaml . | nindent 12 }}
           {{- end }}
             - name: ollama-data
               mountPath: /.ollama
       volumes:
-      {{- with .Values.volumes }}
+      {{- with .Values.ollama.volumes }}
         {{- toYaml . | nindent 8 }}
       {{- end }}
         - name: ollama-data
           persistentVolumeClaim:
             claimName: {{ include "ai.fullname" . }}-ollama-data
-      {{- with .Values.nodeSelector }}
+      {{- with .Values.ollama.nodeSelector }}
       nodeSelector:
         {{- toYaml . | nindent 8 }}
       {{- end }}
-      {{- with .Values.affinity }}
+      {{- with .Values.ollama.affinity }}
       affinity:
         {{- toYaml . | nindent 8 }}
       {{- end }}
-      {{- with .Values.tolerations }}
+      {{- with .Values.ollama.tolerations }}
       tolerations:
         {{- toYaml . | nindent 8 }}
       {{- end }}
+{{- end }}

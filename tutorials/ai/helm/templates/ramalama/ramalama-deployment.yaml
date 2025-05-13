@@ -1,0 +1,104 @@
+---
+{{- if eq .Values.aiType "ramalama" }}
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ include "ai.fullname" . }}-ramalama
+  labels:
+    {{- include "ai.labels" . | nindent 4 }}
+    app.kubernetes.io/component: ramalama
+spec:
+  {{- if not .Values.ramalama.autoscaling.enabled }}
+  replicas: {{ .Values.ramalama.replicaCount | default 1 }}
+  {{- end }}
+  selector:
+    matchLabels:
+      {{- include "ai.selectorLabels" . | nindent 6 }}
+      app.kubernetes.io/component: ramalama
+  strategy:
+    type: Recreate
+  template:
+    metadata:
+      {{- with .Values.ramalama.podAnnotations }}
+      annotations:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+      labels:
+        {{- include "ai.labels" . | nindent 8 }}
+        {{- with .Values.ramalama.podLabels }}
+        {{- toYaml . | nindent 8 }}
+        {{- end }}
+        app.kubernetes.io/component: ramalama
+    spec:
+      {{- with .Values.ramalama.imagePullSecrets }}
+      imagePullSecrets:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+      {{- if .Values.ramalama.serviceAccount.create }}
+      serviceAccountName: {{ include "ai.serviceAccountName" . }}-ramalama
+      {{- end }}
+      {{- with .Values.ramalama.podSecurityContext }}
+      securityContext:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+      containers:
+        - name: {{ .Chart.Name }}
+          {{- with .Values.ramalama.securityContext }}
+          securityContext:
+            {{- toYaml . | nindent 12 }}
+          {{- end }}
+          image: "{{ .Values.ramalama.image.repository }}:{{ .Values.ramalama.image.tag | default .Chart.AppVersion }}"
+          imagePullPolicy: {{ .Values.ramalama.pullPolicy | default "IfNotPresent" }}
+          args:
+            - {{ .Values.ramalama.arg0 | default "ramalama" | quote }}
+            - {{ .Values.ramalama.arg1 | default "--store" | quote }}
+            - {{ .Values.ramalama.arg2 | default "/.local" | quote }}
+            - {{ .Values.ramalama.arg3 | default "serve" | quote }}
+            - {{ .Values.ramalama.arg4 | default "ollama://granite-code:latest" | quote }}
+          {{- if .Values.proxy.enabled }}
+          envFrom:
+            - configMapRef:
+                name: {{ include "ai.fullname" . }}-proxy
+          {{- end }}
+          ports:
+            - name: ramalama
+              containerPort: {{ .Values.ramalama.port | default 8080 }}
+              protocol: TCP
+          {{- with .Values.ramalama.livenessProbe }}
+          livenessProbe:
+            {{- toYaml . | nindent 12 }}
+          {{- end }}
+          {{- with .Values.ramalama.readinessProbe }}
+          readinessProbe:
+            {{- toYaml . | nindent 12 }}
+          {{- end }}
+          {{- with .Values.ramalama.resources }}
+          resources:
+            {{- toYaml . | nindent 12 }}
+          {{- end }}
+          volumeMounts:
+          {{- with .Values.ramalama.volumeMounts }}
+            {{- toYaml . | nindent 12 }}
+          {{- end }}
+            - name: ramalama-data
+              mountPath: /.local
+      volumes:
+      {{- with .Values.ramalama.volumes }}
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+        - name: ramalama-data
+          persistentVolumeClaim:
+            claimName: {{ include "ai.fullname" . }}-ramalama-data
+      {{- with .Values.ramalama.nodeSelector }}
+      nodeSelector:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+      {{- with .Values.ramalama.affinity }}
+      affinity:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+      {{- with .Values.ramalama.tolerations }}
+      tolerations:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+{{- end }}

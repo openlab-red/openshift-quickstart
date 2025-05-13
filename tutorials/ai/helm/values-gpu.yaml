@@ -1,0 +1,25 @@
+# values-gpu.yaml - GPU resource configuration for AI services
+
+# ollama with GPU
+ollama:
+  resources:
+    requests:
+      nvidia.com/gpu: 1
+    limits:
+      nvidia.com/gpu: 1
+
+# ramalama with GPU
+ramalama:
+  resources:
+    requests:
+      nvidia.com/gpu: 1
+    limits:
+      nvidia.com/gpu: 1
+
+# vllm with GPU
+vllm:
+  resources:
+    requests:
+      nvidia.com/gpu: 1
+    limits:
+      nvidia.com/gpu: 1

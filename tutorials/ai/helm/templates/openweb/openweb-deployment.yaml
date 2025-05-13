@@ -9,9 +9,12 @@ spec:
   {{- if not .Values.openweb.autoscaling.enabled }}
   replicas: {{ .Values.openweb.replicaCount }}
   {{- end }}
+  strategy:
+    type: Recreate
   selector:
     matchLabels:
       {{- include "ai.selectorLabels" . | nindent 6 }}
+      app.kubernetes.io/component: openweb
   template:
     metadata:
       {{- with .Values.openweb.podAnnotations }}
@@ -23,12 +26,15 @@ spec:
         {{- with .Values.openweb.podLabels }}
         {{- toYaml . | nindent 8 }}
         {{- end }}
+        app.kubernetes.io/component: openweb
     spec:
       {{- with .Values.openweb.imagePullSecrets }}
       imagePullSecrets:
         {{- toYaml . | nindent 8 }}
       {{- end }}
-      serviceAccountName: {{ include "ai.serviceAccountName" . }}-openweb
+      {{- if .Values.openweb.serviceAccount.create }}
+      serviceAccountName: {{ include "ai.openwebServiceAccountName" . }}-openweb
+      {{- end }}
       {{- with .Values.openweb.podSecurityContext }}
       securityContext:
         {{- toYaml . | nindent 8 }}
@@ -48,6 +54,10 @@ spec:
           envFrom:
             - secretRef:
                 name: {{ include "ai.fullname" . }}-openweb
+          {{- if .Values.proxy.enabled }}
+            - configMapRef:
+                name: {{ include "ai.fullname" . }}-proxy
+          {{- end }}
           {{- with .Values.openweb.livenessProbe }}
           livenessProbe:
             {{- toYaml . | nindent 12 }}

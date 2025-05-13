@@ -1,4 +1,4 @@
-{{- if .Values.vllm.enabled }}
+{{- if eq .Values.aiType "vllm" }}
 ---
 apiVersion: apps/v1
 kind: Deployment
@@ -14,6 +14,7 @@ spec:
   selector:
     matchLabels:
       {{- include "ai.selectorLabels" . | nindent 6 }}
+      app.kubernetes.io/component: vllm 
   strategy:
     type: Recreate
   template:
@@ -27,12 +28,15 @@ spec:
         {{- with .Values.vllm.podLabels }}
         {{- toYaml . | nindent 8 }}
         {{- end }}
+        app.kubernetes.io/component: vllm
     spec:
       {{- with .Values.vllm.imagePullSecrets }}
       imagePullSecrets:
         {{- toYaml . | nindent 8 }}
       {{- end }}
+      {{- if .Values.vllm.serviceAccount.create }}
       serviceAccountName: {{ include "ai.serviceAccountName" . }}-vllm
+      {{- end }}
       {{- with .Values.vllm.podSecurityContext }}
       securityContext:
         {{- toYaml . | nindent 8 }}

@@ -1,9 +1,9 @@
 ---
-{{- if eq .Values.aiType "ollama" }}
+{{- if eq .Values.aiType "ramalama" }}
 apiVersion: v1
 kind: PersistentVolumeClaim
 metadata:
-  name: {{ include "ai.fullname" . }}-ollama-data
+  name: {{ include "ai.fullname" . }}-ramalama-data
   labels:
     {{- include "ai.labels" . | nindent 4 }}
 spec:
@@ -11,5 +11,5 @@ spec:
     - ReadWriteOnce
   resources:
     requests:
-      storage: {{ .Values.ollama.storage.size }}
+      storage: {{ .Values.ramalama.storage.size }}
 {{- end }}

@@ -1,0 +1,18 @@
+---
+{{- if eq .Values.aiType "ramalama" }}
+apiVersion: v1
+kind: Service
+metadata:
+  name: {{ include "ai.fullname" . }}-ramalama
+  labels:
+    {{- include "ai.labels" . | nindent 4 }}
+spec:
+  type: {{ .Values.ramalama.service.type }}
+  ports:
+    - port: {{ .Values.ramalama.service.port }}
+      targetPort: ramalama
+      protocol: TCP
+      name: ramalama
+  selector:
+    {{- include "ai.selectorLabels" . | nindent 4 }}
+{{- end }}

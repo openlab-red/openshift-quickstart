@@ -51,12 +51,34 @@ app.kubernetes.io/instance: {{ .Release.Name }}
 {{- end }}
 
 {{/*
-Create the name of the service account to use
+Create the name of the service account to use for AI services
 */}}
 {{- define "ai.serviceAccountName" -}}
-{{- if .Values.serviceAccount.create }}
-{{- default (include "ai.fullname" .) .Values.serviceAccount.name }}
+{{- $root := . -}}
+{{- $aiType := .Values.aiType | default "ollama" -}}
+{{- $aiTypeArg := .aiType -}}
+
+{{/* Use aiType from argument if provided, otherwise use the global aiType value */}}
+{{- if $aiTypeArg -}}
+  {{- $aiType = $aiTypeArg -}}
+{{- end -}}
+
+{{/* Check the specific AI type's serviceAccount configuration */}}
+{{- if (index $root.Values $aiType).serviceAccount.create -}}
+  {{- $fullName := include "ai.fullname" $root -}}
+  {{- default $fullName (index $root.Values $aiType).serviceAccount.name -}}
+{{- else -}}
+  {{- default "default" (index $root.Values $aiType).serviceAccount.name -}}
+{{- end -}}
+{{- end }}
+
+{{/*
+Create the name of the service account to use for OpenWeb UI
+*/}}
+{{- define "ai.openwebServiceAccountName" -}}
+{{- if .Values.openweb.serviceAccount.create }}
+{{- default (include "ai.fullname" .) .Values.openweb.serviceAccount.name }}
 {{- else }}
-{{- default "default" .Values.serviceAccount.name }}
+{{- default "default" .Values.openweb.serviceAccount.name }}
 {{- end }}
 {{- end }}

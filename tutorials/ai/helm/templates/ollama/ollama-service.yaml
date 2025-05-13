@@ -1,4 +1,5 @@
 ---
+{{- if eq .Values.aiType "ollama" }}
 apiVersion: v1
 kind: Service
 metadata:
@@ -6,11 +7,12 @@ metadata:
   labels:
     {{- include "ai.labels" . | nindent 4 }}
 spec:
-  type: {{ .Values.service.type }}
+  type: {{ .Values.ollama.service.type }}
   ports:
-    - port: {{ .Values.service.port }}
+    - port: {{ .Values.ollama.service.port }}
       targetPort: ollama
       protocol: TCP
       name: ollama
   selector:
     {{- include "ai.selectorLabels" . | nindent 4 }}
+{{- end }}
