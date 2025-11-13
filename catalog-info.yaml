@@ -1,0 +1,10 @@
+apiVersion: backstage.io/v1alpha1
+kind: Component
+metadata:
+  name: openshift-quickstart
+  annotations:
+    github.com/project-slug: openlab-red/openshift-quickstart
+spec:
+  type: other
+  lifecycle: unknown
+  owner: user:default/rhdh-admin
